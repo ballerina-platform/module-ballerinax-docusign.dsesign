@@ -5,7 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.8.3"
+distribution-version = "2201.8.4"
 
 [[package]]
 org = "ballerina"
@@ -315,7 +315,6 @@ modules = [
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.admin"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.click"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.esign"},
-	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.mock"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.monitor"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.rooms"}
 ]
