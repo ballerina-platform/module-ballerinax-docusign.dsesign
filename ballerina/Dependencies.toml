@@ -314,7 +314,6 @@ modules = [
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.admin"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.click"},
-	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.esign"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.monitor"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.rooms"}
 ]
