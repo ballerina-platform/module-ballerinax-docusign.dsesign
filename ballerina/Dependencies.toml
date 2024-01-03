@@ -98,6 +98,9 @@ dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "lang.value"}
 ]
+modules = [
+	{org = "ballerina", packageName = "io", moduleName = "io"}
+]
 
 [[package]]
 org = "ballerina"
@@ -302,6 +305,7 @@ name = "docusign"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "mime"},
 	{org = "ballerina", name = "test"},
 	{org = "ballerina", name = "url"}
@@ -310,6 +314,7 @@ modules = [
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.admin"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.click"},
+	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.esign"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.monitor"},
 	{org = "ballerinax", packageName = "docusign", moduleName = "docusign.rooms"}
 ]
