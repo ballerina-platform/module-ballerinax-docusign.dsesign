@@ -15,7 +15,7 @@
 // under the License.
 
 import ballerina/test;
-// import ballerina/io;
+import ballerina/io;
 
 Client docuSignClient = test:mock(Client);
 
@@ -32,13 +32,13 @@ function initializeClientsForMockServer() returns error? {
     );
 }
 
-// @test:Config {
-//     groups: ["account"]
-// }
-// function testServiceInfo() returns error? {
-//     ServiceInformation res = check docuSignClient->/service_information;
-//     io:println(res);
-// }
+@test:Config {
+    groups: ["account"]
+}
+function testServiceInfo() returns error? {
+    ServiceInformation res = check docuSignClient->/service_information;
+    io:println(res);
+}
 
 // @test:Config {
 //     groups: ["account"]
