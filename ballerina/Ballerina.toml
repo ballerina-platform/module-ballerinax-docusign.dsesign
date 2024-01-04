@@ -3,7 +3,6 @@ distribution = "2201.8.4"
 org = "ballerinax"
 name = "docusign"
 version = "0.1.0"
-export=["docusign.admin", "docusign.click", "docusign.monitor", "docusign.rooms"]
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["digital signature"]
