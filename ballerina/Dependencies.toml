@@ -33,7 +33,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "constraint"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
@@ -41,7 +41,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "crypto"
-version = "2.5.0"
+version = "2.6.2"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "time"}
@@ -97,6 +97,9 @@ version = "1.6.0"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "lang.value"}
+]
+modules = [
+	{org = "ballerina", packageName = "io", moduleName = "io"}
 ]
 
 [[package]]
@@ -298,15 +301,16 @@ modules = [
 
 [[package]]
 org = "ballerinax"
-name = "docusign"
+name = "docusign.esign"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "mime"},
 	{org = "ballerina", name = "test"},
 	{org = "ballerina", name = "url"}
 ]
 modules = [
-	{org = "ballerinax", packageName = "docusign", moduleName = "docusign"}
+	{org = "ballerinax", packageName = "docusign.esign", moduleName = "docusign.esign"}
 ]
 
