@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - 2201.[0-9]+.x
+      - initial
   repository_dispatch:
     types: check_connector_for_breaking_changes
 
