@@ -1,0 +1,14 @@
+[package]
+org = "nuvindu"
+name = "esign_document"
+version = "0.1.0"
+distribution = "2201.8.3"
+
+[[dependency]]
+org = "ballerinax"
+name = "docusign.esign"
+version = "0.1.0"
+repository = "local"
+
+[build-options]
+observabilityIncluded = true
