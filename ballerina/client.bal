@@ -55,6 +55,7 @@ public isolated client class Client {
         self.clientEp = httpEp;
         return;
     }
+
     # Retrieves the available REST API versions.
     #
     # + return - Successful response. 
@@ -63,14 +64,16 @@ public isolated client class Client {
         ServiceInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Lists resources for REST version specified
     #
     # + return - Successful response. 
-    resource isolated function get v2\.1() returns ResourceInformation|error {
-        string resourcePath = string `/`;
+    resource isolated function get ["v2.1"]() returns ResourceInformation|error {
+        string resourcePath = string `/v2.1`;
         ResourceInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Creates new accounts.
     #
     # + return - Successful response. 
@@ -82,6 +85,7 @@ public isolated client class Client {
         NewAccountSummary response = check self.clientEp->post(resourcePath, request);
         return response;
     }
+
     # Retrieves the account information for the specified account.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -94,17 +98,18 @@ public isolated client class Client {
         AccountInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Deletes the specified account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId](string? redact_user_data = ()) returns http:Response|error {
+    resource isolated function delete accounts/[string accountId](string? redact_user_data = ()) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}`;
         map<anydata> queryParam = {"redact_user_data": redact_user_data};
         resourcePath = resourcePath + check getPathForQueryParam(queryParam);
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return self.clientEp-> delete(resourcePath);
     }
+
     # Gets list of recurring and usage charges for the account.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -120,6 +125,7 @@ public isolated client class Client {
         BillingChargeResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Get a List of Billing Invoices
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -133,6 +139,7 @@ public isolated client class Client {
         BillingInvoicesResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Retrieves a billing invoice.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -143,6 +150,7 @@ public isolated client class Client {
         BillingInvoice response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Get a list of past due invoices.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -152,7 +160,8 @@ public isolated client class Client {
         BillingInvoicesSummary response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets payment information for one or more payments.
+
+    #  Gets payment information for one or more payments.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + from_date - Specifies the date/time of the earliest payment in the account to retrieve.
@@ -165,6 +174,7 @@ public isolated client class Client {
         BillingPaymentsResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Posts a payment to a past due invoice.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -177,7 +187,8 @@ public isolated client class Client {
         BillingPaymentResponse response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets billing payment information for a specific payment.
+
+    #  Gets billing payment information for a specific payment.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + paymentId - The ID of the payment.
@@ -187,7 +198,8 @@ public isolated client class Client {
         BillingPaymentItem response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Get Account Billing Plan
+
+    #  Get Account Billing Plan
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + include_credit_card_information - When **true,** payment information including credit card information will show in the return.
@@ -201,7 +213,8 @@ public isolated client class Client {
         AccountBillingPlanResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates an account billing plan.
+
+    #  Updates an account billing plan.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + preview_billing_plan - When **true,** updates the account using a preview billing plan.
@@ -216,7 +229,8 @@ public isolated client class Client {
         BillingPlanUpdateResponse response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Get credit card information
+
+    #  Get credit card information
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -225,7 +239,8 @@ public isolated client class Client {
         CreditCardInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Returns downgrade plan information for the specified account.
+
+    #  Returns downgrade plan information for the specified account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -234,7 +249,8 @@ public isolated client class Client {
         DowngradRequestBillingInfoResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Queues downgrade billing plan request for an account.
+
+    #  Queues downgrade billing plan request for an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -246,19 +262,20 @@ public isolated client class Client {
         DowngradePlanUpdateResponse response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Reserved: Purchase additional envelopes.
+
+    #  Reserved: Purchase additional envelopes.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/billing_plan/purchased_envelopes(PurchasedEnvelopesInformation payload) returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/billing_plan/purchased_envelopes(PurchasedEnvelopesInformation payload) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/billing_plan/purchased_envelopes`;
         http:Request request = new;
         json jsonBody = payload.toJson();
         request.setPayload(jsonBody, "application/json");
-        http:Response response = check self.clientEp->put(resourcePath, request);
-        return response;
+        return self.clientEp->put(resourcePath, request);
     }
-    # Gets a list of brands.
+
+    #  Gets a list of brands.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + exclude_distributor_brand - When **true,** excludes distributor brand information from the response set.
@@ -271,7 +288,8 @@ public isolated client class Client {
         AccountBrands response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Creates one or more brand profiles for an account.
+
+    #  Creates one or more brand profiles for an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -283,7 +301,8 @@ public isolated client class Client {
         AccountBrands response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes one or more brand profiles.
+
+    #  Deletes one or more brand profiles.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -295,7 +314,8 @@ public isolated client class Client {
         AccountBrands response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Gets information about a brand.
+
+    #  Gets information about a brand.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -309,7 +329,8 @@ public isolated client class Client {
         Brand response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates an existing brand.
+
+    #  Updates an existing brand.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -325,27 +346,28 @@ public isolated client class Client {
         Brand response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes a brand.
+
+    #  Deletes a brand.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/brands/[string brandId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/brands/[string brandId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/brands/${getEncodedUri(brandId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Exports a brand.
+
+    #  Exports a brand.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
     # + return - Successful response. 
-    resource isolated function get accounts/[string accountId]/brands/[string brandId]/file() returns http:Response|error {
+    resource isolated function get accounts/[string accountId]/brands/[string brandId]/file() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/brands/${getEncodedUri(brandId)}/file`;
-        http:Response response = check self.clientEp->get(resourcePath);
-        return response;
+        return check self.clientEp->get(resourcePath);
     }
-    # Gets a brand logo.
+
+    #  Gets a brand logo.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -359,7 +381,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates a brand logo.
+
+    #  Updates a brand logo.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -369,14 +392,14 @@ public isolated client class Client {
     # - `email`
     # + payload - Brand logo binary Stream. Supported formats: JPG, GIF, PNG. Maximum file size: 300 KB. Recommended dimensions: 296 x 76 pixels (larger images will be resized). Changes may take up to one hour to display in all places
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/brands/[string brandId]/logos/[string logoType](byte[] payload) returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/brands/[string brandId]/logos/[string logoType](byte[] payload) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/brands/${getEncodedUri(brandId)}/logos/${getEncodedUri(logoType)}`;
         http:Request request = new;
         request.setPayload(payload, "image/png");
-        http:Response response = check self.clientEp->put(resourcePath, request);
-        return response;
+        return check self.clientEp->put(resourcePath, request);
     }
-    # Deletes a brand logo.
+
+    #  Deletes a brand logo.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -385,12 +408,12 @@ public isolated client class Client {
     # - `secondary` 
     # - `email`
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/brands/[string brandId]/logos/[string logoType]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/brands/[string brandId]/logos/[string logoType]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/brands/${getEncodedUri(brandId)}/logos/${getEncodedUri(logoType)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Returns metadata about the branding resources for an account.
+
+    #  Returns metadata about the branding resources for an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -400,7 +423,8 @@ public isolated client class Client {
         BrandResourcesList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Returns a branding resource file.
+
+    #  Returns a branding resource file.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -412,14 +436,14 @@ public isolated client class Client {
     # + langcode - The ISO 3166-1 alpha-2 codes for the languages that the brand supports.
     # + return_master - Specifies which resource file data to return. When **true,** only the master resource file is returned. When **false,** only the elements that you modified are returned.
     # + return - Successful response. 
-    resource isolated function get accounts/[string accountId]/brands/[string brandId]/resources/[string resourceContentType](string? langcode = (), string? return_master = ()) returns http:Response|error {
+    resource isolated function get accounts/[string accountId]/brands/[string brandId]/resources/[string resourceContentType](string? langcode = (), string? return_master = ()) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/brands/${getEncodedUri(brandId)}/resources/${getEncodedUri(resourceContentType)}`;
         map<anydata> queryParam = {"langcode": langcode, "return_master": return_master};
         resourcePath = resourcePath + check getPathForQueryParam(queryParam);
-        http:Response response = check self.clientEp->get(resourcePath);
-        return response;
+        return check self.clientEp->get(resourcePath);
     }
-    # Updates a branding resource file.
+
+    #  Updates a branding resource file.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + brandId - The ID of the brand.
@@ -437,7 +461,8 @@ public isolated client class Client {
         BrandResources response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Returns a list of bulk send batch summaries. 
+
+    #  Returns a list of bulk send batch summaries. 
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + batch_ids - A comma-separated list of batch IDs to query.
@@ -468,7 +493,8 @@ public isolated client class Client {
         BulkSendBatchSummaries response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the status of a specific bulk send batch.
+
+    #  Gets the status of a specific bulk send batch.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendBatchId - The batch ID.
@@ -478,7 +504,8 @@ public isolated client class Client {
         BulkSendBatchStatus response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the name of a bulk send batch.
+
+    #  Updates the name of a bulk send batch.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendBatchId - The batch ID.
@@ -491,7 +518,8 @@ public isolated client class Client {
         BulkSendBatchStatus response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Applies a bulk action to all envelopes from a specified bulk send.
+
+    #  Applies a bulk action to all envelopes from a specified bulk send.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkAction - The action to apply. Valid values:
@@ -508,7 +536,8 @@ public isolated client class Client {
         BulkSendBatchStatus response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets envelopes from a specific bulk send batch.
+
+    #  Gets envelopes from a specific bulk send batch.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendBatchId - The batch ID.
@@ -544,7 +573,8 @@ public isolated client class Client {
         EnvelopesInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets bulk send lists.
+
+    #  Gets bulk send lists.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -553,7 +583,8 @@ public isolated client class Client {
         BulkSendingListSummaries response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Creates a bulk send list.
+
+    #  Creates a bulk send list.
     #
     # + accountId - The ID of the account.
     # + return - Successful response. 
@@ -565,7 +596,8 @@ public isolated client class Client {
         BulkSendingList response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets a specific bulk send list.
+
+    #  Gets a specific bulk send list.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendListId - The GUID of the bulk send list. This property is created after you post a new bulk send list.
@@ -575,7 +607,8 @@ public isolated client class Client {
         BulkSendingList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates a bulk send list.
+
+    #  Updates a bulk send list.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendListId - The GUID of the bulk send list. This property is created after you post a new bulk send list.
@@ -588,7 +621,8 @@ public isolated client class Client {
         BulkSendingList response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes a bulk send list.
+
+    #  Deletes a bulk send list.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendListId - The GUID of the bulk send list. This property is created after you post a new bulk send list.
@@ -598,7 +632,8 @@ public isolated client class Client {
         BulkSendingListSummaries response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Creates a bulk send request.
+
+    #  Creates a bulk send request.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendListId - The GUID of the bulk send list. This property is created after you post a new bulk send list.
@@ -611,7 +646,8 @@ public isolated client class Client {
         BulkSendResponse response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Creates a bulk send test.
+
+    #  Creates a bulk send test.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + bulkSendListId - The GUID of the bulk send list. This property is created after you post a new bulk send list.
@@ -624,7 +660,8 @@ public isolated client class Client {
         BulkSendTestResponse response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes the signature for one or more captive recipient records.
+
+    #  Deletes the signature for one or more captive recipient records.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientPart - Signature is the only supported value. 
@@ -637,7 +674,8 @@ public isolated client class Client {
         CaptiveRecipientInformation response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Initiate a new chunked upload.
+
+    #  Initiate a new chunked upload.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -649,7 +687,8 @@ public isolated client class Client {
         ChunkedUploadResponse response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Retrieves metadata about a chunked upload.
+
+    #  Retrieves metadata about a chunked upload.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + chunkedUploadId - The ID of the chunked upload. 
@@ -662,7 +701,8 @@ public isolated client class Client {
         ChunkedUploadResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Commit a chunked upload.
+
+    #  Commit a chunked upload.
     #
     # + accountId - (Required) The external account number (int) or account ID GUID.
     # + chunkedUploadId - (Required) The ID of the chunked upload to commit.
@@ -676,7 +716,8 @@ public isolated client class Client {
         ChunkedUploadResponse response = check self.clientEp-> put(resourcePath, request);
         return response;
     }
-    # Deletes a chunked upload.
+
+    #  Deletes a chunked upload.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + chunkedUploadId - The ID of the chunked upload. 
@@ -686,7 +727,8 @@ public isolated client class Client {
         ChunkedUploadResponse response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Add a chunk to an existing chunked upload.
+
+    #  Add a chunk to an existing chunked upload.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + chunkedUploadId - The ID of the chunked upload. 
@@ -701,7 +743,8 @@ public isolated client class Client {
         ChunkedUploadResponse response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Get Connect configuration information.
+
+    #  Get Connect configuration information.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -710,7 +753,8 @@ public isolated client class Client {
         ConnectConfigResults response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates a specified Connect configuration.
+
+    #  Updates a specified Connect configuration.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -722,7 +766,8 @@ public isolated client class Client {
         ConnectCustomConfiguration response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Creates a Connect configuration.
+
+    #  Creates a Connect configuration.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -734,7 +779,8 @@ public isolated client class Client {
         ConnectCustomConfiguration response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets the details about a Connect configuration.
+
+    #  Gets the details about a Connect configuration.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + connectId - The ID of the custom Connect configuration being accessed.
@@ -744,17 +790,18 @@ public isolated client class Client {
         ConnectConfigResults response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes the specified Connect configuration.
+
+    #  Deletes the specified Connect configuration.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + connectId - The ID of the custom Connect configuration being accessed.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/connect/[string connectId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/connect/[string connectId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/connect/${getEncodedUri(connectId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Returns all users from the configured Connect service.
+
+    #  Returns all users from the configured Connect service.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + connectId - The ID of the custom Connect configuration being accessed.
@@ -772,7 +819,8 @@ public isolated client class Client {
         IntegratedConnectUserInfoList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Returns users from the configured Connect service.
+
+    #  Returns users from the configured Connect service.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + connectId - The ID of the custom Connect configuration being accessed.
@@ -802,7 +850,8 @@ public isolated client class Client {
         IntegratedUserInfoList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Republishes Connect information for the specified envelope.
+
+    #  Republishes Connect information for the specified envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -814,7 +863,8 @@ public isolated client class Client {
         ConnectFailureResults response = check self.clientEp-> put(resourcePath, request);
         return response;
     }
-    # Submits a batch of historical envelopes for republish to a webhook.
+
+    #  Submits a batch of historical envelopes for republish to a webhook.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -826,7 +876,8 @@ public isolated client class Client {
         EnvelopePublishTransaction response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Republishes Connect information for multiple envelopes.
+
+    #  Republishes Connect information for multiple envelopes.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -838,7 +889,8 @@ public isolated client class Client {
         ConnectFailureResults response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets the Connect failure log information.
+
+    #  Gets the Connect failure log information.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + from_date - The start date for a date range in UTC DateTime format.
@@ -853,7 +905,8 @@ public isolated client class Client {
         ConnectLogs response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes a Connect failure log entry.
+
+    #  Deletes a Connect failure log entry.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + failureId - The ID of the Connect post failure. Use `all` to delete all failures for the account.
@@ -863,7 +916,8 @@ public isolated client class Client {
         ConnectDeleteFailureResult response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Gets the Connect log.
+
+    #  Gets the Connect log.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + from_date - The start date for a date range in UTC DateTime format.
@@ -878,16 +932,17 @@ public isolated client class Client {
         ConnectLogs response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes a list of Connect log entries.
+
+    #  Deletes a list of Connect log entries.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/connect/logs() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/connect/logs() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/connect/logs`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Gets a Connect log entry.
+
+    #  Gets a Connect log entry.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + logId - The ID of the Connect log entry.
@@ -900,17 +955,18 @@ public isolated client class Client {
         ConnectLog response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes a specified Connect log entry.
+
+    #  Deletes a specified Connect log entry.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + logId - The ID of the Connect log entry.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/connect/logs/[string logId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/connect/logs/[string logId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/connect/logs/${getEncodedUri(logId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Retrieves the Connect OAuth information for the account.
+
+    #  Retrieves the Connect OAuth information for the account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -919,7 +975,8 @@ public isolated client class Client {
         ConnectOAuthConfig response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the existing Connect OAuth configuration for the account.
+
+    #  Updates the existing Connect OAuth configuration for the account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -931,7 +988,8 @@ public isolated client class Client {
         ConnectOAuthConfig response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Set up Connect OAuth for the specified account.
+
+    #  Set up Connect OAuth for the specified account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -943,16 +1001,17 @@ public isolated client class Client {
         ConnectOAuthConfig response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Delete the Connect OAuth configuration.
+
+    #  Delete the Connect OAuth configuration.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/connect/oauth() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/connect/oauth() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/connect/oauth`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Gets the default Electronic Record and Signature Disclosure for an account.
+
+    #  Gets the default Electronic Record and Signature Disclosure for an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + langCode - The code for the signer language version of the disclosure that you want to retrieve. The following languages are supported:
@@ -1008,7 +1067,8 @@ public isolated client class Client {
         AccountConsumerDisclosures response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the Electronic Record and Signature Disclosure for an account.
+
+    #  Gets the Electronic Record and Signature Disclosure for an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + langCode - The code for the signer language version of the disclosure that you want to retrieve. The following languages are supported:
@@ -1062,7 +1122,8 @@ public isolated client class Client {
         AccountConsumerDisclosures response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the Electronic Record and Signature Disclosure for an account.
+
+    #  Updates the Electronic Record and Signature Disclosure for an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + langCode - The code for the signer language version of the disclosure that you want to update. The following languages are supported:
@@ -1122,7 +1183,8 @@ public isolated client class Client {
         ConsumerDisclosure response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Updates one or more contacts.
+
+    #  Updates one or more contacts.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -1134,7 +1196,8 @@ public isolated client class Client {
         ContactUpdateResponse response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Add contacts to a contacts list.
+
+    #  Add contacts to a contacts list.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -1146,7 +1209,8 @@ public isolated client class Client {
         ContactUpdateResponse response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes multiple contacts from an account.
+
+    #  Deletes multiple contacts from an account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -1158,7 +1222,8 @@ public isolated client class Client {
         ContactUpdateResponse response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Gets one or more contacts.
+
+    #  Gets one or more contacts.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + contactId - The ID of a contact person in the account's address book.
@@ -1174,7 +1239,8 @@ public isolated client class Client {
         ContactGetResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes a contact.
+
+    #  Deletes a contact.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + contactId - The ID of a contact person in the account's address book.
@@ -1184,7 +1250,8 @@ public isolated client class Client {
         ContactUpdateResponse response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Gets a list of custom fields.
+
+    #  Gets a list of custom fields.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -1193,7 +1260,8 @@ public isolated client class Client {
         AccountCustomFields response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Creates an account custom field.
+
+    #  Creates an account custom field.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + apply_to_templates - (Optional) When **true,** the new custom field is applied to all of the templates on the account.
@@ -1208,7 +1276,8 @@ public isolated client class Client {
         AccountCustomFields response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Updates an account custom field.
+
+    #  Updates an account custom field.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + customFieldId - The ID of the custom field.
@@ -1223,19 +1292,20 @@ public isolated client class Client {
         AccountCustomFields response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes an account custom field.
+
+    #  Deletes an account custom field.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + customFieldId - The ID of the custom field.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/custom_fields/[string customFieldId](string? apply_to_templates = ()) returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/custom_fields/[string customFieldId](string? apply_to_templates = ()) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/custom_fields/${getEncodedUri(customFieldId)}`;
         map<anydata> queryParam = {"apply_to_templates": apply_to_templates};
         resourcePath = resourcePath + check getPathForQueryParam(queryParam);
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Search for specific sets of envelopes by using search filters.
+
+    #  Search for specific sets of envelopes by using search filters.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + ac_status - Specifies the Authoritative Copy Status for the envelopes. Valid values: Unknown, Original, Transferred, AuthoritativeCopy, AuthoritativeCopyExportPending, AuthoritativeCopyExported, DepositPending, Deposited, DepositedEO, or DepositFailed.
@@ -1390,7 +1460,8 @@ public isolated client class Client {
         EnvelopesInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Creates an envelope.
+
+    #  Creates an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + cdse_mode - Reserved for DocuSign.
@@ -1409,7 +1480,8 @@ public isolated client class Client {
         EnvelopeSummary response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets the status of a single envelope.
+
+    #  Gets the status of a single envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1434,7 +1506,8 @@ public isolated client class Client {
         Envelope response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Send, void, or modify a draft envelope. Purge documents from a completed envelope.
+
+    #  Send, void, or modify a draft envelope. Purge documents from a completed envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1454,7 +1527,8 @@ public isolated client class Client {
         EnvelopeUpdateSummary response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Returns a list of envelope attachments associated with a specified envelope.
+
+    #  Returns a list of envelope attachments associated with a specified envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1465,7 +1539,8 @@ public isolated client class Client {
         EnvelopeAttachmentsResult response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Adds one or more envelope attachments to a draft or in-process envelope.
+
+    #  Adds one or more envelope attachments to a draft or in-process envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1479,7 +1554,8 @@ public isolated client class Client {
         EnvelopeAttachmentsResult response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes one or more envelope attachments from a draft envelope.
+
+    #  Deletes one or more envelope attachments from a draft envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1493,7 +1569,8 @@ public isolated client class Client {
         EnvelopeAttachmentsResult response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Retrieves an envelope attachment from an envelope.
+
+    #  Retrieves an envelope attachment from an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + attachmentId - The unique identifier for the attachment.
@@ -1505,7 +1582,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates an envelope attachment in a draft or in-process envelope.
+
+    #  Updates an envelope attachment in a draft or in-process envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + attachmentId - The unique identifier for the attachment.
@@ -1520,7 +1598,8 @@ public isolated client class Client {
         EnvelopeAttachmentsResult response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets the envelope audit events for an envelope.
+
+    #  Gets the envelope audit events for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1531,7 +1610,8 @@ public isolated client class Client {
         EnvelopeAuditEventResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets a PDF transcript of all of the comments in an envelope.
+
+    #  Gets a PDF transcript of all of the comments in an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1545,7 +1625,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the custom field information for the specified envelope.
+
+    #  Gets the custom field information for the specified envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1556,7 +1637,8 @@ public isolated client class Client {
         CustomFieldsEnvelope response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates envelope custom fields in an envelope.
+
+    #  Updates envelope custom fields in an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1570,7 +1652,8 @@ public isolated client class Client {
         EnvelopeCustomFields response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Creates envelope custom fields for an envelope.
+
+    #  Creates envelope custom fields for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1584,7 +1667,8 @@ public isolated client class Client {
         EnvelopeCustomFields response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes envelope custom fields for draft and in-process envelopes.
+
+    #  Deletes envelope custom fields for draft and in-process envelopes.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1598,7 +1682,8 @@ public isolated client class Client {
         EnvelopeCustomFields response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Returns form fields for an envelope
+
+    #  Returns form fields for an envelope
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1609,7 +1694,8 @@ public isolated client class Client {
         DocGenFormFieldResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates form fields for an envelope.
+
+    #  Updates form fields for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1628,7 +1714,8 @@ public isolated client class Client {
         DocGenFormFieldResponse response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets a list of documents in an envelope.
+
+    #  Gets a list of documents in an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1650,7 +1737,8 @@ public isolated client class Client {
         EnvelopeDocumentsResult response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Adds one or more documents to an existing envelope.
+
+    #  Adds one or more documents to an existing envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1664,7 +1752,8 @@ public isolated client class Client {
         EnvelopeDocumentsResult response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes documents from a draft envelope.
+
+    #  Deletes documents from a draft envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -1678,7 +1767,8 @@ public isolated client class Client {
         EnvelopeDocumentsResult response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Retrieves a single document or all documents from an envelope.
+
+    #  Retrieves a single document or all documents from an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The ID of the document to retrieve. Alternatively, you can use one of the following special keywords:
@@ -1712,7 +1802,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Adds or replaces a document in an existing envelope.
+
+    #  Adds or replaces a document in an existing envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1736,7 +1827,8 @@ public isolated client class Client {
         EnvelopeDocument response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets the custom document fields from an  existing envelope document.
+
+    #  Gets the custom document fields from an  existing envelope document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1758,7 +1850,8 @@ public isolated client class Client {
         EnvelopeDocumentFields response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates existing custom document fields in an existing envelope document.
+
+    #  Updates existing custom document fields in an existing envelope document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1783,7 +1876,8 @@ public isolated client class Client {
         EnvelopeDocumentFields response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Creates custom document fields in an existing envelope document.
+
+    #  Creates custom document fields in an existing envelope document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1808,7 +1902,8 @@ public isolated client class Client {
         EnvelopeDocumentFields response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes custom document fields from an existing envelope document.
+
+    #  Deletes custom document fields from an existing envelope document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1833,7 +1928,8 @@ public isolated client class Client {
         EnvelopeDocumentFields response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Retrieves the HTML definition used to generate a dynamically sized responsive document.
+
+    #  Retrieves the HTML definition used to generate a dynamically sized responsive document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The GUID of the document.
@@ -1846,7 +1942,8 @@ public isolated client class Client {
         DocumentHtmlDefinitionOriginals response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Returns document page images based on input.
+
+    #  Returns document page images based on input.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1877,7 +1974,8 @@ public isolated client class Client {
         PageImages response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes a page from a document in an envelope.
+
+    #  Deletes a page from a document in an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1895,12 +1993,12 @@ public isolated client class Client {
     # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
     # + pageNumber - The page number being accessed.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId]/pages/[string pageNumber]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId]/pages/[string pageNumber]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/documents/${getEncodedUri(documentId)}/pages/${getEncodedUri(pageNumber)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Gets a page image from an envelope for display.
+
+    #  Gets a page image from an envelope for display.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1929,7 +2027,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Rotates page image from an envelope for display.
+
+    #  Rotates page image from an envelope for display.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1947,15 +2046,15 @@ public isolated client class Client {
     # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
     # + pageNumber - The page number being accessed.
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId]/pages/[string pageNumber]/page_image(PageRequest payload) returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId]/pages/[string pageNumber]/page_image(PageRequest payload) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/documents/${getEncodedUri(documentId)}/pages/${getEncodedUri(pageNumber)}/page_image`;
         http:Request request = new;
         json jsonBody = payload.toJson();
         request.setPayload(jsonBody, "application/json");
-        http:Response response = check self.clientEp->put(resourcePath, request);
-        return response;
+        return check self.clientEp->put(resourcePath, request);
     }
-    # Returns tabs on the specified page.
+
+    #  Returns tabs on the specified page.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -1978,7 +2077,8 @@ public isolated client class Client {
         EnvelopeDocumentTabs response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Creates a preview of the responsive version of a document.
+
+    #  Creates a preview of the responsive version of a document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2003,7 +2103,8 @@ public isolated client class Client {
         DocumentHtmlDefinitions response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Returns the tabs on a document.
+
+    #  Returns the tabs on a document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2031,7 +2132,8 @@ public isolated client class Client {
         EnvelopeDocumentTabs response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the tabs for document.
+
+    #  Updates the tabs for document.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2057,7 +2159,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Adds tabs to a document in an envelope.
+
+    #  Adds tabs to a document in an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2083,7 +2186,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes tabs from a document in an envelope.
+
+    #  Deletes tabs from a document in an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2109,7 +2213,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Gets the templates associated with a document in an existing envelope.
+
+    #  Gets the templates associated with a document in an existing envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2137,7 +2242,8 @@ public isolated client class Client {
         TemplateInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Adds templates to a document in an  envelope.
+
+    #  Adds templates to a document in an  envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2170,7 +2276,8 @@ public isolated client class Client {
         DocumentTemplateList response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes a template from a document in an existing envelope.
+
+    #  Deletes a template from a document in an existing envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + documentId - The unique ID of the document within the envelope.
@@ -2188,12 +2295,12 @@ public isolated client class Client {
     # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
     # + templateId - The ID of the template.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId]/templates/[string templateId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId]/templates/[string templateId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/documents/${getEncodedUri(documentId)}/templates/${getEncodedUri(templateId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp->delete(resourcePath);
     }
-    # Gets the email setting overrides for an envelope.
+
+    #  Gets the email setting overrides for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2204,7 +2311,8 @@ public isolated client class Client {
         EmailSettings response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the email setting overrides for an envelope.
+
+    #  Updates the email setting overrides for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2219,7 +2327,8 @@ public isolated client class Client {
         EmailSettings response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Adds email setting overrides to an envelope.
+
+    #  Adds email setting overrides to an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2234,7 +2343,8 @@ public isolated client class Client {
         EmailSettings response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes the email setting overrides for an envelope.
+
+    #  Deletes the email setting overrides for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2245,7 +2355,8 @@ public isolated client class Client {
         EmailSettings response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Returns envelope tab data for an existing envelope.
+
+    #  Returns envelope tab data for an existing envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2256,7 +2367,8 @@ public isolated client class Client {
         EnvelopeFormData response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the Original HTML Definition used to generate the Responsive HTML for the envelope.
+
+    #  Gets the Original HTML Definition used to generate the Responsive HTML for the envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2267,7 +2379,8 @@ public isolated client class Client {
         DocumentHtmlDefinitionOriginals response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets envelope lock information.
+
+    #  Gets envelope lock information.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2278,7 +2391,8 @@ public isolated client class Client {
         EnvelopeLocks response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates an envelope lock.
+
+    #  Updates an envelope lock.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2292,7 +2406,8 @@ public isolated client class Client {
         EnvelopeLocks response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Locks an envelope.
+
+    #  Locks an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2306,7 +2421,8 @@ public isolated client class Client {
         EnvelopeLocks response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes an envelope lock.
+
+    #  Deletes an envelope lock.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2317,7 +2433,8 @@ public isolated client class Client {
         EnvelopeLocks response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Gets envelope notification information.
+
+    #  Gets envelope notification information.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2328,7 +2445,8 @@ public isolated client class Client {
         Notification response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Sets envelope notifications for an existing envelope.
+
+    #  Sets envelope notifications for an existing envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2342,7 +2460,8 @@ public isolated client class Client {
         Notification response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets the status of recipients for an envelope.
+
+    #  Gets the status of recipients for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2359,7 +2478,8 @@ public isolated client class Client {
         EnvelopeRecipients response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates recipients in a draft envelope or corrects recipient information for an in-process envelope.
+
+    #  Updates recipients in a draft envelope or corrects recipient information for an in-process envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2386,7 +2506,8 @@ public isolated client class Client {
         RecipientsUpdateSummary response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Adds one or more recipients to an envelope.
+
+    #  Adds one or more recipients to an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2411,7 +2532,8 @@ public isolated client class Client {
         EnvelopeRecipients response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes recipients from an envelope.
+
+    #  Deletes recipients from an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2425,7 +2547,8 @@ public isolated client class Client {
         EnvelopeRecipients response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Deletes a recipient from an envelope.
+
+    #  Deletes a recipient from an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2445,7 +2568,8 @@ public isolated client class Client {
         EnvelopeRecipients response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Gets the default Electronic Record and Signature Disclosure for an envelope.
+
+    #  Gets the default Electronic Record and Signature Disclosure for an envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2512,7 +2636,8 @@ public isolated client class Client {
         ConsumerDisclosure response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the Electronic Record and Signature Disclosure for a specific envelope recipient.
+
+    #  Gets the Electronic Record and Signature Disclosure for a specific envelope recipient.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2624,7 +2749,8 @@ public isolated client class Client {
         ConsumerDisclosure response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Returns document visibility for a recipient
+
+    #  Returns document visibility for a recipient
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2644,7 +2770,8 @@ public isolated client class Client {
         DocumentVisibilityList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates document visibility for a recipient
+
+    #  Updates document visibility for a recipient
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2667,7 +2794,8 @@ public isolated client class Client {
         DocumentVisibilityList response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Creates a resource token for a sender to request ID Evidence data. 
+
+    #  Creates a resource token for a sender to request ID Evidence data. 
     #
     # + accountId - The account ID.
     # + envelopeId - The envelope's GUID. 
@@ -2680,7 +2808,8 @@ public isolated client class Client {
         IdEvidenceResourceToken response = check self.clientEp-> post(resourcePath, request);
         return response;
     }
-    # Gets the initials image for a user.
+
+    #  Gets the initials image for a user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2703,7 +2832,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Sets the initials image for an accountless signer.
+
+    #  Sets the initials image for an accountless signer.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2718,13 +2848,13 @@ public isolated client class Client {
     # For example, many envelopes assign the first recipient
     # a `recipientId` of `1`.
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/recipients/[string recipientId]/initials_image() returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/recipients/[string recipientId]/initials_image() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/recipients/${getEncodedUri(recipientId)}/initials_image`;
         http:Request request = new;
-        http:Response response = check self.clientEp-> put(resourcePath, request);
-        return response;
+        return check self.clientEp-> put(resourcePath, request);
     }
-    # Gets signature information for a signer or sign-in-person recipient.
+
+    #  Gets signature information for a signer or sign-in-person recipient.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
@@ -2744,7 +2874,8 @@ public isolated client class Client {
         UserSignature response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes the specified recipient file from a template.
+
+    #  Deletes the specified recipient file from a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2766,7 +2897,8 @@ public isolated client class Client {
         Recipients response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Returns document visibility for a template recipient
+
+    #  Returns document visibility for a template recipient
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2785,7 +2917,8 @@ public isolated client class Client {
         DocumentVisibilityList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates document visibility for a template recipient
+
+    #  Updates document visibility for a template recipient
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2807,7 +2940,8 @@ public isolated client class Client {
         TemplateDocumentVisibilityList response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Gets the tabs information for a signer or sign-in-person recipient in a template.
+
+    #  Gets the tabs information for a signer or sign-in-person recipient in a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2830,7 +2964,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the tabs for a recipient.
+
+    #  Updates the tabs for a recipient.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2852,7 +2987,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Adds tabs for a recipient.
+
+    #  Adds tabs for a recipient.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2874,7 +3010,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes the tabs associated with a recipient in a template.
+
+    #  Deletes the tabs associated with a recipient in a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + recipientId - A local reference used to map
@@ -2896,7 +3033,8 @@ public isolated client class Client {
         Tabs response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Updates document visibility for template recipients
+
+    #  Updates document visibility for template recipients
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2909,7 +3047,8 @@ public isolated client class Client {
         TemplateDocumentVisibilityList response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Creates a preview of the responsive versions of all of the documents associated with a template.
+
+    #  Creates a preview of the responsive versions of all of the documents associated with a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2922,7 +3061,8 @@ public isolated client class Client {
         DocumentHtmlDefinitions response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets a URL for a template edit view.
+
+    #  Gets a URL for a template edit view.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2935,7 +3075,8 @@ public isolated client class Client {
         ViewUrl response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Creates a template recipient preview.
+
+    #  Creates a template recipient preview.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2948,7 +3089,8 @@ public isolated client class Client {
         ViewUrl response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Returns the workflow definition for a template.
+
+    #  Returns the workflow definition for a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2958,7 +3100,8 @@ public isolated client class Client {
         Workflow response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the workflow definition for a template.
+
+    #  Updates the workflow definition for a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2971,17 +3114,18 @@ public isolated client class Client {
         Workflow response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Delete the workflow definition for a template.
+
+    #  Delete the workflow definition for a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/workflow`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Returns the scheduled sending rules for a template's workflow definition.
+
+    #  Returns the scheduled sending rules for a template's workflow definition.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -2991,7 +3135,8 @@ public isolated client class Client {
         ScheduledSending response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the scheduled sending rules for a template's workflow definition.
+
+    #  Updates the scheduled sending rules for a template's workflow definition.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -3005,17 +3150,18 @@ public isolated client class Client {
         ScheduledSending response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes the scheduled sending rules for the template's workflow.
+
+    #  Deletes the scheduled sending rules for the template's workflow.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow/scheduledSending() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow/scheduledSending() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/workflow/scheduledSending`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Adds a new step to a template's workflow.
+
+    #  Adds a new step to a template's workflow.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -3028,7 +3174,8 @@ public isolated client class Client {
         WorkflowStep response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Returns a specified workflow step for a specified envelope.
+
+    #  Returns a specified workflow step for a specified envelope.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -3039,7 +3186,8 @@ public isolated client class Client {
         WorkflowStep response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates a specified workflow step for a template.
+
+    #  Updates a specified workflow step for a template.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -3053,18 +3201,19 @@ public isolated client class Client {
         WorkflowStep response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes a workflow step from an template's workflow definition.
+
+    #  Deletes a workflow step from an template's workflow definition.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
     # + workflowStepId - The ID of the workflow step.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow/steps/[string workflowStepId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow/steps/[string workflowStepId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/workflow/steps/${getEncodedUri(workflowStepId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Returns the delayed routing rules for a template's workflow step definition.
+
+    #  Returns the delayed routing rules for a template's workflow step definition.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -3075,7 +3224,8 @@ public isolated client class Client {
         DelayedRouting response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the delayed routing rules for a template's workflow step.
+
+    #  Updates the delayed routing rules for a template's workflow step.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
@@ -3090,18 +3240,19 @@ public isolated client class Client {
         DelayedRouting response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes the delayed routing rules for the specified template workflow step.
+
+    #  Deletes the delayed routing rules for the specified template workflow step.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + templateId - The ID of the template.
     # + workflowStepId - The ID of the workflow step.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow/steps/[string workflowStepId]/delayedRouting() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/workflow/steps/[string workflowStepId]/delayedRouting() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/workflow/steps/${getEncodedUri(workflowStepId)}/delayedRouting`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Gets a list of unsupported file types.
+
+    #  Gets a list of unsupported file types.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3110,7 +3261,8 @@ public isolated client class Client {
         FileTypeList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Retrieves the list of users for the specified account.
+
+    #  Retrieves the list of users for the specified account.
     #
     # + accountId - (Required) The external account number (int) or account ID GUID.
     # + additional_info - When **true,** the custom settings information is returned for each user in the account. If this parameter is omitted, the default behavior is **false.**
@@ -3146,7 +3298,8 @@ public isolated client class Client {
         UserInformationList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Changes one or more users in the specified account.
+
+    #  Changes one or more users in the specified account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3160,7 +3313,8 @@ public isolated client class Client {
         UserInformationList response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Adds new users to the specified account.
+
+    #  Adds new users to the specified account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3172,7 +3326,8 @@ public isolated client class Client {
         NewUsersSummary response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Closes one or more users in the account.
+
+    #  Closes one or more users in the account.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + delete - A list of groups to remove the user from.
@@ -3191,7 +3346,8 @@ public isolated client class Client {
         UsersResponse response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Gets the user information for a specified user.
+
+    #  Gets the user information for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3206,7 +3362,8 @@ public isolated client class Client {
         UserInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates user information for the specified user.
+
+    #  Updates user information for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3222,7 +3379,8 @@ public isolated client class Client {
         UserInformation response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Creates a user authorization.
+
+    #  Creates a user authorization.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the principal user.
@@ -3235,7 +3393,8 @@ public isolated client class Client {
         UserAuthorization response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Returns the user authorization for a given authorization ID.
+
+    #  Returns the user authorization for a given authorization ID.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + authorizationId - The ID of the user authorization.
@@ -3246,7 +3405,8 @@ public isolated client class Client {
         UserAuthorization response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the start or end date for a user authorization.
+
+    #  Updates the start or end date for a user authorization.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + authorizationId - The ID of the user authorization.
@@ -3260,18 +3420,19 @@ public isolated client class Client {
         UserAuthorization response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes the user authorization.
+
+    #  Deletes the user authorization.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + authorizationId - The ID of the user authorization.
     # + userId - The ID of the principal user.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/users/[string userId]/authorization/[string authorizationId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/users/[string userId]/authorization/[string authorizationId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/users/${getEncodedUri(userId)}/authorization/${getEncodedUri(authorizationId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Returns the authorizations for which the specified user is the principal user.
+
+    #  Returns the authorizations for which the specified user is the principal user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the principal user.
@@ -3294,7 +3455,8 @@ public isolated client class Client {
         UserAuthorizations response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Create or update multiple user authorizations.
+
+    #  Create or update multiple user authorizations.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the principal user.
@@ -3307,7 +3469,8 @@ public isolated client class Client {
         UserAuthorizationsResponse response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Delete multiple user authorizations.
+
+    #  Delete multiple user authorizations.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the principal user.
@@ -3320,7 +3483,8 @@ public isolated client class Client {
         UserAuthorizationsDeleteResponse response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Returns the authorizations for which the specified user is the agent user.
+
+    #  Returns the authorizations for which the specified user is the agent user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The user who is acting as the agent.
@@ -3339,7 +3503,8 @@ public isolated client class Client {
         UserAuthorizations response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Get the Cloud Storage Provider configuration for the specified user.
+
+    #  Get the Cloud Storage Provider configuration for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3354,7 +3519,8 @@ public isolated client class Client {
         CloudStorageProviders response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Configures the redirect URL information  for one or more cloud storage providers for the specified user.
+
+    #  Configures the redirect URL information  for one or more cloud storage providers for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3368,7 +3534,8 @@ public isolated client class Client {
         CloudStorageProviders response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Deletes the user authentication information for one or more cloud storage providers.
+
+    #  Deletes the user authentication information for one or more cloud storage providers.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3382,7 +3549,8 @@ public isolated client class Client {
         CloudStorageProviders response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Gets the specified Cloud Storage Provider configuration for the User.
+
+    #  Gets the specified Cloud Storage Provider configuration for the User.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + serviceId - The ID of the service to access. 
@@ -3399,7 +3567,8 @@ public isolated client class Client {
         CloudStorageProviders response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes the user authentication information for the specified cloud storage provider.
+
+    #  Deletes the user authentication information for the specified cloud storage provider.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + serviceId - The ID of the service to access. 
@@ -3412,7 +3581,8 @@ public isolated client class Client {
         CloudStorageProviders response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Retrieves a list of all the items in a specified folder from the specified cloud storage provider.
+
+    #  Retrieves a list of all the items in a specified folder from the specified cloud storage provider.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + serviceId - The ID of the service to access. 
@@ -3445,7 +3615,8 @@ public isolated client class Client {
         ExternalFolder response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets a list of items from a cloud storage provider.
+
+    #  Gets a list of items from a cloud storage provider.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + folderId - The ID of the folder.
@@ -3480,7 +3651,8 @@ public isolated client class Client {
         ExternalFolder response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Retrieves the custom user settings for a specified user.
+
+    #  Retrieves the custom user settings for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3491,7 +3663,8 @@ public isolated client class Client {
         CustomSettingsInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Adds or updates custom user settings for the specified user.
+
+    #  Adds or updates custom user settings for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3505,7 +3678,8 @@ public isolated client class Client {
         CustomSettingsInformation response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes custom user settings for a specified user.
+
+    #  Deletes custom user settings for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3519,7 +3693,8 @@ public isolated client class Client {
         CustomSettingsInformation response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
-    # Retrieves the user profile for a specified user.
+
+    #  Retrieves the user profile for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3530,21 +3705,22 @@ public isolated client class Client {
         UserProfile response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the user profile information for the specified user.
+
+    #  Updates the user profile information for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/users/[string userId]/profile(UserProfile payload) returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/users/[string userId]/profile(UserProfile payload) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/users/${getEncodedUri(userId)}/profile`;
         http:Request request = new;
         json jsonBody = payload.toJson();
         request.setPayload(jsonBody, "application/json");
-        http:Response response = check self.clientEp->put(resourcePath, request);
-        return response;
+        return check self.clientEp->put(resourcePath, request);
     }
-    # Retrieves the user profile image for the specified user.
+
+    #  Retrieves the user profile image for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3558,30 +3734,31 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the user profile image for a specified user.
+
+    #  Updates the user profile image for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/users/[string userId]/profile/image() returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/users/[string userId]/profile/image() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/users/${getEncodedUri(userId)}/profile/image`;
         http:Request request = new;
-        http:Response response = check self.clientEp-> put(resourcePath, request);
-        return response;
+        return check self.clientEp-> put(resourcePath, request);
     }
-    # Deletes the user profile image for the specified user.
+
+    #  Deletes the user profile image for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/users/[string userId]/profile/image() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/users/[string userId]/profile/image() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/users/${getEncodedUri(userId)}/profile/image`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Gets the user account settings for a specified user.
+
+    #  Gets the user account settings for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3592,23 +3769,24 @@ public isolated client class Client {
         UserSettingsInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the user account settings for a specified user.
+
+    #  Updates the user account settings for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     # + return - Successful response. 
-    resource isolated function put accounts/[string accountId]/users/[string userId]/settings(UserSettingsInformation payload, string? allow_all_languages = ()) returns http:Response|error {
+    resource isolated function put accounts/[string accountId]/users/[string userId]/settings(UserSettingsInformation payload, string? allow_all_languages = ()) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/users/${getEncodedUri(userId)}/settings`;
         map<anydata> queryParam = {"allow_all_languages": allow_all_languages};
         resourcePath = resourcePath + check getPathForQueryParam(queryParam);
         http:Request request = new;
         json jsonBody = payload.toJson();
         request.setPayload(jsonBody, "application/json");
-        http:Response response = check self.clientEp->put(resourcePath, request);
-        return response;
+        return check self.clientEp->put(resourcePath, request);
     }
-    # Retrieves a list of signature definitions for a user.
+
+    #  Retrieves a list of signature definitions for a user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + userId - The ID of the user to access.
@@ -3625,6 +3803,7 @@ public isolated client class Client {
         UserSignaturesInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Adds/updates a user signature.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -3639,6 +3818,7 @@ public isolated client class Client {
         UserSignaturesInformation response = check self.clientEp->put(resourcePath, request);
         return response;
     }
+
     # Adds user Signature and initials images to a Signature.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -3653,6 +3833,7 @@ public isolated client class Client {
         UserSignaturesInformation response = check self.clientEp->post(resourcePath, request);
         return response;
     }
+
     # Gets the user signature information for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -3665,6 +3846,7 @@ public isolated client class Client {
         UserSignature response = check self.clientEp->get(resourcePath);
         return response;
     }
+
     # Updates the user signature for a specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
@@ -3683,19 +3865,20 @@ public isolated client class Client {
         UserSignature response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Removes removes signature information for the specified user.
+
+    #  Removes removes signature information for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + signatureId - The ID of the account stamp.
     # + userId - The ID of the user to access.
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/users/[string userId]/signatures/[string signatureId]() returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/users/[string userId]/signatures/[string signatureId]() returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/users/${getEncodedUri(userId)}/signatures/${getEncodedUri(signatureId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return self.clientEp->delete(resourcePath);
     }
-    # Retrieves the user initials image or the  user signature image for the specified user.
+
+    #  Retrieves the user initials image or the  user signature image for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + imageType - Specificies the type of image. Valid values:
@@ -3714,7 +3897,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the user signature image or user initials image for the specified user.
+
+    #  Updates the user signature image or user initials image for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + imageType - Specificies the type of image. Valid values:
@@ -3734,7 +3918,8 @@ public isolated client class Client {
         UserSignature response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes the user initials image or the  user signature image for the specified user.
+
+    #  Deletes the user initials image or the  user signature image for the specified user.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + imageType - Specificies the type of image. Valid values:
@@ -3750,7 +3935,8 @@ public isolated client class Client {
         UserSignature response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # Returns a URL to the DocuSign UI.
+
+    #  Returns a URL to the DocuSign UI.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3762,7 +3948,8 @@ public isolated client class Client {
         EnvelopeViews response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Get watermark information.
+
+    #  Get watermark information.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3771,7 +3958,8 @@ public isolated client class Client {
         Watermark response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Update watermark information.
+
+    #  Update watermark information.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + payload - When **true,** the account has the watermark feature enabled, and the envelope is not complete, then the watermark for the account is added to the PDF documents. This option can remove the watermark. 
@@ -3784,7 +3972,8 @@ public isolated client class Client {
         Watermark response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Get watermark preview.
+
+    #  Get watermark preview.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + payload - When **true,** the account has the watermark feature enabled, and the envelope is not complete, then the watermark for the account is added to the PDF documents. This option can remove the watermark. 
@@ -3797,7 +3986,8 @@ public isolated client class Client {
         Watermark response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # List Workspaces
+
+    #  List Workspaces
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3806,7 +3996,8 @@ public isolated client class Client {
         WorkspaceList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Create a Workspace
+
+    #  Create a Workspace
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + return - Successful response. 
@@ -3818,7 +4009,8 @@ public isolated client class Client {
         Workspace response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Get Workspace
+
+    #  Get Workspace
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + workspaceId - The ID of the workspace.
@@ -3828,7 +4020,8 @@ public isolated client class Client {
         Workspace response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Update Workspace
+
+    #  Update Workspace
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + workspaceId - The ID of the workspace.
@@ -3841,7 +4034,8 @@ public isolated client class Client {
         Workspace response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Delete Workspace
+
+    #  Delete Workspace
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + workspaceId - The ID of the workspace.
@@ -3851,7 +4045,8 @@ public isolated client class Client {
         Workspace response = check self.clientEp-> delete(resourcePath);
         return response;
     }
-    # List workspace folder contents
+
+    #  List workspace folder contents
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + folderId - The ID of the folder.
@@ -3876,21 +4071,22 @@ public isolated client class Client {
         WorkspaceFolderContents response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes files or sub-folders from a workspace.
+
+    #  Deletes files or sub-folders from a workspace.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + folderId - The ID of the folder.
     # + workspaceId - The ID of the workspace.
     # + return - Successful response. 
-    resource isolated function delete accounts/[string accountId]/workspaces/[string workspaceId]/folders/[string folderId](WorkspaceItemList payload) returns http:Response|error {
+    resource isolated function delete accounts/[string accountId]/workspaces/[string workspaceId]/folders/[string folderId](WorkspaceItemList payload) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/workspaces/${getEncodedUri(workspaceId)}/folders/${getEncodedUri(folderId)}`;
         http:Request request = new;
         json jsonBody = payload.toJson();
         request.setPayload(jsonBody, "application/json");
-        http:Response response = check self.clientEp->delete(resourcePath, request);
-        return response;
+        return check self.clientEp->delete(resourcePath, request);
     }
-    # Creates a workspace file.
+
+    #  Creates a workspace file.
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + folderId - The ID of the folder.
@@ -3902,7 +4098,8 @@ public isolated client class Client {
         WorkspaceItem response = check self.clientEp-> post(resourcePath, request);
         return response;
     }
-    # Gets a workspace file
+
+    #  Gets a workspace file
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + fileId - The ID of the file.
@@ -3911,14 +4108,14 @@ public isolated client class Client {
     # + is_download - When **true,** the `Content-Disposition` header is set in the response. The value of the header provides the filename of the file. The default is **false.**
     # + pdf_version - When **true** the file is returned in PDF format.
     # + return - Successful response. 
-    resource isolated function get accounts/[string accountId]/workspaces/[string workspaceId]/folders/[string folderId]/files/[string fileId](string? is_download = (), string? pdf_version = ()) returns http:Response|error {
+    resource isolated function get accounts/[string accountId]/workspaces/[string workspaceId]/folders/[string folderId]/files/[string fileId](string? is_download = (), string? pdf_version = ()) returns error? {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/workspaces/${getEncodedUri(workspaceId)}/folders/${getEncodedUri(folderId)}/files/${getEncodedUri(fileId)}`;
         map<anydata> queryParam = {"is_download": is_download, "pdf_version": pdf_version};
         resourcePath = resourcePath + check getPathForQueryParam(queryParam);
-        http:Response response = check self.clientEp->get(resourcePath);
-        return response;
+        return check self.clientEp->get(resourcePath);
     }
-    # Update workspace file or folder metadata
+
+    #  Update workspace file or folder metadata
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + fileId - The ID of the file.
@@ -3931,7 +4128,8 @@ public isolated client class Client {
         WorkspaceItem response = check self.clientEp-> put(resourcePath, request);
         return response;
     }
-    # List File Pages
+
+    #  List File Pages
     #
     # + accountId - The external account number (int) or account ID GUID.
     # + fileId - The ID of the file.
@@ -3955,7 +4153,8 @@ public isolated client class Client {
         PageImages response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Retrieves the account provisioning information for the account.
+
+    #  Retrieves the account provisioning information for the account.
     #
     # + return - Successful response. 
     resource isolated function get accounts/provisioning() returns ProvisioningInformation|error {
@@ -3963,7 +4162,8 @@ public isolated client class Client {
         ProvisioningInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets a list of available billing plans.
+
+    #  Gets a list of available billing plans.
     #
     # + return - Successful response. 
     resource isolated function get billing_plans() returns BillingPlansResponse|error {
@@ -3971,7 +4171,8 @@ public isolated client class Client {
         BillingPlansResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets billing plan details.
+
+    #  Gets billing plan details.
     #
     # + billingPlanId - The ID of the billing plan being accessed.
     # + return - Successful response. 
@@ -3980,7 +4181,8 @@ public isolated client class Client {
         BillingPlanResponse response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets settings for a  notary user.
+
+    #  Gets settings for a  notary user.
     #
     # + include_jurisdictions - When **true,** the response will include a `jurisdiction` property that contains an array of all supported jurisdictions for the current user.
     # + return - Successful response. 
@@ -3991,7 +4193,8 @@ public isolated client class Client {
         NotaryResult response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates notary information for the current user.
+
+    #  Updates notary information for the current user.
     #
     # + return - Successful response. 
     resource isolated function put accountscurrent_user/notary(Notary payload) returns Notary|error {
@@ -4002,7 +4205,8 @@ public isolated client class Client {
         Notary response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Registers the current user as a notary.
+
+    #  Registers the current user as a notary.
     #
     # + return - Successful response. 
     resource isolated function post accountscurrent_user/notary(Notary payload) returns Notary|error {
@@ -4013,7 +4217,8 @@ public isolated client class Client {
         Notary response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets notary jurisdictions for a user.
+
+    #  Gets notary jurisdictions for a user.
     #
     # + count - The maximum number of results to return.
     # + search_text - Use this parameter to search for specific text.
@@ -4026,7 +4231,8 @@ public isolated client class Client {
         NotaryJournalList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Returns a list of jurisdictions that the notary is registered in.
+
+    #  Returns a list of jurisdictions that the notary is registered in.
     #
     # + return - Successful response. 
     resource isolated function get accountscurrent_user/notary/jurisdictions() returns NotaryJurisdictionList|error {
@@ -4034,7 +4240,8 @@ public isolated client class Client {
         NotaryJurisdictionList response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Creates a jurisdiction object.
+
+    #  Creates a jurisdiction object.
     #
     # + return - Successful response. 
     resource isolated function post accountscurrent_user/notary/jurisdictions(NotaryJurisdiction payload) returns NotaryJurisdiction|error {
@@ -4045,7 +4252,8 @@ public isolated client class Client {
         NotaryJurisdiction response = check self.clientEp->post(resourcePath, request);
         return response;
     }
-    # Gets a jurisdiction object for the current user. The user must be a notary.
+
+    #  Gets a jurisdiction object for the current user. The user must be a notary.
     #
     # + jurisdictionId - The ID of the jurisdiction.
     # The following jurisdictions
@@ -4080,7 +4288,8 @@ public isolated client class Client {
         NotaryJurisdiction response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Updates the jurisdiction information about a notary.
+
+    #  Updates the jurisdiction information about a notary.
     #
     # + jurisdictionId - The ID of the jurisdiction.
     # The following jurisdictions
@@ -4118,7 +4327,8 @@ public isolated client class Client {
         NotaryJurisdiction response = check self.clientEp->put(resourcePath, request);
         return response;
     }
-    # Deletes the specified jurisdiction.
+
+    #  Deletes the specified jurisdiction.
     #
     # + jurisdictionId - The ID of the jurisdiction.
     # The following jurisdictions
@@ -4148,12 +4358,13 @@ public isolated client class Client {
     # -  `49 - Wisconsin`
     # -  `62 - Florida Commissioner of Deeds`
     # + return - Successful response. 
-    resource isolated function delete accountscurrent_user/notary/jurisdictions/[string jurisdictionId]() returns http:Response|error {
+    resource isolated function delete accountscurrent_user/notary/jurisdictions/[string jurisdictionId]() returns error? {
         string resourcePath = string `/v2.1/current_user/notary/jurisdictions/${getEncodedUri(jurisdictionId)}`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp->delete(resourcePath);
+
     }
-    # Gets membership account password rules.
+
+    #  Gets membership account password rules.
     #
     # + return - Successful response. 
     resource isolated function get accountscurrent_user/password_rules() returns UserPasswordRules|error {
@@ -4161,7 +4372,8 @@ public isolated client class Client {
         UserPasswordRules response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the API request logging log files.
+
+    #  Gets the API request logging log files.
     #
     # + encoding - Reserved for DocuSign.
     # + return - Successful response. 
@@ -4172,15 +4384,16 @@ public isolated client class Client {
         ApiRequestLogsResult response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Deletes the request log files.
+
+    #  Deletes the request log files.
     #
     # + return - Successful response. 
-    resource isolated function delete accountsdiagnostics/request_logs() returns http:Response|error {
+    resource isolated function delete accountsdiagnostics/request_logs() returns error? {
         string resourcePath = string `/v2.1/diagnostics/request_logs`;
-        http:Response response = check self.clientEp-> delete(resourcePath);
-        return response;
+        return check self.clientEp-> delete(resourcePath);
     }
-    # Gets a request logging log file.
+
+    #  Gets a request logging log file.
     #
     # + requestLogId - The ID of the log entry.
     # + return - Successful response. 
@@ -4189,7 +4402,8 @@ public isolated client class Client {
         byte[] response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Gets the API request logging settings.
+
+    #  Gets the API request logging settings.
     #
     # + return - Successful response. 
     resource isolated function get accountsdiagnostics/settings() returns DiagnosticsSettingsInformation|error {
@@ -4197,7 +4411,8 @@ public isolated client class Client {
         DiagnosticsSettingsInformation response = check self.clientEp->get(resourcePath);
         return response;
     }
-    # Enables or disables API request logging for troubleshooting.
+
+    #  Enables or disables API request logging for troubleshooting.
     #
     # + return - Successful response. 
     resource isolated function put accountsdiagnostics/settings(DiagnosticsSettingsInformation payload) returns DiagnosticsSettingsInformation|error {
