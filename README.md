@@ -64,7 +64,7 @@ Remember to replace `{IntegrationKey:SecretKey}`, `{iKey}`, `{redirectUri}`, `{e
 
 ## Quickstart
 
-This sample demonstrates a scenario of creating a secondary calendar and adding a new event to it using the Ballerina Google Calendar connector.
+This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina Google DocuSign eSignature connector.
 
 ### Step 1: Import the package
 
@@ -131,7 +131,7 @@ public function main() returns error? {
 
 ## Examples
 
-The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/tree/main/examples), covering use cases like creating calendar, scheduling meeting events, and adding reminders.
+The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/tree/main/examples).
 
 1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/send-documents)
     This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.

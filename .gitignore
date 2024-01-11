@@ -7,7 +7,7 @@
 #Config file
 Config.toml
 # Modules
-/modules/googleapis.calendar
+/modules/googleapis.docusign.esign
 
 # BlueJ files
 *.ctxt
