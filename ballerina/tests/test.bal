@@ -77,7 +77,6 @@ function testVersion() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for post accounts
 @test:Config {
     groups: ["account"]
 }
@@ -90,7 +89,6 @@ function testPostAccounts() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for get accounts/[string accountId]
 @test:Config {
     groups: ["account"]
 }
@@ -105,7 +103,6 @@ function testGetAccountInformation() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for delete accounts/[string accountId]
 @test:Config {
     groups: ["account"]
 }
@@ -115,7 +112,6 @@ function testDeleteAccount() returns error? {
     test:assertEquals(response, ());
 }
 
-// Test case for get accounts/[string accountId]/billing_charges
 @test:Config {
     groups: ["billing"]
 }
@@ -134,7 +130,6 @@ function testGetBillingCharges() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for get accounts/[string accountId]/billing_invoices
 @test:Config {
     groups: ["billing"]
 }
@@ -157,7 +152,6 @@ function testGetBillingInvoices() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for get accounts/[string accountId]/billing_invoices/[string invoiceId]
 @test:Config {
     groups: ["billing"]
 }
@@ -177,7 +171,6 @@ function testGetBillingInvoice() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for get accounts/[string accountId]/billing_invoices_past_due
 @test:Config {
     groups: ["billing"]
 }
@@ -199,7 +192,6 @@ function testGetPastDueInvoices() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for get accounts/[string accountId]/billing_payments
 @test:Config {
     groups: ["billing"]
 }
@@ -268,7 +260,6 @@ function testPostUserSignatures() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for get accounts/[string accountId]/users/[string userId]/signatures/[string signatureId]
 @test:Config {
     groups: ["account"]
 }
@@ -285,7 +276,6 @@ function testGetUserSignature() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for put accounts/[string accountId]/users/[string userId]/signatures/[string signatureId]
 @test:Config {
     groups: ["account"]
 }
@@ -309,7 +299,6 @@ function testPutUserSignature() returns error? {
     test:assertEquals(response, expectedResponse);
 }
 
-// Test case for delete accounts/[string accountId]/users/[string userId]/signatures/[string signatureId]
 @test:Config {
     groups: ["account"]
 }
