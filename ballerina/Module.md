@@ -1,6 +1,6 @@
 ## Overview
 
-TheBallerina Docusign eSignature Connector provides the capability to securely sign, send, and manage documents in a digital environment.
+The Ballerina Docusign eSignature Connector provides the capability to securely sign, send, and manage documents in a digital environment.
 
 The Ballerina Docusign eSignature module supports [DocuSign eSignature API V2.1](https://github.com/docusign/OpenAPI-Specifications/blob/master/esignature.rest.swagger-v2.1.json).
 
@@ -119,5 +119,8 @@ public function main() returns error? {
 
 The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/tree/main/examples), covering use cases like creating calendar, scheduling meeting events, and adding reminders.
 
-1. [Send Envelopes with DocuSign](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/send-envelope)
+1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/send-documents)
     This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
+
+2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/create-signature)
+    This example shows how to create a eSignature for your DocuSign account.
