@@ -420,7 +420,7 @@ public type Recipients record {
     Witness[] witnesses?;
 };
 
-# 
+# Represents the settings related to tabs in a DocuSign account.
 public type TabAccountSettings record {
     # When **true,** account users can set a tab order for the signing process.
     # 
@@ -551,7 +551,7 @@ public type AccountAddress record {
     Country[] supportedCountries?;
 };
 
-# 
+# Represents an external primary account that is linked to a user's account.
 public type LinkedExternalPrimaryAccount record {
     # The name on the account.
     string accountName?;
@@ -576,7 +576,7 @@ public type LinkedExternalPrimaryAccount record {
     string userId?;
 };
 
-# 
+# Represents the transaction status of an envelope in the DocuSign system.
 public type EnvelopeTransactionStatus record {
     # The envelope ID of the envelope status that failed to post.
     string envelopeId?;
@@ -616,7 +616,7 @@ public type RecipientSignatureProviderOptions record {
     PropertyMetadata smsMetadata?;
 };
 
-# 
+# Represents the responsive HTML configuration for a document
 public type DocumentResponsiveHtml record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
@@ -637,13 +637,13 @@ public type TemplateDocumentVisibility record {
     DocumentVisibility[] documentVisibility?;
 };
 
-# 
+# Represents the electronic seal providers for an account.
 public type AccountSealProviders record {
     # A list of electronic seals to apply to documents.
     SealIdentifier[] seals?;
 };
 
-# 
+# Represents the information related to a downgrade request
 public type DowngradeRequestInformation record {
     # 
     string downgradeRequestCreation?;
@@ -711,7 +711,7 @@ public type MergeField record {
     PropertyMetadata writeBackMetadata?;
 };
 
-# 
+# Represents the watermark settings for an account.
 public type AccountWatermarks record {
     # 
     string displayAngle?;
@@ -779,7 +779,7 @@ public type AccountWatermarks record {
     string watermarkText?;
 };
 
-# 
+# Represents the response from a bulk process operation.
 public type BulkProcessResponse record {
     # Identifier used to query the status of an individual bulk recipient batch.
     string batchId?;
@@ -797,7 +797,7 @@ public type BulkProcessResponse record {
     string totalQueued?;
 };
 
-# 
+# Represents the display settings for a collapsible section in a smart document.
 public type SmartSectionCollapsibleDisplaySettings record {
     # Indicates the direction of the disclosure arrow
     # when the collapsible section is in the closed state.
@@ -846,7 +846,7 @@ public type SmartSectionCollapsibleDisplaySettings record {
     string outerLabelAndArrowStyle?;
 };
 
-# 
+# Represents the types of credit cards that are supported.
 public type CreditCardTypes record {
     # An array containing supported credit card types.
     string[] cardTypes?;
@@ -876,7 +876,7 @@ public type PermissionProfileInformation record {
     PermissionProfile[] permissionProfiles?;
 };
 
-# 
+# Represents the authentication requirements for an external primary account recipient.
 public type ExternalPrimaryAccountRecipientAuthRequirements record {
     # If a value is provided, the recipient must enter the value as the access code to view and sign the envelope. 
     # 
@@ -904,7 +904,7 @@ public type ChunkedUploadPart record {
     string size?;
 };
 
-# 
+# Represents a province.
 public type Province record {
     # 
     string isoCode?;
@@ -1094,7 +1094,7 @@ public type AccountBillingPlan record {
     string taxExemptId?;
 };
 
-# 
+# Represents a list of notary journals.
 public type NotaryJournalList record {
     # The last index position in the result set. 
     string endPosition?;
@@ -1132,7 +1132,7 @@ public type CustomFields record {
     TextCustomField[] textCustomFields?;
 };
 
-# 
+# Represents the pricing information for billing.
 public type BillingPrice record {
     # Reserved for DocuSign.
     string beginQuantity?;
@@ -1142,7 +1142,7 @@ public type BillingPrice record {
     string unitPrice?;
 };
 
-# 
+# Represents the result of a user's social ID query.
 public type UserSocialIdResult record {
     # Contains properties that map a DocuSign user to a social account such as Facebook or Yahoo.
     SocialAccountInformation[] socialAccountInformation?;
@@ -1152,7 +1152,7 @@ public type UserSocialIdResult record {
     string userId?;
 };
 
-# 
+# Represents a notary journal.
 public type NotaryJournals record {
     # The creation date of the account in UTC timedate format.
     string createdDate?;
@@ -2066,7 +2066,7 @@ public type FormulaTab record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents a collection of logs related to Connect.
 public type ConnectLogs record {
     # An array of containing failure information from the Connect failure log.
     ConnectLog[] failures?;
@@ -2112,7 +2112,7 @@ public type UserCustomSettings record {
     NameValue[] customSettings?;
 };
 
-# 
+# Represents provisioning information for an account.
 public type ProvisioningInformation record {
     # 
     string defaultConnectionId?;
@@ -2130,7 +2130,7 @@ public type ProvisioningInformation record {
     string purchaseOrderOrPromAllowed?;
 };
 
-# 
+# Represents a request for a page.
 public type PageRequest record {
     # The user's encrypted password hash.
     string password?;
@@ -2463,7 +2463,7 @@ public type ConnectConfigurations record {
     string useSoapInterface?;
 };
 
-# 
+# Represents the minimum password length for an account.
 public type AccountMinimumPasswordLength record {
     # The maximum number of entry characters supported by the custom tab.
     string maximumLength?;
@@ -2484,7 +2484,7 @@ public type EnvelopeViews record {
     string url?;
 };
 
-# 
+# Represents a list of integrated user information.
 public type IntegratedUserInfoList record {
     # 
     string allUsersSelected?;
@@ -2510,7 +2510,7 @@ public type ContactUpdateResponse record {
     Contact[] contacts?;
 };
 
-# 
+# Represents the payment options for a signer.
 public type PaymentSignerValues record {
     # This property specifies how the signer's collected payment details will be used.
     # 
@@ -2735,7 +2735,7 @@ public type RecipientAdditionalNotification record {
     string secondaryDeliveryStatus?;
 };
 
-# 
+# Represents metadata about a tab.
 public type TabMetadata record {
     # An optional string that is used to auto-match tabs to strings located in the documents of an envelope.
     string anchor?;
@@ -3060,13 +3060,13 @@ public type GroupInformation record {
     string totalSetSize?;
 };
 
-# 
+# Represents the responsive HTML for a document.
 public type ResponsiveHtml record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
 };
 
-# 
+# Represents the response to a request for billing entity information.
 public type BillingEntityInformationResponse record {
     # The type of billing method on the account. Valid values are: 
     # 
@@ -3518,7 +3518,7 @@ public type Date record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents the type for a recipient's phone number.
 public type RecipientIdentityPhoneNumber record {
     # The numeric country calling code for the phone number. For example, the country calling code for the US and Canada is 1. For the UK, the country calling code is 44.
     # 
@@ -3541,7 +3541,7 @@ public type RecipientIdentityPhoneNumber record {
     PropertyMetadata numberMetadata?;
 };
 
-# 
+# Represents the type for a contact.
 public type Contact record {
     # The cloud service that provided the contact. Valid values are:
     # 
@@ -3867,7 +3867,7 @@ public type CertifiedDelivery record {
     string userId?;
 };
 
-# 
+# Represents metadata for an envelope.
 public type EnvelopeMetadata record {
     # Specifies if the Advanced Correct feature is enabled for the envelope. This feature enables you to correct the details of in process envelopes that you sent or are shared with you. It offers more functionality than the Correct feature.
     string allowAdvancedCorrect?;
@@ -3877,7 +3877,7 @@ public type EnvelopeMetadata record {
     string enableSignWithNotary?;
 };
 
-# 
+# Represents the type for a login account.
 public type LoginAccount record {
     # The account ID associated with the envelope.
     string accountId?;
@@ -3905,7 +3905,7 @@ public type LoginAccount record {
     string userName?;
 };
 
-# 
+# Represents the type for a recipient's domain.
 public type RecipientDomain record {
     # 
     string active?;
@@ -3917,7 +3917,7 @@ public type RecipientDomain record {
     string recipientDomainId?;
 };
 
-# 
+# Represents information about a social account.
 public type SocialAccountInformation record {
     # The users email address.
     string email?;

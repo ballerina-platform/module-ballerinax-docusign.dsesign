@@ -14,39 +14,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# 
+# Summarizes the results of an update operation on a template, including status of bulk envelopes, error details, lock information, purge state, recipient updates, tab updates, and custom field updates.
 public type TemplateUpdateSummary record {
-    # 
+    # Status of bulk envelope processing.
     BulkEnvelopeStatus bulkEnvelopeStatus?;
     # The envelope ID of the envelope status that failed to post.
     string envelopeId?;
-    # This object describes errors that occur. It is only valid for responses and ignored in requests.
+    # Describes errors that occur during the update operation.
     ErrorDetails errorDetails?;
-    # 
+    # Results of updates to list custom fields.
     ListCustomField[] listCustomFieldUpdateResults?;
-    # Envelope locks let you lock an envelope to prevent any changes while you are updating an envelope.
+    # Information about any locks on the envelope.
     EnvelopeLocks lockInformation?;
-    # Shows the current purge state for the envelope. Valid values:
-    # 
-    # - `unpurged`: There has been no successful request to purge documents.
-    # - `documents_queued`: The envelope documents have been added to the purge queue, but have not been purged.
-    # - `documents_dequeued`: The envelope documents have been taken out of the purge queue.
-    # - `documents_purged`: The envelope documents have been successfully purged.
-    # - `documents_and_metadata_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged.
-    # - `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
-    # - `documents_and_metadata_and_redact_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged, nor has personal information been redacted.
-    # - `documents_and_metadata_and_redact_purged`: The envelope documents and metadata have been successfully purged, and personal information has been redacted.
-    # 
-    # **Related topics**
-    # 
-    # - [Purging documents (eSingature Concepts)](/docs/esign-rest-api/esign101/concepts/documents/purging/)
-    # - [Purging documents in an envelope (blog post)](https://www.docusign.com/blog/developers/purging-documents-envelope)
+    # The current purge state of the envelope, indicating the status of document purging.
     string purgeState?;
-    # An array of `recipientUpdateResults` objects that contain details about the recipients.
+    # Results of updates to recipients within the envelope.
     RecipientUpdateResponse[] recipientUpdateResults?;
-    # All of the tabs associated with a recipient. Each property is a list of a type of tab.
+    # Results of updates to tabs for each recipient.
     EnvelopeRecipientTabs tabUpdateResults?;
-    # 
+    # Results of updates to text custom fields.
     TextCustomField[] textCustomFieldUpdateResults?;
 };
 
@@ -100,74 +86,19 @@ public type WorkspaceUser record {
     string workspaceUserUri?;
 };
 
-# 
-public type Comment record {
-    # The Guid of the envelope the comment thread belongs to.
-    string envelopeId?;
-    # Reserved for DocuSign.
-    string hmac?;
-    # The unique identifier for the comment.
-    string id?;
-    # An array of userIds that are mentioned directly in the body of a comment.
-    string[] mentions?;
-    # When **true,** indicates that the comment was read.
-    boolean read?;
-    # The email address of the user who created the comment.
-    string sentByEmail?;
-    # The full name of the user who created the comment.
-    string sentByFullName?;
-    # Reserved for DocuSign.
-    string sentByImageId?;
-    # The initials of the user who created the comment.
-    string sentByInitials?;
-    # The recipient ID of the user who created the comment.
-    string sentByRecipientId?;
-    # The user ID of the user who created the comment.
-    string sentByUserId?;
-    # The ID of the signing group that can view the comment or that created the comment.
-    string signingGroupId?;
-    # Optional. The name of the signing group. 
-    # 
-    # Maximum Length: 100 characters. 
-    string signingGroupName?;
-    # The subject of the envelope.
-    string subject?;
-    # The unique identifier for the tab that represents the comment thread.
-    string tabId?;
-    # The content of the comment, as UTF-8 text. 
-    # 
-    # Maximum Length: 500 characters.
-    # 
-    # **Note:** The maximum size allowed for the entire message body is 32 KB. 
-    string text?;
-    # The unique identifier for the comment thread.
-    string threadId?;
-    # The userId of the user who created the thread.
-    string threadOriginatorId?;
-    # The time the comment was created.
-    string timestamp?;
-    # The time the comment was created, formatted according to the format of the user who created the comment.
-    string timeStampFormatted?;
-    # The user IDs of the users that the comment is visible to.
-    string[] visibleTo?;
-};
-
-# 
+# Encapsulates the response containing a list of audit events associated with an envelope.
 public type EnvelopeAuditEventResponse record {
-    # Reserved for DocuSign.
+    # An array of audit events detailing the history of actions taken on an envelope.
     EnvelopeAuditEvent[] auditEvents?;
 };
 
-# 
+# Defines a group of signatures, including its identification and access rights.
 public type SignatureGroup record {
     # The ID of the group being accessed.
     string groupId?;
-    # The name of the group. The search_text provided in the call automatically performs a wild card search on group_name.
+    # The name of the group, which supports wild card search.
     string groupName?;
-    # Indicates whether the property is editable. Valid values are:
-    # 
-    # - `editable`
-    # - `read_only`
+    # Specifies the access rights for the group, such as 'editable' or 'read_only'.
     string rights?;
 };
 
@@ -219,11 +150,11 @@ public type Comments record {
     string[] visibleTo?;
 };
 
-# 
+# Represents a record for reserved domains.
 public type ReservedDomains record {
 };
 
-# 
+# Represents a list of user information, including an array of `userInfo` objects containing information about the users in the group.
 public type UserInfoList record {
     # An array of `userInfo` objects containing information about the users in the group.
     UserInfo[] users?;
@@ -1018,7 +949,7 @@ public type NameValue record {
     string value?;
 };
 
-# 
+# Represents an attachment associated with a recipient, including its metadata and content.
 public type RecipientAttachment record {
     # The unique identifier for the attachment.
     string attachmentId?;
@@ -1146,11 +1077,11 @@ public type UserSignatures record {
     string status?;
 };
 
-# 
+# Represents a form field used in bulk sending and document generation, including its name and value.
 public type BulksendingCopyDocGenFormField record {
-    # 
+    # The name of the form field.
     string name?;
-    # Specifies the value of the tab. 
+    # Specifies the value of the form field. 
     string value?;
 };
 
@@ -1178,7 +1109,7 @@ public type ContactModRequest record {
     Contact[] contactList?;
 };
 
-# 
+# Contains a summary of a new account, including its ID, name, authentication token, and URL for API calls.
 public type NewAccountSummary record {
     # The account ID associated with the envelope.
     string accountId?;
@@ -1188,7 +1119,7 @@ public type NewAccountSummary record {
     string accountName?;
     # Contains a token that can be used for authentication in API calls instead of using the user name and password.
     string apiPassword?;
-    # The URL that should be used for successive calls to this account. It includes the protocal (https), the DocuSign server where the account is located, and the account number. Use this Url to make API calls against this account. Many of the API calls provide Uri's that are relative to this baseUrl.
+    # The URL that should be used for successive calls to this account. It includes the protocol (https), the DocuSign server where the account is located, and the account number. Use this URL to make API calls against this account. Many of the API calls provide URIs that are relative to this baseUrl.
     string baseUrl?;
     # Information used to provide a preview of a billing plan.
     BillingPlanPreview billingPlanPreview?;
@@ -1363,7 +1294,7 @@ public type RecipientSignatureInformation record {
     string signatureName?;
 };
 
-# 
+# Represents a security step for identity verification, including the type of authorization used.
 public type IdCheckSecurityStep record {
     # Type of authorization used for the security check.
     string authType?;
@@ -1460,7 +1391,7 @@ public type RecipientUpdateResponse record {
     EnvelopeRecipientTabs tabs?;
 };
 
-# 
+# Contains information about a smart contract, including its code and URI.
 public type SmartContractInformation record {
     # Reserved for DocuSign.
     string code?;
@@ -1500,17 +1431,17 @@ public type EnvelopeRecipients record {
     Witness[] witnesses?;
 };
 
-# 
+# Represents an external folder and its properties, including pagination details for result sets.
 public type ExternalFolder record {
     # The last index position in the result set. 
     string endPosition?;
-    # 
+    # Details of errors that occur during external folder operations.
     ExternalDocServiceErrorDetails errorDetails?;
     # A unique ID for the Salesforce object.
     string id?;
     # If the tab is a list, this represents the values that are possible for the tab.
     ExternalFile[] items?;
-    # 
+    # The name of the external folder.
     string name?;
     # The URI for the next chunk of records based on the search request. It is `null` if this is the last set of results for the search. 
     string nextUri?;
@@ -1590,7 +1521,7 @@ public type BulkSendingCopyTab record {
     string tabLabel?;
 };
 
-# 
+# Represents an attachment associated with an envelope, including its properties.
 public type EnvelopeAttachment record {
     # Valid values are `sender` and `senderAndAllRecipients`.
     string accessControl?;
@@ -1603,9 +1534,9 @@ public type EnvelopeAttachment record {
     string attachmentType?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
-    # 
+    # The label associated with the attachment.
     string label?;
-    # 
+    # The name of the attachment.
     string name?;
 };
 
@@ -1854,19 +1785,19 @@ public type SenderEmailNotifications record {
     string withdrawnConsent?;
 };
 
-# 
+# Contains information about errors that occur during envelope publish transactions.
 public type EnvelopePublishTransactionErrorRollup record {
     # The maximum number of results to return.
     string count?;
-    # 
+    # The type of error that occurred during the transaction.
     string errorType?;
 };
 
-# 
+# Represents a response containing folder information and related properties.
 public type FoldersResponse record {
     # The last index position in the result set. 
     string endPosition?;
-    # 
+    # An array of envelope summary objects.
     EnvelopeSummary[] envelopes?;
     # A list of folder objects.
     Folder[] folders?;
@@ -1882,7 +1813,7 @@ public type FoldersResponse record {
     string totalSetSize?;
 };
 
-# 
+# Contains information about a lock placed on an envelope or template.
 public type LockInformation record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
@@ -1890,7 +1821,7 @@ public type LockInformation record {
     string lockDurationInSeconds?;
     # The human-readable name of the application that is locking the envelope or template. This value displays to the user in error messages when lock conflicts occur.
     string lockedByApp?;
-    # 
+    # Information about the user who placed the lock.
     UserInfo lockedByUser?;
     # The date and time that the lock expires.
     string lockedUntilDateTime?;
@@ -1914,13 +1845,13 @@ public type TemplateDocumentFields record {
     NameValue[] documentFields?;
 };
 
-# 
+# Represents electronic seals to apply to documents within an account.
 public type AccountSeals record {
     # A list of electronic seals to apply to documents.
     SealIdentifier[] seals?;
 };
 
-# 
+# Represents a URL to the Review ID page.
 public type ViewUrl record {
     # URL to the Review ID page.
     string url?;
@@ -2652,7 +2583,7 @@ public type EnvelopeEvent record {
     string includeDocuments?;
 };
 
-# 
+# Contains information about a recipient's Social Security Number (SSN) input.
 public type Ssn9InformationInput record {
     # Specifies the display level for the recipient. Valid values are:
     # * `ReadOnly`
@@ -2849,13 +2780,13 @@ public type EnvelopeConsumerDisclosures record {
     string withdrawState?;
 };
 
-# 
+# Properties for generating responsive-formatted HTML for a document 
 public type TemplateDocumentHtmlDefinitions record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
 };
 
-# 
+# Details for generating the responsive HTML. 
 public type DocumentHtmlDefinitionOriginal record {
     # Specifies the document ID number that the tab is placed on. This must refer to an existing Document's ID attribute.
     string documentId?;
@@ -2867,7 +2798,7 @@ public type DocumentHtmlDefinitionOriginal record {
     DocumentHtmlDefinition htmlDefinition?;
 };
 
-# 
+# Capture and manage recipient information for document signing processes. 
 public type Participant record {
     # If a value is provided, the recipient must enter the value as the access code to view and sign the envelope. 
     # 
@@ -3121,7 +3052,8 @@ public type ApiRequestLogsResult record {
     ApiRequestLog[] apiRequestLogs?;
 };
 
-# 
+# Properties related to payment gateway settings
+# such as apiFields, authorizationCode, credentialStatus, and merchantId 
 public type PaymentGatewayAccountSetting record {
     # 
     string apiFields?;
@@ -3133,7 +3065,7 @@ public type PaymentGatewayAccountSetting record {
     string merchantId?;
 };
 
-# 
+# Capture information about the purchase of envelopes for a client application.
 public type PurchasedEnvelopesInformation record {
     # The total amount of the purchase.
     string amount?;
@@ -3328,7 +3260,7 @@ public type AddressInformation record {
     string zipPlus4?;
 };
 
-# 
+# Properties representing various client URLs for different recipient actions, 
 public type RecipientTokenClientURLs record {
     # 
     string onAccessCodeFailed?;
@@ -3352,7 +3284,7 @@ public type RecipientTokenClientURLs record {
     string onViewingComplete?;
 };
 
-# 
+# Properties related to folder items response
 public type FolderItemsResponse record {
     # The last index position in the result set. 
     string endPosition?;
@@ -3403,7 +3335,8 @@ public type DocGenFormField record {
     string value?;
 };
 
-# 
+# Properties for specifying expiration settings, user's encrypted password hash, 
+# reminder settings, and a flag to indicate whether to use account default notification settings. 
 public type TemplateNotificationRequest record {
     # A complex element that specifies the expiration settings for the envelope. When an envelope expires, it is voided and no longer available for signing. **Note:** there is a short delay between when the envelope expires and when it is voided.
     Expirations expirations?;
@@ -3415,7 +3348,8 @@ public type TemplateNotificationRequest record {
     string useAccountDefaults?;
 };
 
-# 
+# Properties related to a bulk processing list 
+# such as bulkProcessListId, createdByUser, createdDate, and name.
 public type BulkProcessingListSummary record {
     # 
     string bulkProcessListId?;
@@ -3435,7 +3369,7 @@ public type ErrorDetails record {
     string message?;
 };
 
-# 
+# Represents the type definition for an Envelope
 public type Envelope record {
     # Reserved for DocuSign.
     string accessControlListBase64?;
@@ -3744,7 +3678,7 @@ public type EnvelopeAttachments record {
     string name?;
 };
 
-# 
+# List of Name/Value pair information for user custom settings 
 public type CustomSettingsInformation record {
     # The name/value pair information for the user custom setting.
     NameValue[] customSettings?;
@@ -3758,7 +3692,7 @@ public type PowerFormData record {
     PowerFormFormDataRecipient[] recipients?;
 };
 
-# 
+# Includes a token for API authentication and a list of accounts that the authenticating user is a member of.
 public type LoginInformation record {
     # Contains a token that can be used for authentication in API calls instead of using the user name and password. Only returned if the `api_password=true` query string is added to the URL.
     string apiPassword?;
@@ -3766,7 +3700,7 @@ public type LoginInformation record {
     LoginAccount[] loginAccounts?;
 };
 
-# 
+# Contains properties for authentication URL, error code, and error message. 
 public type ExternalDocServiceErrorDetails record {
     # Reserved for DocuSign.
     string authenticationUrl?;
@@ -4387,7 +4321,7 @@ public type EnvelopeRecipientTabs record {
     Zip[] zipTabs?;
 };
 
-# 
+# Captures information about custom Connect configurations, including the configuration type, ID, enabled status, access, and sender searchable items. 
 public type ConnectUserObject record {
     # The type of custom Connect configuration being accessed.
     string configurationtype?;
@@ -4806,7 +4740,7 @@ public type Services record {
     ServiceVersion[] serviceVersions?;
 };
 
-# 
+# Contains information about jurisdictions, including authorization for electronic and remote online notarization, jurisdiction ID, and jurisdiction name. 
 public type JurisdictionSummary record {
     # 
     string authorizedForIPen?;
@@ -4845,7 +4779,7 @@ public type JurisdictionSummary record {
     string jurisdictionName?;
 };
 
-# 
+# Includes properties for a base message and additional information.
 public type AdminMessage record {
     # 
     string baseMessage?;
@@ -5712,7 +5646,7 @@ public type PowerForm record {
     string usesRemaining?;
 };
 
-# 
+# Captures details about bulk envelope transactions.
 public type BulkEnvelope record {
     # The row of the recipient in the CSV file used to create the bulk recipient list.
     string bulkRecipientRow?;
@@ -5738,7 +5672,7 @@ public type BulkEnvelope record {
     string transactionId?;
 };
 
-# 
+# Contains properties for connect debugging logs
 public type ConnectDebugLog record {
     # The name of the Connect configuration.
     string connectConfig?;
@@ -5776,15 +5710,15 @@ public type ConnectOAuthConfig record {
     string scope?;
 };
 
-# 
+# Represents the data of a recipient in a PowerForm.
 public type PowerFormFormDataRecipient record {
-    # 
+    # The email address of the recipient.
     string email?;
-    # 
+    # The form data associated with the recipient.
     NameValue[] formData?;
     # The name of the recipient.
     string name?;
-    # Unique for the recipient. It is used by the tab element to indicate which recipient is to sign the Document.
+    # The unique identifier for the recipient. This is used by the tab element to indicate which recipient is to sign the document.
     string recipientId?;
 };
 
@@ -6151,7 +6085,7 @@ public type WorkspaceList record {
     Workspace[] workspaces?;
 };
 
-# 
+# Represents a record containing a list of changes to the BCC email archive configuration.
 public type BccEmailArchiveHistoryList record {
     # A list of changes to the BCC email archive configuration.
     BccEmailArchiveHistory[] bccEmailArchiveHistory?;
@@ -6235,7 +6169,7 @@ public type ConnectLog record {
     string userName?;
 };
 
-# 
+# Represents a signature user with their associated properties.
 public type SignatureUserDef record {
     # Boolean that specifies whether the signature is the default signature for the user.
     string isDefault?;
@@ -6250,13 +6184,16 @@ public type SignatureUserDef record {
     string userId?;
 };
 
+# Represents a template match.
 # 
+# A template match contains information about the matching percentage, 
+# document start page, and document end page.
 public type TemplateMatch record {
-    # 
+    # The end page of the document where the template was matched.
     string documentEndPage?;
-    # 
+    # The start page of the document where the template was matched.
     string documentStartPage?;
-    # 
+    # The percentage of the template that was matched.
     string matchPercentage?;
 };
 
@@ -6363,42 +6300,40 @@ public type TabsBlob record {
     SettingsMetadata textTabsMetadata?;
 };
 
-# 
+# Represents information about user signatures.
 public type UserSignaturesInformation record {
-    # An array of  `userSignature` objects.
+    # An array of `userSignature` objects.
     UserSignature[] userSignatures?;
 };
 
-# 
+# Represents the response for a downgrade plan update.
 public type DowngradePlanUpdateResponse record {
     # The type of payment method used for the account. Valid values are:
-    # 
     # - `credit_card`
-    # - 
     string accountPaymentMethod?;
-    # 
+    # The discount applied to the account.
     string discountApplied?;
-    # 
+    # The effective date of the downgrade.
     string downgradeEffectiveDate?;
-    # 
+    # The payment cycle for the downgrade.
     string downgradePaymentCycle?;
-    # 
+    # The ID of the downgrade plan.
     string downgradePlanId?;
-    # 
+    # The name of the downgrade plan.
     string downgradePlanName?;
-    # 
+    # The status of the downgrade request.
     string downgradeRequestStatus?;
-    # 
+    # Additional message related to the downgrade.
     string message?;
     # The Product ID from the AppStore.
     string productId?;
-    # 
+    # The promo code applied to the downgrade.
     string promoCode?;
-    # 
+    # The discount applied to the sale.
     string saleDiscount?;
     # Reserved for DocuSign.
     string saleDiscountPeriods?;
-    # 
+    # The type of discount applied to the sale.
     string saleDiscountType?;
 };
 
@@ -6764,13 +6699,13 @@ public type CreditCardInformation record {
     string tokenizedCard?;
 };
 
-# 
+# Represents the configuration for a mobile notifier.
 public type MobileNotifierConfiguration record {
-    # 
+    # The unique identifier of the device.
     string deviceId?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
-    # The Platform of the client application
+    # The platform of the client application.
     string platform?;
 };
 
@@ -7099,7 +7034,7 @@ public type BrandLogos record {
     string secondary?;
 };
 
-# 
+# Represents the LocalePolicy record type which contains settings related to locale and formatting.
 public type LocalePolicy record {
     # Specifies the address format. Valid values:
     # 
@@ -7542,13 +7477,15 @@ public type LocalePolicy record {
     SettingsMetadata timeZoneMetadata?;
 };
 
-# 
+# Represents an input option for account identity.
 public type AccountIdentityInputOption record {
-    # 
+    # Specifies whether the input option is required.
     boolean isRequired?;
-    # 
+
+    # Specifies the name of the input option.
     string optionName?;
-    # 
+
+    # Specifies the value type of the input option.
     string valueType?;
 };
 
@@ -7594,9 +7531,9 @@ public type AccountBillingPlanResponse record {
     string taxExemptId?;
 };
 
-# 
+# Represents the prefill form data for a DocuSign envelope.
 public type PrefillFormData record {
-    # 
+    # Array of form data items.
     FormDataItem[] formData?;
     # The sender's email address.
     string senderEmail?;

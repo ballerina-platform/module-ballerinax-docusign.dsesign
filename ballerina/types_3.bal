@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# 
+# Represents an option in a form field for document generation.
 public type DocGenFormFieldOption record {
     # A sender-defined description of the line item.
     string description?;
@@ -26,7 +26,7 @@ public type DocGenFormFieldOption record {
     string value?;
 };
 
-# 
+# Represents the contact details of a notary.
 public type NotaryContactDetails record {
     # 
     string hasDocusignCertificate?;
@@ -98,9 +98,9 @@ public type EnvelopeDocuments record {
     string envelopeId?;
 };
 
-# 
+# Represents the response from a request to delete user authorizations.
 public type UserAuthorizationsDeleteResponse record {
-    # 
+    # the status of a user authorization deletion operation.
     UserAuthorizationIdWithStatus[] results?;
 };
 
@@ -715,7 +715,7 @@ public type EnvelopeNotificationRequest record {
     string useAccountDefaults?;
 };
 
-# 
+# Represents the name of a sender.
 public type SenderName record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
     # 
@@ -1042,7 +1042,7 @@ public type SenderName record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents the result of a bulk process.
 public type BulkProcessResult record {
     # 
     BulkSendBatchError[] errors?;
@@ -1082,7 +1082,7 @@ public type EnvelopePublish record {
     string submittedForPublishingEnvelopeCount?;
 };
 
-# 
+# Represents the diagnostics settings information.
 public type DiagnosticsSettingsInformation record {
     #  When **true,** enables API request logging for the user. 
     string apiRequestLogging?;
@@ -1098,17 +1098,17 @@ public type SigningGroupUsers record {
     SigningGroupUser[] users?;
 };
 
-# 
+# Represents a user authorization with its status.
 public type UserAuthorizationWithStatus record {
     # A complex object describing a user authorization.
     UserAuthorization authorization?;
-    # 
+    # Any error message related to the user authorization.
     string errorMessage?;
-    # 
+    # Indicates whether the operation was successful or not.
     string success?;
 };
 
-# 
+# Represents information about a user.
 public type UserInfo record {
     # The account ID associated with the envelope.
     string accountId?;
@@ -1146,7 +1146,7 @@ public type UserInfo record {
     string userType?;
 };
 
-# 
+# Represents the type for an authorization user.
 public type AuthorizationUser record {
     # The account ID.
     string accountId?;
@@ -2944,9 +2944,78 @@ public type Approve record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
-public type CommentHistoryResult record {
-    # An array of comment tabs that contain information about users' comments on documents.
+# An array of comment tabs that contain information about users' comments on documents.
+public type Comment record {
+    # The unique identifier for the tab.
+    string tabId?;
+    # Metadata about a property.
+    PropertyMetadata tabIdMetadata?;
+    # The label associated with the tab. This value may be an empty string.
+    # If no value is provided, the tab type is used as the value.
+    # 
+    # Maximum Length: 500 characters.
+    string tabLabel?;
+    # Metadata about a property.
+    PropertyMetadata tabLabelMetadata?;
+    # A positive integer that sets the order the tab is navigated to during signing.
+    # 
+    # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
+    string tabOrder?;
+    # Metadata about a property.
+    PropertyMetadata tabOrderMetadata?;
+    # Indicates the type of tab (for example, `signHere` or `initialHere`).
+    string tabType?;
+    # Metadata about a property.
+    PropertyMetadata tabTypeMetadata?;
+    # When **true,** the sender cannot change any attributes of the recipient. Used only when working with template recipients. 
+    string templateLocked?;
+    # Metadata about a property.
+    PropertyMetadata templateLockedMetadata?;
+    # When **true,** the sender may not remove the recipient. Used only when working with template recipients.
+    string templateRequired?;
+    # Metadata about a property.
+    PropertyMetadata templateRequiredMetadata?;
+    # **Note:** Approve tabs never display this tooltip in the signing interface.
+    # 
+    # Although you can technically set a value via the API for this tab,
+    # it will not be displayed to the recipient.
+    string tooltip?;
+    # Metadata about a property.
+    PropertyMetadata toolTipMetadata?;
+    # When **true,** the information in the tab is underlined.
+    string underline?;
+    # Metadata about a property.
+    PropertyMetadata underlineMetadata?;
+    # The width of the tab in pixels.
+    # Must be an integer.
+    string width?;
+    # Metadata about a property.
+    PropertyMetadata widthMetadata?;
+    # This property indicates the horizontal offset of the object on the page.
+    # DocuSign uses 72 DPI when determining position.
+    # Required. Must be an integer. May be zero.
+    # 
+    # To improve the tab's position on the document,
+    # DocuSign recommends
+    # adjusting `xPosition`
+    # and `yPosition`
+    # coordinates
+    # by (-3, -2)
+    string xPosition?;
+    # Metadata about a property.
+    PropertyMetadata xPositionMetadata?;
+    # This property indicates the vertical offset of the object on the page.
+    # DocuSign uses 72 DPI when determining position.
+    # Required. Must be an integer. May be zero.
+    # 
+    # To improve the tab's position on the document,
+    # DocuSign recommends
+    # adjusting `xPosition`
+    # and `yPosition`
+    # coordinates
+    # by (-3, -2)
+    string yPosition?;
+    # Metadata    # An array of comment tabs that contain information about users' comments on documents.
     Comment[] comments?;
     # The maximum number of results to return.
     int:Signed32 count?;
@@ -2976,7 +3045,7 @@ public type ConnectSalesforceField record {
     string sfLockedValue?;
 };
 
-# 
+# Represents the HTML definitions for an envelope
 public type EnvelopeHtmlDefinitions record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
@@ -3000,15 +3069,15 @@ public type DocumentResponsiveHtmlPreview record {
     string[] htmlDefinitions?;
 };
 
-# 
+# Represents a request to ask an admin.
 public type AskAnAdmin record {
-    # 
+    # The email address of the requester.
     string email?;
-    # 
+    # The message sent by the requester.
     string message?;
-    # 
+    # The name of the requester.
     string name?;
-    # 
+    # The phone number of the requester.
     string phone?;
 };
 
@@ -3026,7 +3095,7 @@ public type MemberSharedItems record {
     UserInfo user?;
 };
 
-# 
+# Represents a form data item.
 public type FormDataItem record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
@@ -3034,9 +3103,9 @@ public type FormDataItem record {
     string listSelectedValue?;
     # The name of the form field.
     string name?;
-    # 
+    # The numerical value associated with the form field.
     string numericalValue?;
-    # 
+    # The original numerical value associated with the form field.
     string originalNumericalValue?;
     # The initial value associated with the form field.
     string originalValue?;
@@ -3157,7 +3226,7 @@ public type AccountInformation record {
     boolean useDisplayAppliance?;
 };
 
-# 
+# Represents a record type that contains an array of summary that provides basic information about a bulk send list that belongs to the current user.
 public type BulkProcessingListSummaries record {
     # An array of `bulkSendingListSummary` objects where each summary provides basic information about a bulk send list that belongs to the current user.
     BulkProcessingListSummary[] bulkListSummaries?;
@@ -3211,7 +3280,7 @@ public type ListItem record {
     PropertyMetadata valueMetadata?;
 };
 
-# 
+# Represents the anchor position of a smart section in a document.
 public type SmartSectionAnchorPosition record {
     # Specifies the page number on which the tab is located.
     int:Signed32 pageNumber?;
@@ -3225,9 +3294,9 @@ public type SmartSectionAnchorPosition record {
     decimal yPosition?;
 };
 
-# 
+# Represents the type for user authorizations.
 public type UserAuthorizations record {
-    # 
+    # An array of user authorizations.
     UserAuthorization[] authorizations?;
     # The last index position in the result set. 
     string endPosition?;
@@ -3590,17 +3659,17 @@ public type TemplateRecipientTabs record {
     Zip[] zipTabs?;
 };
 
-# 
+# Represents a summary of billing invoices.
 public type BillingInvoicesSummary record {
-    # 
+    # The account balance.
     string accountBalance?;
-    # Reserved for DocuSign.
+    # An array of billing invoices.
     BillingInvoice[] billingInvoices?;
-    # The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code.
+    # The currency code for the billing invoices.
     string currencyCode?;
-    # 
+    # The past due balance.
     string pastDueBalance?;
-    # 
+    # Indicates whether payment is allowed.
     string paymentAllowed?;
 };
 
@@ -4349,7 +4418,7 @@ public type RecipientOption record {
     string signingGroupId?;
 };
 
-# 
+# Represents information about a payment processor.
 public type PaymentProcessorInformation record {
     # Contains address information.
     AddressInformation address?;
@@ -4387,7 +4456,7 @@ public type EnvelopeTransferRule record {
     UserInformation toUser?;
 };
 
-# 
+# Represents the graphics context for an overlay.
 public type GraphicsContext record {
     # The fill color to use for the overlay. Colors are typically specified by their RGB hex values, but you can also use a [friendly CSS color name](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
     string fillColor?;
@@ -5263,11 +5332,11 @@ public type UserAuthorizationCreateRequestWithId record {
     string startDate?;
 };
 
-# 
+# Represents a validation rule for a document generation form field.
 public type DocGenFormFieldValidation record {
-    # 
+    # The error message to be displayed if the validation fails.
     string errorMessage?;
-    # 
+    # The expression used to validate the form field value.
     string expression?;
 };
 
@@ -5295,7 +5364,7 @@ public type SigningGroup record {
     SigningGroupUser[] users?;
 };
 
-# 
+# Represents an envelope with custom fields.
 public type CustomFieldsEnvelope record {
     # An array of list custom fields.
     ListCustomField[] listCustomFields?;
@@ -5614,10 +5683,9 @@ public type Agent record {
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     string userId?;
 };
-
-# 
+# Represents the resource information.
 public type ResourceInformation record {
-    # 
+    # The list of name-value pairs representing the resources.
     NameValue[] resources?;
 };
 

@@ -182,7 +182,7 @@ public type EventNotification record {
     string useSoapInterface?;
 };
 
-# 
+# Represents the type for user's signature definition.
 public type UserSignatureDefinition record {
     # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
     # 
@@ -271,7 +271,7 @@ public type UserAuthorization record {
     string startDate?;
 };
 
-# 
+# Represents a set of page images.
 public type PageImages record {
     # The last index position in the result set. 
     string endPosition?;
@@ -289,7 +289,7 @@ public type PageImages record {
     string totalSetSize?;
 };
 
-# 
+# Represents the type for a smart section in a document.
 public type SmartSection record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
     # 
@@ -603,7 +603,7 @@ public type ForgottenPasswordInformation record {
     string forgottenPasswordQuestion4?;
 };
 
-# 
+# Represents a list of user information in an integrated connect system.
 public type IntegratedConnectUserInfoList record {
     # The last index position in the result set. 
     string endPosition?;
@@ -831,11 +831,11 @@ public type BillingInvoicesResponse record {
     string previousUri?;
 };
 
-# 
+# Represents metadata about a feature's availability.
 public type FeatureAvailableMetadata record {
-    # 
+    # the status of the feature's availability.
     string availabilty?;
-    # 
+    # the name of the feature.
     string featureName?;
 };
 
@@ -1233,9 +1233,9 @@ public type RecipientSMSAuthentication record {
     PropertyMetadata senderProvidedNumbersMetadata?;
 };
 
-# 
+# Represents information about the configuration of mobile notifiers.
 public type MobileNotifierConfigurationInformation record {
-    # 
+    # the configurations for different mobile notifiers.
     MobileNotifierConfiguration[] mobileNotifierConfigurations?;
 };
 
@@ -1598,10 +1598,10 @@ public type BillingChargeResponse record {
     BillingCharge[] billingChargeItems?;
 };
 
-# 
+# Represents information about the audit events of an envelope.
 public type EnvelopeAuditEvent record {
-    # 
-    NameValue[] eventFields?;
+    # The fields related to different audit events. 
+    NameValue[] eventFields?; 
 };
 
 # Numerical tabs provide robust display and validation features,
@@ -2221,7 +2221,7 @@ public type Notification record {
     string useAccountDefaults?;
 };
 
-# 
+# Represents the type for a notary recipient in a transaction.
 public type NotaryRecipient record {
     # If a value is provided, the recipient must enter the value as the access code to view and sign the envelope. 
     # 
@@ -2542,7 +2542,7 @@ public type NotaryRecipient record {
     string userId?;
 };
 
-# 
+# Represents a transaction for publishing an envelope.
 public type EnvelopePublishTransaction record {
     # 
     string applyConnectSettings?;
@@ -2577,19 +2577,19 @@ public type EnvelopePublishTransaction record {
     string submittedForPublishingEnvelopeCount?;
 };
 
-# 
+# Represents social authentication information.
 public type SocialAuthentication record {
     # Reserved for DocuSign.
     string authentication?;
 };
 
-# 
+# Represents information about templates.
 public type TemplateInformation record {
     # An array of `templateSummary` objects that contain information about templates.
     TemplateSummary[] templates?;
 };
 
-# 
+# Represents a template for an envelope.
 public type EnvelopeTemplate record {
     # Reserved for DocuSign.
     string accessControlListBase64?;
@@ -3319,7 +3319,7 @@ public type NewUser record {
     string userStatus?;
 };
 
-# 
+# Represents a shared folder item.
 public type FolderSharedItem record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
@@ -3378,7 +3378,7 @@ public type CaptiveRecipient record {
     string userName?;
 };
 
-# 
+# Represents a match box in a document.
 public type MatchBox record {
     # The height of the tab in pixels.
     # Must be an integer.
@@ -3399,25 +3399,25 @@ public type MatchBox record {
     string yPosition?;
 };
 
-# 
+# Represents the results of a failed connection.
 public type ConnectFailureResults record {
     # Details about a Connect failure result.
     ConnectFailureResult[] retryQueue?;
 };
 
-# 
+# Represents the strength type of an account password.
 public type AccountPasswordStrengthType record {
     # An array of option strings supported by this setting.
     AccountPasswordStrengthTypeOption[] options?;
 };
 
-# 
+# Represents a request to attach files to an envelope.
 public type EnvelopeAttachmentsRequest record {
     # An object that contains information about the attachment.
     Attachment[] attachments?;
 };
 
-# 
+# Represents a group of tabs in a document
 public type TabGroup record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
     # 
@@ -3694,13 +3694,13 @@ public type TabGroup record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents a collection of comments to be published.
 public type CommentsPublish record {
     # 
     CommentPublish[] commentsToPublish?;
 };
 
-# 
+# Represents a summary of an envelope update.
 public type EnvelopeUpdateSummary record {
     # 
     BulkEnvelopeStatus bulkEnvelopeStatus?;
@@ -3748,9 +3748,9 @@ public type EventResult record {
     string vendorFailureStatusCode?;
 };
 
-# 
+# Represents a response containing form data from PowerForms.
 public type PowerFormsFormDataResponse record {
-    # 
+    # an array of envelopes containing form data.
     PowerFormFormDataEnvelope[] envelopes?;
 };
 
@@ -4372,7 +4372,7 @@ public type BillingPlanUpdateResponse record {
     string planName?;
 };
 
-# 
+# Represents custom data strings to be added to a document.
 public type DocumentFieldsInformation record {
     # The array of name/value custom data strings to be added to a document. Custom document field information is returned in the status, but otherwise is not used by DocuSign. The array contains the elements: 
     # 
@@ -4450,7 +4450,7 @@ public type ContactGetResponse record {
     string totalSetSize?;
 };
 
-# 
+# Represents the input information for the last four digits of a recipient's Social Security Number (SSN).
 public type Ssn4InformationInput record {
     # Specifies the display level for the recipient. Valid values are:
     # * `ReadOnly`
@@ -5004,7 +5004,7 @@ public type PaymentGatewayAccountsInfo record {
     PaymentGatewayAccount[] paymentGatewayAccounts?;
 };
 
-# 
+# Represents an item in the favorite templates content.
 public type FavoriteTemplatesContentItem record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
@@ -5410,7 +5410,7 @@ public type DocGenFormFieldResponse record {
     ErrorDetails errorDetails?;
 };
 
-# 
+# Represents an envelope containing form data from PowerForms.
 public type PowerFormFormDataEnvelope record {
     # The envelope ID of the envelope status that failed to post.
     string envelopeId?;
@@ -5453,7 +5453,7 @@ public type BillingInvoiceItem record {
     string unitPrice?;
 };
 
-# 
+# Represents the tabs in a template.
 public type TemplateTabs record {
     # A list of
     # [Approve tabs][approve].
@@ -5800,7 +5800,7 @@ public type TemplateTabs record {
     Zip[] zipTabs?;
 };
 
-# 
+# Represents a comment that is published.
 public type CommentPublish record {
     # A unique ID for the Salesforce object.
     string id?;
@@ -5816,13 +5816,13 @@ public type CommentPublish record {
     string[] visibleTo?;
 };
 
-# 
+# Represents information about a signing group.
 public type SigningGroupInformation record {
     # A collection group objects containing information about the groups.
     SigningGroup[] groups?;
 };
 
-# 
+# Represents the definition of an account signature.
 public type AccountSignatureDefinition record {
     # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
     # 

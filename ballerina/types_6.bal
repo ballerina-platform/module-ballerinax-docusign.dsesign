@@ -14,19 +14,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# 
+# Represents the information required for downgrading a billing plan.
 public type DowngradeBillingPlanInformation record {
-    # 
+    # The type of downgrade event.
     string downgradeEventType?;
     # An object used to identify the features and attributes of the account being created.
     PlanInformation planInformation?;
-    # 
+    # The promotional code for the downgrade.
     string promoCode?;
-    # 
+    # The discount applied for the downgrade.
     string saleDiscount?;
-    # Reserved for DocuSign.
+    # The number of periods the discount is applied for.
     string saleDiscountPeriods?;
-    # 
+    # The type of discount applied for the downgrade.
     string saleDiscountType?;
 };
 
@@ -427,7 +427,7 @@ public type BulkSendingCopy record {
     BulkSendingCopyRecipient[] recipients?;
 };
 
-# 
+# Represents an inline template used in the DocuSign API.
 public type InlineTemplate record {
     # An `accountCustomField` is an envelope custom field that you set at the account level.
     # Applying custom fields enables account administrators to group and manage envelopes.
@@ -454,14 +454,13 @@ public type AddressInformationInput record {
     # A Boolean value that specifies whether the information must be returned in the response.
     string receiveInResponse?;
 };
-
-# 
+# Represents a record for bulk processing lists.
 public type BulkProcessingLists record {
-    # 
+    # The list of bulk process list IDs.
     string[] bulkProcessListIds?;
 };
 
-# 
+# Represents a conditional recipient rule filter used in DocuSign integration.
 public type ConditionalRecipientRuleFilter record {
     # How the tab value is compared to the `value` property. Valid values:
     # 
@@ -502,9 +501,9 @@ public type ConditionalRecipientRuleFilter record {
     string value?;
 };
 
-# 
+# Represents the response containing user authorizations.
 public type UserAuthorizationsResponse record {
-    # 
+    # The list of user authorizations with their status.
     UserAuthorizationWithStatus[] results?;
 };
 
@@ -610,15 +609,15 @@ public type BillingPlanInformation record {
     string taxExemptId?;
 };
 
-# 
+# Represents the account password lockout duration in minutes.
 public type AccountPasswordLockoutDurationMinutes record {
-    # 
+    # The maximum number of minutes for the lockout duration. This field is optional.
     string maximumMinutes?;
-    # 
+    # The minimum number of minutes for the lockout duration. This field is optional.
     string minimumMinutes?;
 };
 
-# 
+# Represents information about bulk sending envelopes.
 public type BulkSendEnvelopesInfo record {
     # When **true,** marks all of the documents in the envelope as authoritative copies.
     # 
@@ -650,21 +649,21 @@ public type BulkSendEnvelopesInfo record {
     string voided?;
 };
 
-# 
+# Represents a document template in DocuSign.
 public type DocumentTemplate record {
-    # 
+    # Specifies the page number where the document ends.
     string documentEndPage?;
-    # Specifies the document ID number that the tab is placed on. This must refer to an existing Document's ID attribute.
+    # Specifies the ID of the document that the tab is placed on. This ID must refer to an existing document.
     string documentId?;
-    # 
+    # Specifies the page number where the document starts.
     string documentStartPage?;
-    # This object describes errors that occur. It is only valid for responses and ignored in requests.
+    # Describes any errors that occur. This field is only valid for responses and is ignored in requests.
     ErrorDetails errorDetails?;
     # The unique identifier of the template. If this is not provided, DocuSign generates an error and the call fails.
     string templateId?;
 };
 
-# 
+# Represents the definition of a new account.
 public type NewAccountDefinition record {
     # The account name for the new account.
     string accountName?;
@@ -722,7 +721,7 @@ public type WorkspaceSettings record {
     string commentsAllowed?;
 };
 
-# 
+# Represents the account password minimum password age days.
 public type AccountPasswordMinimumPasswordAgeDays record {
     # 
     string maximumAge?;
@@ -730,12 +729,12 @@ public type AccountPasswordMinimumPasswordAgeDays record {
     string minimumAge?;
 };
 
-# 
+# Represents the response for a downgrade request billing information.
 public type DowngradRequestBillingInfoResponse record {
-    # 
+    # The response containing the downgrade plan information.
     DowngradePlanUpdateResponse downgradePlanInformation?;
+
     # The payment method used for the billing plan. Valid values are:
-    # 
     # - `NotSupported`
     # - `CreditCard`
     # - `PurchaseOrder`
@@ -1588,9 +1587,10 @@ public type View record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents a bulk process request.
+# A bulk process request contains information about a batch of envelopes or templates to be processed.
 public type BulkProcessRequest record {
-    # 
+    # The name of the batch.
     string batchName?;
     # The GUID of the envelope or template.
     string envelopeOrTemplateId?;
@@ -1661,11 +1661,11 @@ public type WorkspaceItems record {
     WorkspaceUserAuthorization userAuthorization?;
 };
 
-# 
+# Represents a file type.
 public type FileType record {
-    # 
+    # The file extension of the file type.
     string fileExtension?;
-    # The mime-type of a file type listed in a fileTypes collection.
+    # The mime type of the file type.
     string mimeType?;
 };
 
@@ -1716,7 +1716,7 @@ public type Filter record {
     string toDateTime?;
 };
 
-# 
+# Represents a Connect Secret record.
 public type ConnectSecret record {
     # A list of Connect failure logs.
     ConnectLog[] failures?;
@@ -2357,13 +2357,13 @@ public type Editor record {
     string userId?;
 };
 
-# 
+# Represents the definition of an HTML document for generating responsive-formatted HTML.
 public type EnvelopeDocumentHtmlDefinitions record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
 };
 
-# 
+# Represents a watermark that can be applied to documents.
 public type Watermark record {
     # The display angle of the watermark. Valid values:
     # 
@@ -2419,7 +2419,7 @@ public type Watermark record {
     string watermarkText?;
 };
 
-# 
+# Represents a billing payment request.
 public type BillingPaymentRequest record {
     # The payment amount for the past due invoices. This value must match the pastDueBalance value retrieved using Get Past Due Invoices.
     string paymentAmount?;
@@ -2441,7 +2441,7 @@ public type PlanInformation record {
     RecipientDomain[] recipientDomains?;
 };
 
-# 
+# Represents the response of an account identity verification.
 public type AccountIdentityVerificationResponse record {
     # Specifies the ID Verification workflow applied on an envelope by workflow ID. <br/>See the [list](/docs/esign-rest-api/reference/accounts/identityverifications/list/) method in the [IdentityVerifications](/docs/esign-rest-api/reference/accounts/identityverifications/) resource for more information on how to retrieve workflow IDs available for an account. <br/>This can be used in addition to other [recipient authentication](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=kzp1578456318101.html) methods. <br/>Note that ID Verification and ID Check are two distinct methods. ID Verification checks recipients' identity by verifying their ID while ID Check relies on data available on public records (such as current and former address).
     AccountIdentityVerificationWorkflow[] identityVerification?;
@@ -2917,7 +2917,7 @@ public type DocGenFormFields record {
     string documentId?;
 };
 
-# 
+# Represents the recipient event configuration.
 public type RecipientEvent record {
     # When **true,**
     # the Connect webhook messages
@@ -2931,15 +2931,15 @@ public type RecipientEvent record {
     string recipientEventStatusCode?;
 };
 
-# 
+# Represents a user in a signing group.
 public type SigningGroupUser record {
-    # 
+    # The email address of the user.
     string email?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
-    # The name of the group member. 
-    # 
-    # Maximum Length: 100 characters. 
+    # The name of the group member.
+    #
+    # Maximum Length: 100 characters.
     string userName?;
 };
 
@@ -3034,7 +3034,7 @@ public type Reminders record {
     string reminderFrequency?;
 };
 
-# 
+# Represents the information about favorite templates.
 public type FavoriteTemplatesInfo record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
@@ -3044,30 +3044,24 @@ public type FavoriteTemplatesInfo record {
     int:Signed32 templatesUpdatedCount?;
 };
 
-# 
+# Represents the legacy settings for PayPal.
 public type PayPalLegacySettings record {
-    # The three-letter
-    # [ISO 4217][ISO 4217] currency code for the payment.
-    # 
+    # The three-letter ISO 4217 currency code for the payment.
     # For example:
-    # 
-    # * AUD Australian dollar
-    # * CAD Canadian dollar
-    # * EUR Euro
-    # * GBP Great Britain pound
-    # * USD United States dollar
-    # 
+    # - AUD: Australian dollar
+    # - CAD: Canadian dollar
+    # - EUR: Euro
+    # - GBP: Great Britain pound
+    # - USD: United States dollar
     # This is a read-only property.
-    # 
-    # [ISO 4217]:          https://en.wikipedia.org/wiki/ISO_4217
     string currency?;
-    # 
+    # The partner associated with PayPal.
     string partner?;
     # The user's encrypted password hash.
     string password?;
     # The name of the user.
     string userName?;
-    # 
+    # The vendor associated with PayPal.
     string vendor?;
 };
 
@@ -3082,7 +3076,7 @@ public type PropertyMetadata record {
     string rights?;
 };
 
-# 
+# Represents a seal identifier.
 public type SealIdentifier record {
     # The user-friendly display name for a seal.
     string sealDisplayName?;
@@ -3200,7 +3194,7 @@ public type AccountIdentityVerificationStep record {
     string 'type?;
 };
 
-# 
+# Represents a request to perform a bulk send batch action.
 public type BulkSendBatchActionRequest record {
     # The action to apply. Valid values:
     # 
@@ -3218,7 +3212,7 @@ public type BulkSendBatchActionRequest record {
     string voidReason?;
 };
 
-# 
+# Represents an extended element in a path.
 public type PathExtendedElement record {
     # 
     string name?;
@@ -3256,7 +3250,7 @@ public type PathExtendedElement record {
     string typeName?;
 };
 
-# 
+# Represents a list of tab metadata.
 public type TabMetadataList record {
     # A list of tabs, which are represented graphically as symbols on documents at the time of signing. Tabs show recipients where to sign, initial, or enter data. They may also display data to the recipients.
     TabMetadata[] tabs?;
@@ -3711,7 +3705,7 @@ public type UserInformationList record {
     UserInformation[] users?;
 };
 
-# 
+# Represents information about envelope transfer rule.
 public type EnvelopeTransferRuleInformation record {
     # The last index position in the result set. 
     string endPosition?;
@@ -3754,7 +3748,7 @@ public type RecipientPhoneAuthentication record {
     PropertyMetadata validateRecipProvidedNumberMetadata?;
 };
 
-# 
+# Represents the type for a country.
 public type Country record {
     # 
     string isoCode?;
@@ -3766,11 +3760,11 @@ public type Country record {
     string provinceValidated?;
 };
 
-# 
+# Represents the version information of a service.
 public type ServiceVersion record {
     # The version of the rest API.
     string version?;
-    # 
+    # The URL that provides information about the version.
     string versionUrl?;
 };
 
@@ -3780,11 +3774,11 @@ public type Resources record {
     NameValue[] resources?;
 };
 
-# 
+# Represents the configuration for account password expiration days.
 public type AccountPasswordExpirePasswordDays record {
-    # 
+    # The maximum number of days before the password expires.
     string maximumDays?;
-    # 
+    # The minimum number of days before the password expires.
     string minimumDays?;
 };
 
@@ -3806,23 +3800,23 @@ public type NotaryJurisdictionList record {
     string totalSetSize?;
 };
 
-# 
+# Represents an error that occurred during a bulk send batch operation.
 public type BulkSendBatchError record {
     # The server error associated with the Connect post failure.
     string 'error?;
-    # 
+    # Additional details about the error.
     string errorDetail?;
 };
 
-# 
+# Represents the delegation information.
 public type DelegationInfo record {
-    # 
+    # The email of the user being delegated to.
     string Email?;
-    # 
+    # The name of the user being delegated to.
     string Name?;
-    # 
+    # The authorization ID of the user being delegated to. 
     string UserAuthorizationId?;
-    # 
+    # The ID of the user being delegated to.
     string UserId?;
 };
 
@@ -3948,31 +3942,31 @@ public type AccountSignatures record {
     string status?;
 };
 
-# 
+# Represents a list of resources that a brand uses.
 public type BrandResourcesList record {
     # A list of resources that the brand uses.
     BrandResources[] resourcesContentTypes?;
 };
 
-# 
+# Represents a polyline with four coordinates.
 public type PolyLine record {
-    # 
+    # The x-coordinate of the first point.
     string x1?;
-    # 
+    # The x-coordinate of the second point.
     string x2?;
-    # 
+    # The y-coordinate of the first point.
     string y1?;
-    # 
+    # The y-coordinate of the second point.
     string y2?;
 };
 
-# 
+# Represents the input options for recipient identity.
 public type RecipientIdentityInputOption record {
-    # 
+    # The name of the recipient.
     string name?;
-    # 
+    # The list of phone numbers associated with the recipient.
     RecipientIdentityPhoneNumber[] phoneNumberList?;
-    # 
+    # The value type of the recipient identity.
     string valueType?;
 };
 
@@ -4045,7 +4039,7 @@ public type RequestLogs record {
     string apiRequestLogRemainingEntries?;
 };
 
-# 
+# Represents the metadata of a notary journal entry.
 public type NotaryJournalMetaData record {
     # A freeform comment that the notary can add to the journal entry.
     string comment?;
@@ -4322,7 +4316,7 @@ public type Envelopes record {
     Workflow workflow?;
 };
 
-# 
+# Represents a server template in DocuSign.
 public type ServerTemplate record {
     # Specifies the order in which templates are overlaid.
     string sequence?;
@@ -4433,7 +4427,7 @@ public type AccountTabSettings record {
     SettingsMetadata textTabsMetadata?;
 };
 
-# 
+# Represents the response containing a list of brands and default brand IDs.
 public type BrandsResponse record {
     # A list of brands.
     Brand[] brands?;
@@ -4443,29 +4437,26 @@ public type BrandsResponse record {
     string senderBrandIdDefault?;
 };
 
-# 
+# Represents the definition of a signature group.
 public type SignatureGroupDef record {
     # The ID of the group being accessed.
     string groupId?;
     # Indicates whether the property is editable. Valid values are:
-    # 
     # - `editable`
     # - `read_only`
     string rights?;
 };
 
-# 
+# Represents a stamp used in the DocuSign API.
 public type Stamp record {
     # The UTC date and time when the user adopted the signature.
     string adoptedDateTime?;
     # The UTC DateTime when the item was created.
     string createdDateTime?;
-    # 
+    # A custom field associated with the stamp.
     string customField?;
     # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
-    # 
     # This property contains the following information about the central rectangle:
-    # 
     # - `DateAreaX`: The X axis position of the top-left corner.
     # - `DateAreaY`: The Y axis position of the top-left corner.
     # - `DateAreaWidth`: The width of the rectangle.
@@ -4477,10 +4468,9 @@ public type Stamp record {
     ErrorDetails errorDetails?;
     # Optionally specify an external identifier for the user's signature.
     string externalID?;
-    # 
+    # The base64 encoded image of the stamp.
     string imageBase64?;
-    # Specificies the type of image. Valid values:
-    # 
+    # Specifies the type of image. Valid values:
     # - `stamp_image`
     # - `signature_image`
     # - `initials_image`
@@ -4492,7 +4482,6 @@ public type Stamp record {
     # Specifies the user's signature name.
     string signatureName?;
     # The format of a stamp. Valid values are:
-    # 
     # - `NameHanko`: The stamp represents only the signer's name.
     # - `NameDateHanko`: The stamp represents the signer's name and the date. 
     string stampFormat?;
@@ -4501,9 +4490,8 @@ public type Stamp record {
     # The physical height of the stamp image (in millimeters) that the stamp vendor recommends for displaying the image in PDF documents.
     string stampSizeMM?;
     # Indicates the envelope status. Valid values are:
-    # 
-    # * sent - The envelope is sent to the recipients. 
-    # * created - The envelope is saved as a draft and can be modified and sent later.
+    # - `sent`: The envelope is sent to the recipients. 
+    # - `created`: The envelope is saved as a draft and can be modified and sent later.
     string status?;
 };
 
@@ -4525,7 +4513,7 @@ public type BCCEmailArchive record {
     string totalSetSize?;
 };
 
-# 
+# Represents the template document tabs.
 public type TemplateDocumentTabs record {
     # A list of
     # [Approve tabs][approve].
@@ -5135,19 +5123,19 @@ public type RecipientNamesResponse record {
     string reservedRecipientEmail?;
 };
 
-# 
+# Represents the OAuth access information.
 public type OauthAccess record {
-    # Access token information.
+    # The access token used for authentication.
     string access_token?;
     # A Base64-encoded representation of the attachment that is used to upload and download the file. File attachments may be up to 50 MB in size.
     NameValue[] data?;
-    # 
+    # The duration in seconds for which the access token is valid.
     string expires_in?;
-    # 
+    # The refresh token used to obtain a new access token when the current one expires.
     string refresh_token?;
-    # Must be set to "api".
+    # The scope of the access token.
     string scope?;
-    # 
+    # The type of the access token.
     string token_type?;
 };
 
@@ -5161,7 +5149,7 @@ public type ConnectFailureFilter record {
     string synchronous?;
 };
 
-# 
+# Represents a credible witness in a notary journal.
 public type NotaryJournalCredibleWitness record {
     # The address of the witness.
     string address?;
@@ -5171,7 +5159,7 @@ public type NotaryJournalCredibleWitness record {
     string signatureImage?;
 };
 
-# 
+# Represents a comment thread in a document.
 public type CommentThread record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
     # 
@@ -5496,9 +5484,9 @@ public type CommentThread record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents a request to delete user authorizations.
 public type UserAuthorizationsDeleteRequest record {
-    # 
+    # The array of authorizations to be deleted.
     string[] authorizations?;
 };
 
@@ -5531,9 +5519,9 @@ public type ConnectSalesforceObject record {
     ConnectSalesforceField[] updateFields?;
 };
 
-# 
+# Represents a record containing the view link for ID evidence.
 public type IdEvidenceViewLink record {
-    # 
+    # The view link for ID evidence.
     string viewLink?;
 };
 

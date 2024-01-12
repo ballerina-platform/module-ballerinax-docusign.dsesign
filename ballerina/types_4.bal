@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# 
+# Represents the result of a failed attempt to delete a connection.
 public type ConnectDeleteFailureResult record {
 };
 
@@ -32,13 +32,13 @@ public type NotificationDefaults record {
     NotificationDefaultSettings emailNotifications?;
 };
 
-# 
+# Represents the status and identifier of a user's authorization, including any associated error messages.
 public type UserAuthorizationIdWithStatus record {
-    # 
+    # The unique identifier for the user authorization.
     string authorizationId?;
-    # 
+    # The error message related to the user authorization process, if any.
     string errorMessage?;
-    # 
+    # Indicates the success status of the user authorization.
     string success?;
 };
 
@@ -94,10 +94,9 @@ public type WorkspaceUserAuthorization record {
     WorkspaceUser workspaceUserInformation?;
 };
 
-# 
+# Represents a batch request for bulk sending, including the name of the batch.
 public type BulkSendBatchRequest record {
     # The new name of the bulk send batch.
-    # 
     # This property is required. The maximum length of the string is 500 characters.
     string batchName?;
 };
@@ -694,7 +693,7 @@ public type EnvelopeId record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Defines the structure for HTML definitions associated with a template, which are used to generate responsive HTML formatting for documents within the template.
 public type TemplateHtmlDefinitions record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
@@ -1185,7 +1184,7 @@ public type EnvelopeFormData record {
     string status?;
 };
 
-# 
+# Represents a record of a notarial act, capturing details about the notarization process, the document, and the signer.
 public type NotaryJournal record {
     # The creation date of the account in UTC timedate format.
     string createdDate?;
@@ -1196,7 +1195,7 @@ public type NotaryJournal record {
     Jurisdiction jurisdiction?;
     # A unique GUID for this journal entry.
     string notaryJournalId?;
-    # 
+    # Metadata associated with the notary journal entry.
     NotaryJournalMetaData notaryJournalMetaData?;
     # The in-person signer's full legal name.
     # 
@@ -1207,7 +1206,7 @@ public type NotaryJournal record {
     string signerName?;
 };
 
-# 
+# Contains information related to a user's password, including the current password, the new password, and any associated security questions for password recovery.
 public type UserPasswordInformation record {
     # The user's current password to be changed.
     string currentPassword?;
@@ -1227,7 +1226,7 @@ public type AppStoreProduct record {
     string productId?;
 };
 
-# 
+# Summarizes the status of a bulk envelope operation, including identifiers, counts, and navigation URIs for batch processing.
 public type BulkEnvelopeStatus record {
     # Specifies an identifier which can be used to retrieve a more detailed status of individual bulk recipient batches.
     string batchId?;
@@ -1237,15 +1236,15 @@ public type BulkEnvelopeStatus record {
     BulkEnvelope[] bulkEnvelopes?;
     # URI at which you can retrieve the batch envelopes.
     string bulkEnvelopesBatchUri?;
-    # The last index position in the result set. 
+    # The last index position in the result set.
     string endPosition?;
-    # The number of entries with a status of failed. 
+    # The number of entries with a status of failed.
     string failed?;
-    # The URI for the next chunk of records based on the search request. It is `null` if this is the last set of results for the search. 
+    # The URI for the next chunk of records based on the search request. It is `null` if this is the last set of results for the search.
     string nextUri?;
-    # The URI for the prior chunk of records based on the search request. It is `null` if this is the first set of results for the search. 
+    # The URI for the prior chunk of records based on the search request. It is `null` if this is the first set of results for the search.
     string previousUri?;
-    # The number of entries with a status of queued. 
+    # The number of entries with a status of queued.
     string queued?;
     # The number of results in this response. Because you can filter which entries are included in the response, this value is always less than or equal to the `totalSetSize`.
     string resultSetSize?;
@@ -1259,13 +1258,13 @@ public type BulkEnvelopeStatus record {
     string totalSetSize?;
 };
 
-# 
+# Represents the result of a query for envelope attachments, encapsulating the list of attachments.
 public type EnvelopeAttachmentsResult record {
     # An array of attachment objects that contain information about the attachments.
     EnvelopeAttachment[] attachments?;
 };
 
-# 
+# Contains a list of file types, typically used to specify supported file formats or to enumerate files of certain types.
 public type FileTypeList record {
     # A collection of file types.
     FileType[] fileTypes?;
@@ -1553,9 +1552,9 @@ public type PolyLineOverlay record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Represents custom metadata associated with an envelope, consisting of key-value pairs.
 public type EnvelopeCustomMetadata record {
-    # 
+    # An array of name-value pairs containing the details of the custom metadata.
     NameValue[] envelopeCustomMetadataDetails?;
 };
 
@@ -2701,23 +2700,23 @@ public type CloudStorageProvider record {
     string serviceId?;
 };
 
-# 
+# Defines the structure for HTML definitions associated with a document, which are used to generate responsive HTML formatting for the document's content.
 public type DocumentHtmlDefinitions record {
     # Holds the properties that define how to generate the responsive-formatted HTML for the document.
     string[] htmlDefinitions?;
 };
 
-# 
+# Represents a discount applied to a billing plan, detailing the quantity range for the discount and the discount value.
 public type BillingDiscount record {
-    # Reserved for DocuSign.
+    # The starting quantity from which the discount applies.
     string beginQuantity?;
-    # 
+    # The discount amount or percentage applied.
     string discount?;
-    # 
+    # The ending quantity up to which the discount applies.
     string endQuantity?;
 };
 
-# 
+# Contains the form data submitted by a recipient, including timestamps of key events and the recipient's information.
 public type RecipientFormData record {
     # The date and time the recipient declined the envelope.
     string DeclinedTime?;
@@ -2725,11 +2724,11 @@ public type RecipientFormData record {
     string DeliveredTime?;
     # The recipient's email address.
     string email?;
-    # An array of form data objects.
+    # An array of form data objects representing the data submitted by the recipient.
     FormDataItem[] formData?;
     # The name of the recipient.
     string name?;
-    # Unique for the recipient. It is used by the tab element to indicate which recipient is to sign the Document.
+    # Unique identifier for the recipient. It is used by the tab element to indicate which recipient is to sign the document.
     string recipientId?;
     # The date and time the envelope was sent to the recipient.
     string SentTime?;
@@ -2838,11 +2837,11 @@ public type ConnectEvents record {
     string 'type?;
 };
 
-# 
+# Represents the resource token for an identity evidence, providing the base URI and the specific token for accessing the identity verification resource.
 public type IdEvidenceResourceToken record {
-    # 
+    # The base URI for the identity proofing resource.
     string proofBaseURI?;
-    # 
+    # The specific token required to access the identity verification resource.
     string resourceToken?;
 };
 
@@ -3255,7 +3254,7 @@ public type UserSettingsInformation record {
     SettingsMetadata webFormsMetadata?;
 };
 
-# 
+# Defines a record that contains a list of new users to be added to a system or service.
 public type NewUsersDefinition record {
     # A list of one or more new users.
     UserInformation[] newUsers?;
@@ -3346,34 +3345,6 @@ public type BrandsRequest record {
     BrandRequest[] brands?;
 };
 
-# 
-public type ConsentDetails record {
-    # 
-    string consentKey?;
-    # The delivery method. One of:
-    # 
-    # - `email`
-    # - `fax`
-    # - `SMS`
-    # - `WhatsApp`
-    # - `offline`
-    # 
-    # The `SMS` and `WhatsApp` delivery methods
-    # are limited to `signer`, `carbonCopy`, and `certifiedDelivery`
-    # recipients.
-    # 
-    # **Related topics**
-    # 
-    # - [Using SMS delivery with the eSignature API][smsconcept]
-    # - [How to request a signature by SMS delivery][howto]
-    # 
-    # [smsconcept]: /docs/esign-rest-api/esign101/concepts/sms-delivery/using-sms-esignature/
-    # [howto]: /docs/esign-rest-api/how-to/request-signature-sms/
-    string deliveryMethod?;
-    # 
-    string signerConsentStatus?;
-};
-
 # Contains information about add ons.
 public type AddOn record {
     # Reserved for DocuSign.
@@ -3386,11 +3357,22 @@ public type AddOn record {
     string name?;
 };
 
-# 
+# Contains details about the consent given by a recipient, including the method of delivery and the status of the consent.
+public type ConsentDetails record {
+    # A unique key identifying the consent.
+    string consentKey?;
+    # The delivery method for the consent. Options include `email`, `fax`, `SMS`, `WhatsApp`, and `offline`.
+    # Note: `SMS` and `WhatsApp` delivery methods are limited to certain recipient types.
+    string deliveryMethod?;
+    # The status of the signer's consent.
+    string signerConsentStatus?;
+};
+
+# Represents the result of a query for documents within an envelope, including an array of documents and the envelope ID.
 public type EnvelopeDocumentsResult record {
-    # An array containing information about the documents that are included in the envelope.
+    # An array containing information about the documents included in the envelope.
     EnvelopeDocument[] envelopeDocuments?;
-    # The envelope ID.
+    # The unique identifier of the envelope.
     string envelopeId?;
 };
 
@@ -3709,7 +3691,7 @@ public type WorkflowStep record {
     string workflowStepId?;
 };
 
-# 
+# Represents a request to handle PowerForm objects, which are pre-created forms that can be sent to recipients.
 public type PowerFormsRequest record {
     # An array of PowerForm objects.
     PowerForm[] powerForms?;
@@ -3741,115 +3723,71 @@ public type DocumentGeneration record {
     ErrorDetails errorDetails?;
 };
 
-# 
+# Represents the signature information associated with a user's account, including details about the signature image, stamp, and related properties.
 public type AccountSignature record {
     # The UTC date and time when the user adopted the signature.
     string adoptedDateTime?;
-    # The UTC DateTime when the item was created.
+    # The UTC DateTime when the signature was created.
     string createdDateTime?;
-    # 
+    # A custom field associated with the signature.
     string customField?;
-    # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
-    # 
-    # This property contains the following information about the central rectangle:
-    # 
-    # - `DateAreaX`: The X axis position of the top-left corner.
-    # - `DateAreaY`: The Y axis position of the top-left corner.
-    # - `DateAreaWidth`: The width of the rectangle.
-    # - `DateAreaHeight`: The height of the rectangle.
+    # Properties defining the area where a date stamp is placed, including coordinates and dimensions of the rectangle.
     DateStampProperties dateStampProperties?;
-    # When **true,** users may not resize the stamp.
+    # When true, the user is not allowed to resize the stamp.
     string disallowUserResizeStamp?;
-    # This object describes errors that occur. It is only valid for responses and ignored in requests.
+    # Details about any errors that occur. Only valid for responses, ignored in requests.
     ErrorDetails errorDetails?;
-    # Optionally specify an external identifier for the user's signature.
+    # An external identifier for the user's signature.
     string externalID?;
-    # 
+    # The base64-encoded image of the signature.
     string imageBase64?;
-    # Specificies the type of image. Valid values:
-    # 
-    # - `stamp_image`
-    # - `signature_image`
-    # - `initials_image`
+    # Specifies the type of image, such as 'stamp_image', 'signature_image', or 'initials_image'.
     string imageType?;
     # The ID of the user's initials image.
     string initials150ImageId?;
     # The URI for retrieving the image of the user's initials.
     string initialsImageUri?;
-    # Boolean that specifies whether the signature is the default signature for the user.
+    # Indicates whether the signature is the default signature for the user.
     string isDefault?;
-    # The date and time that the item was last modified.
+    # The date and time that the signature was last modified.
     string lastModifiedDateTime?;
     # The National Association of Realtors (NAR) membership ID for a user who is a realtor.
     string nrdsId?;
     # The realtor's last name.
     string nrdsLastName?;
-    # The realtor's NAR membership status. The value `active` verifies that the user is a current NAR member. Valid values are:
-    # 
-    # - `Active`
-    # - `Inactive`
-    # - `Terminate`
-    # - `Provisional`
-    # - `Deceased`
-    # - `Suspend`
-    # - `Unknown`
+    # The NAR membership status of the realtor.
     string nrdsStatus?;
-    # The phonetic spelling of the `signatureName`.
+    # The phonetic spelling of the signature name.
     string phoneticName?;
     # The ID of the user's signature image.
     string signature150ImageId?;
-    # The font type to use for the signature if the signature is not drawn. The following font styles  are supported. The quotes are to indicate that these values are strings, not `enums`.
-    # 
-    # - `"1_DocuSign"`
-    # - `"2_DocuSign"`
-    # - `"3_DocuSign"`
-    # - `"4_DocuSign"`
-    # - `"5_DocuSign"`
-    # - `"6_DocuSign"`
-    # - `"7_DocuSign"`
-    # - `"8_DocuSign"`
-    # - `"Mistral"`
-    # - `"Rage Italic"`
+    # The font type for the signature when not drawn, with supported styles like '1_DocuSign', 'Mistral', 'Rage Italic', etc.
     string signatureFont?;
-    # 
+    # An array of signature groups the user is associated with.
     SignatureGroup[] signatureGroups?;
-    # Specifies the signature ID associated with the signature name. You can use the signature ID in the URI in place of the signature name, and the value stored in the `signatureName` property in the body is used. This allows the use of special characters (such as "&", "<", ">") in a the signature name. Note that with each update to signatures, the returned signature ID might change, so the caller will need to trigger off the signature name to get the new signature ID.
+    # The signature ID associated with the signature name, allowing for special characters in the signature name.
     string signatureId?;
-    # An endpoint URI that you can use to retrieve the user's signature image.
+    # The URI to retrieve the user's signature image.
     string signatureImageUri?;
-    # Specifies the user's signature in initials format.
+    # The initials format of the user's signature.
     string signatureInitials?;
-    # Specifies the user's signature name.
+    # The user's signature name.
     string signatureName?;
-    # The rights that the user has to the signature. Valid values are:
-    # 
-    # - `none`
-    # - `read`
-    # - `admin`
+    # The rights the user has to the signature, such as 'none', 'read', or 'admin'.
     string signatureRights?;
-    # Specifies the type of signature.
+    # The type of signature.
     string signatureType?;
-    # 
+    # An array of users associated with the signature.
     SignatureUser[] signatureUsers?;
-    # The format of a stamp. Valid values are:
-    # 
-    # - `NameHanko`: The stamp represents only the signer's name.
-    # - `NameDateHanko`: The stamp represents the signer's name and the date. 
+    # The format of the stamp, such as 'NameHanko' or 'NameDateHanko'.
     string stampFormat?;
     # The URI for retrieving the image of the user's stamp.
     string stampImageUri?;
-    # The physical height of the stamp image (in millimeters) that the stamp vendor recommends for displaying the image in PDF documents.
+    # The recommended physical height of the stamp image in millimeters for displaying in PDF documents.
     string stampSizeMM?;
-    # The type of stamp. Valid values are:
-    # 
-    # - `signature`: A signature image. This is the default value.
-    # - `stamp`: A stamp image.
-    # - null
+    # The type of stamp, such as 'signature' or 'stamp'.
     string stampType?;
-    # Indicates the envelope status. Valid values are:
-    # 
-    # * sent - The envelope is sent to the recipients. 
-    # * created - The envelope is saved as a draft and can be modified and sent later.
+    # The status of the envelope, such as 'sent' or 'created'.
     string status?;
 };
 
@@ -3871,30 +3809,25 @@ public type AppStoreReceipt record {
     string receiptData?;
 };
 
-# 
+# Defines the structure for anchoring HTML display settings within a document, specifying how HTML content should be displayed between defined anchors.
 public type DocumentHtmlDisplayAnchor record {
-    # When **true,** the start or end anchor strings must match the strings specified by the start and end anchor settings in case as well as in content.
+    # When true, the start or end anchor strings must match exactly in case and content.
     boolean caseSensitive?;
-    # This object defines how to display the HTML
-    # between the `startAnchor` and `endAnchor`.
+    # Defines how to display the HTML content between the `startAnchor` and `endAnchor`.
     DocumentHtmlDisplaySettings displaySettings?;
-    # Specifies the end of the area in the HTML where the display settings will be applied. If you do not specify an end anchor, the end of the document will be used by default.
-    # 
-    # **Note:** A start anchor, an end anchor, or both are required.
+    # Specifies the end of the area in the HTML where the display settings will be applied. Defaults to the end of the document if not specified.
     string endAnchor?;
-    # When **true,** removes the end anchor string for the Smart Section from the HTML, preventing it from displaying.
+    # When true, the end anchor string for the Smart Section is removed from the HTML display.
     boolean removeEndAnchor?;
-    # When **true,** removes the start anchor string for the Smart Section from the HTML, preventing it from displaying.
+    # When true, the start anchor string for the Smart Section is removed from the HTML display.
     boolean removeStartAnchor?;
-    # Specifies the beginning of the area in the HTML where the display settings will be applied. If you do not specify a start anchor, the beginning of the document will be used by default.
-    # 
-    # **Note:** A start anchor, an end anchor, or both are required.
+    # Specifies the beginning of the area in the HTML where the display settings will be applied. Defaults to the beginning of the document if not specified.
     string startAnchor?;
 };
 
-# 
+# Represents a collection of account signature information.
 public type AccountSignaturesInformation record {
-    # 
+    # An array of `AccountSignature` records.
     AccountSignature[] accountSignatures?;
 };
 
@@ -3947,114 +3880,79 @@ public type EnvelopeTransferRules record {
     string totalSetSize?;
 };
 
-# 
+# Defines the rules for recipients within certain conditions.
 public type RecipientRules record {
-    # 
+    # An array of conditional recipient rules.
     ConditionalRecipientRule[] conditionalRecipients?;
 };
 
-# 
+# Represents the signature details of a user, including images and related properties.
 public type UserSignature record {
     # The date and time the user adopted their signature.
     string adoptedDateTime?;
-    # The UTC DateTime when the item was created.
+    # The UTC DateTime when the signature was created.
     string createdDateTime?;
-    # 
+    # A custom field for the user's signature.
     string customField?;
-    # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
-    # 
-    # This property contains the following information about the central rectangle:
-    # 
-    # - `DateAreaX`: The X axis position of the top-left corner.
-    # - `DateAreaY`: The Y axis position of the top-left corner.
-    # - `DateAreaWidth`: The width of the rectangle.
-    # - `DateAreaHeight`: The height of the rectangle.
+    # Properties specifying the area for a date stamp, including pixel positioning and dimensions.
     DateStampProperties dateStampProperties?;
-    # When **true,** users may not resize the stamp.
+    # When true, users are not allowed to resize the stamp.
     string disallowUserResizeStamp?;
-    # This object describes errors that occur. It is only valid for responses and ignored in requests.
+    # Details about any errors that occur. Only valid for responses, ignored in requests.
     ErrorDetails errorDetails?;
-    # Optionally specify an external identifier for the user's signature.
+    # An external identifier for the user's signature.
     string externalID?;
     # A Base64-encoded representation of the signature image.
     string imageBase64?;
-    # Specificies the type of image. Valid values:
-    # 
-    # - `stamp_image`
-    # - `signature_image`
-    # - `initials_image`
+    # Specifies the type of image, such as 'stamp_image', 'signature_image', or 'initials_image'.
     string imageType?;
     # The ID of the user's initials image.
     string initials150ImageId?;
     # The URI for retrieving the image of the user's initials.
     string initialsImageUri?;
-    # Boolean that specifies whether the signature is the default signature for the user.
+    # Indicates whether the signature is the default signature for the user.
     string isDefault?;
-    # The date and time that the item was last modified.
+    # The date and time that the signature was last modified.
     string lastModifiedDateTime?;
     # The National Association of Realtors (NAR) membership ID for a user who is a realtor.
     string nrdsId?;
     # The realtor's last name.
     string nrdsLastName?;
-    # The realtor's NAR membership status. The value `active` verifies that the user is a current NAR member. Valid values are:
-    # 
-    # - `Active`
-    # - `Inactive`
-    # - `Terminate`
-    # - `Provisional`
-    # - `Deceased`
-    # - `Suspend`
-    # - `Unknown`
+    # The NAR membership status of the realtor.
     string nrdsStatus?;
-    # The phonetic spelling of the `signatureName`.
+    # The phonetic spelling of the signature name.
     string phoneticName?;
     # The ID of the user's signature image.
     string signature150ImageId?;
-    # The font type for the signature, if the signature is not drawn. The supported font types are:
-    # 
-    # "7_DocuSign", "1_DocuSign", "6_DocuSign", "8_DocuSign", "3_DocuSign", "Mistral", "4_DocuSign", "2_DocuSign", "5_DocuSign", "Rage Italic"
+    # The font type for the signature when not drawn, with supported styles like '1_DocuSign', 'Mistral', 'Rage Italic', etc.
     string signatureFont?;
-    # Specifies the signature ID associated with the signature name. You can use the signature ID in the URI in place of the signature name, and the value stored in the `signatureName` property in the body is used. This allows the use of special characters (such as "&", "<", ">") in a the signature name. Note that with each update to signatures, the returned signature ID might change, so the caller will need to trigger off the signature name to get the new signature ID.
+    # The signature ID associated with the signature name, allowing for special characters in the signature name.
     string signatureId?;
-    # An endpoint URI that you can use to retrieve the user's signature image.
+    # The URI to retrieve the user's signature image.
     string signatureImageUri?;
-    #  The initials associated with the signature.
+    # The initials format of the user's signature.
     string signatureInitials?;
-    # Specifies the user's signature name.
+    # The user's signature name.
     string signatureName?;
-    # The rights that the user has to the signature. Valid values are:
-    # 
-    # - `none`
-    # - `read`
-    # - `admin`
+    # The rights the user has to the signature, such as 'none', 'read', or 'admin'.
     string signatureRights?;
-    # Specifies the type of signature.
+    # The type of signature.
     string signatureType?;
-    # The format of a stamp. Valid values are:
-    # 
-    # - `NameHanko`: The stamp represents only the signer's name.
-    # - `NameDateHanko`: The stamp represents the signer's name and the date. 
+    # The format of the stamp, such as 'NameHanko' or 'NameDateHanko'.
     string stampFormat?;
     # The URI for retrieving the image of the user's stamp.
     string stampImageUri?;
-    # The physical height of the stamp image (in millimeters) that the stamp vendor recommends for displaying the image in PDF documents.
+    # The recommended physical height of the stamp image in millimeters for displaying in PDF documents.
     string stampSizeMM?;
-    # The type of stamp. Valid values are:
-    # 
-    # - `signature`: A signature image. This is the default value.
-    # - `stamp`: A stamp image.
-    # - null
+    # The type of stamp, such as 'signature' or 'stamp'.
     string stampType?;
-    # Indicates the envelope status. Valid values are:
-    # 
-    # * sent - The envelope is sent to the recipients. 
-    # * created - The envelope is saved as a draft and can be modified and sent later.
+    # The status of the envelope, such as 'sent' or 'created'.
     string status?;
 };
 
-# 
+# Represents the supported duration types for account password lockout settings.
 public type AccountPasswordLockoutDurationType record {
-    # An array of option strings supported by this setting.
+    # An array of strings representing the supported options for the lockout duration setting.
     string[] options?;
 };
 
@@ -4101,14 +3999,13 @@ public type ResponsiveHtmlPreview record {
     string[] htmlDefinitions?;
 };
 
-# 
+# Defines a condition for a conditional recipient rule based on a set of filters.
 public type ConditionalRecipientRuleCondition record {
-    # 
+    # An array of filters that define the condition.
     ConditionalRecipientRuleFilter[] filters?;
-    # An integer that specifies the order in which rules are processed.
-    # Lower values are processed before higher values.
+    # An integer that specifies the processing order of the rules, with lower values processed first.
     string 'order?;
-    # An identifier for the recipient. After assigning this value in a `recipient` object, you can reference it in the `conditions` object to set the recipient as a conditional recipient. For an example, see [How to use conditional recipients](/docs/esign-rest-api/how-to/use-conditional-recipients/).
+    # An identifier for the recipient that can be used to reference them in conditions to set them as a conditional recipient.
     string recipientLabel?;
 };
 
@@ -4118,9 +4015,9 @@ public type UserAuthorizationsRequest record {
     UserAuthorizationCreateRequestWithId[] authorizations?;
 };
 
-# 
+# Contains the original HTML definitions for a document, which are used to generate responsive-formatted HTML.
 public type DocumentHtmlDefinitionOriginals record {
-    # Holds the properties that define how to generate the responsive-formatted HTML for the document.
+    # An array of original HTML definition objects.
     DocumentHtmlDefinitionOriginal[] htmlDefinitions?;
 };
 
@@ -4198,19 +4095,19 @@ public type UsageHistory record {
     string signedCount?;
 };
 
-# 
+# Contains information about the service, including build details and versioning, primarily for internal use by DocuSign.
 public type ServiceInformation record {
-    # Reserved for DocuSign.
+    # Reserved for DocuSign to specify the build branch.
     string buildBranch?;
-    # Reserved for DocuSign.
+    # Reserved for DocuSign to specify the deployment date and time of the build branch.
     string buildBranchDeployedDateTime?;
-    # Reserved for DocuSign.
+    # Reserved for DocuSign to specify the build's SHA (hash).
     string buildSHA?;
-    # Reserved for DocuSign.
+    # Reserved for DocuSign to specify the build version.
     string buildVersion?;
-    # 
+    # An array of linked sites related to the service.
     string[] linkedSites?;
-    # 
+    # An array of service version details.
     ServiceVersion[] serviceVersions?;
 };
 
@@ -4278,25 +4175,23 @@ public type DocumentHtmlDefinition record {
     string 'source?;
 };
 
-# 
+# Defines the options for account password strength requirements.
 public type AccountPasswordStrengthTypeOption record {
-    # Minimum length of the access code string.
+    # The minimum length required for the password.
     string minimumLength?;
-    # 
+    # The name of the password strength option.
     string name?;
-    # When **true,** passwords must include a digit. The default value is `false`.
+    # Indicates whether a digit is required in the password. Defaults to `false`.
     string passwordIncludeDigit?;
-    # When **true,** passwords must include either a digit or a special character. The default value is `false`.
-    # 
-    # **Note:** Passwords cannot include angle brackets (`<` `>`) or spaces.
+    # Indicates whether a digit or a special character is required in the password. Defaults to `false`.
+    # Note: Passwords cannot include angle brackets (`<` `>`) or spaces.
     string passwordIncludeDigitOrSpecialCharacter?;
-    # When **true,** passwords must include a lowercase letter. The default value is `false`.
+    # Indicates whether a lowercase letter is required in the password. Defaults to `false`.
     string passwordIncludeLowerCase?;
-    # When **true,** passwords must include a special character. The default value is `false`.
-    # 
-    # **Note:** Passwords cannot include angle brackets (`<` `>`) or spaces.
+    # Indicates whether a special character is required in the password. Defaults to `false`.
+    # Note: Passwords cannot include angle brackets (`<` `>`) or spaces.
     string passwordIncludeSpecialCharacter?;
-    # When **true,** passwords must include an uppercase letter. The default value is `false`.
+    # Indicates whether an uppercase letter is required in the password. Defaults to `false`.
     string passwordIncludeUpperCase?;
 };
 
@@ -4314,13 +4209,13 @@ public type Notary record {
     UserInformation userInfo?;
 };
 
-# 
+# Represents a collection of favorite templates for a user or account, including any associated error details and update counts.
 public type FavoriteTemplates record {
-    # This object describes errors that occur. It is only valid for responses and ignored in requests.
+    # Details about any errors that occur, applicable only in responses.
     ErrorDetails errorDetails?;
-    # 
+    # An array of content items representing the favorite templates.
     FavoriteTemplatesContentItem[] favoriteTemplates?;
-    # The number of templates successfully updated by the call. This property is read-only.
+    # The count of templates successfully updated, which is a read-only property.
     int:Signed32 templatesUpdatedCount?;
 };
 
@@ -4387,7 +4282,7 @@ public type TemplateRecipients record {
     Witness[] witnesses?;
 };
 
-# 
+# Represents the configuration settings for anchor tabs within a document for a sender company. 
 public type SenderCompany record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
     # 
@@ -4714,7 +4609,7 @@ public type SenderCompany record {
     PropertyMetadata yPositionMetadata?;
 };
 
-# 
+# Defines the structure for a user's profile information, including personal details, authentication methods, and usage history.
 public type UserProfile record {
     # Contains address information.
     AddressInformation address?;
@@ -4747,7 +4642,7 @@ public type UserProfile record {
     string userProfileLastModifiedDate?;
 };
 
-# 
+# Encapsulates the response data for a user search operation, including pagination details and a list of user information.
 public type UsersResponse record {
     # The last index position in the result set. 
     string endPosition?;
@@ -4765,7 +4660,7 @@ public type UsersResponse record {
     UserInfo[] users?;
 };
 
-# 
+# Contains configuration settings for eNote integration, including API keys, user credentials, and organizational details.
 public type ENoteConfigurations record {
     # 
     string apiKey?;
@@ -4805,23 +4700,21 @@ public type ExternalDocumentSources record {
     SettingsMetadata salesforceMetadata?;
 };
 
-# 
+# Represents the essential information of a user for connection purposes, including their email, inclusion status, user ID, and name.
 public type ConnectUserInfo record {
-    # 
+    # The email address of the user.
     string email?;
-    # 
+    # Indicates whether the user is included in a specific operation or group.
     string isIncluded?;
-    # The ID of the user to access.
-    # 
-    # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
+    # The unique identifier of the user. Users can only access their own information.
     string userId?;
-    # The name of the user.
+    # The full name of the user.
     string userName?;
 };
 
-# 
+# Encapsulates a list of document templates available for use or reference within a system.
 public type DocumentTemplateList record {
-    # 
+    # An array of document templates.
     DocumentTemplate[] documentTemplates?;
 };
 
@@ -4882,223 +4775,31 @@ public type BillingInvoice record {
     string taxableAmount?;
 };
 
-# 
+# Represents the pricing details of a currency plan, including currency code, symbol, and various fees associated with the plan.
 public type CurrencyPlanPrice record {
-    # Specifies the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the account.
+    # Specifies the ISO 4217 currency code for the account.
     string currencyCode?;
-    # Specifies the currency symbol.
-    # Valid values:
-    # 
-    # - `AED` <br>  "د.إ"
-    # - `AFN` <br>  "؋"
-    # - `ALL` <br>  "L"
-    # - `AMD` <br>  "֏"
-    # - `ANG` <br>  "ƒ"
-    # - `AOA` <br>  "Kz"
-    # - `ARS` <br>  "$"
-    # - `AUD` <br>  "$"
-    # - `AWG` <br>  "ƒ"
-    # - `AZN` <br>  "₼"
-    # - `BAM` <br>  "KM"
-    # - `BBD` <br>  "$"
-    # - `BDT` <br>  "৳"
-    # - `BGN` <br>  "лв"
-    # - `BHD` <br>  ".د.ب"
-    # - `BIF` <br>  "FBu"
-    # - `BMD` <br>  "$"
-    # - `BND` <br>  "$"
-    # - `BOB` <br>  "$b"
-    # - `BOV` <br>  "BOV"
-    # - `BRL` <br>  "R$"
-    # - `BSD` <br>  "$"
-    # - `BTN` <br>  "Nu."
-    # - `BWP` <br>  "P"
-    # - `BYN` <br>  "Br"
-    # - `BYR` <br>  "Br"
-    # - `BZD` <br>  "BZ$"
-    # - `CAD` <br>  "$"
-    # - `CDF` <br>  "FC"
-    # - `CHE` <br>  "CHE"
-    # - `CHF` <br>  "CHF"
-    # - `CHW` <br>  "CHW"
-    # - `CLF` <br>  "CLF"
-    # - `CLP` <br>  "$"
-    # - `CNY` <br>  "¥"
-    # - `COP` <br>  "$"
-    # - `COU` <br>  "COU"
-    # - `CRC` <br>  "₡"
-    # - `CUC` <br>  "$"
-    # - `CUP` <br>  "₱"
-    # - `CVE` <br>  "$"
-    # - `CZK` <br>  "Kč"
-    # - `DJF` <br>  "Fdj"
-    # - `DKK` <br>  "kr"
-    # - `DOP` <br>  "RD$"
-    # - `DZD` <br>  "دج"
-    # - `EGP` <br>  "£"
-    # - `ERN` <br>  "Nfk"
-    # - `ETB` <br>  "Br"
-    # - `EUR` <br>  "€"
-    # - `FJD` <br>  "$"
-    # - `FKP` <br>  "£"
-    # - `GBP` <br>  "£"
-    # - `GEL` <br>  "₾"
-    # - `GHS` <br>  "GH₵"
-    # - `GIP` <br>  "£"
-    # - `GMD` <br>  "D"
-    # - `GNF` <br>  "FG"
-    # - `GTQ` <br>  "Q"
-    # - `GYD` <br>  "$"
-    # - `HKD` <br>  "$"
-    # - `HNL` <br>  "L"
-    # - `HRK` <br>  "kn"
-    # - `HTG` <br>  "G"
-    # - `HUF` <br>  "Ft"
-    # - `IDR` <br>  "Rp"
-    # - `ILS` <br>  "₪"
-    # - `INR` <br>  "₹"
-    # - `IQD` <br>  "ع.د"
-    # - `IRR` <br>  "﷼"
-    # - `ISK` <br>  "kr"
-    # - `JMD` <br>  "J$"
-    # - `JOD` <br>  "JD"
-    # - `JPY` <br>  "¥"
-    # - `KES` <br>  "KSh"
-    # - `KGS` <br>  "лв"
-    # - `KHR` <br>  "៛"
-    # - `KMF` <br>  "CF"
-    # - `KPW` <br>  "₩"
-    # - `KRW` <br>  "₩"
-    # - `KWD` <br>  "KD"
-    # - `KYD` <br>  "$"
-    # - `KZT` <br>  "₸"
-    # - `LAK` <br>  "₭"
-    # - `LBP` <br>  "£"
-    # - `LKR` <br>  "₨"
-    # - `LRD` <br>  "$"
-    # - `LSL` <br>  "M"
-    # - `LYD` <br>  "LD"
-    # - `MAD` <br>  "MAD"
-    # - `MDL` <br>  "lei"
-    # - `MGA` <br>  "Ar"
-    # - `MKD` <br>  "ден"
-    # - `MMK` <br>  "K"
-    # - `MNT` <br>  "₮"
-    # - `MOP` <br>  "MOP$"
-    # - `MRO` <br>  "UM"
-    # - `MUR` <br>  "₨"
-    # - `MVR` <br>  "Rf"
-    # - `MWK` <br>  "MK"
-    # - `MXN` <br>  "$"
-    # - `MXV` <br>  "MXV"
-    # - `MYR` <br>  "RM"
-    # - `MZN` <br>  "MT"
-    # - `NAD` <br>  "$"
-    # - `NGN` <br>  "₦"
-    # - `NIO` <br>  "C$"
-    # - `NOK` <br>  "kr"
-    # - `NPR` <br>  "₨"
-    # - `NZD` <br>  "$"
-    # - `OMR` <br>  "﷼"
-    # - `PAB` <br>  "B/."
-    # - `PEN` <br>  "S/."
-    # - `PGK` <br>  "K"
-    # - `PHP` <br>  "₱"
-    # - `PKR` <br>  "₨"
-    # - `PLN` <br>  "zł"
-    # - `PYG` <br>  "Gs"
-    # - `QAR` <br>  "﷼"
-    # - `RON` <br>  "lei"
-    # - `RSD` <br>  "Дин."
-    # - `RUB` <br>  "₽"
-    # - `RWF` <br>  "R₣"
-    # - `SAR` <br>  "﷼"
-    # - `SBD` <br>  "$"
-    # - `SCR` <br>  "₨"
-    # - `SDG` <br>  "ج.س."
-    # - `SEK` <br>  "kr"
-    # - `SGD` <br>  "S$"
-    # - `SHP` <br>  "£"
-    # - `SLL` <br>  "Le"
-    # - `SOS` <br>  "S"
-    # - `SRD` <br>  "$"
-    # - `SSP` <br>  "£"
-    # - `STD` <br>  "Db"
-    # - `SVC` <br>  "$"
-    # - `SYP` <br>  "£"
-    # - `SZL` <br>  "E"
-    # - `THB` <br>  "฿"
-    # - `TJS` <br>  "SM"
-    # - `TMT` <br>  "T"
-    # - `TND` <br>  "د.ت"
-    # - `TOP` <br>  "T$"
-    # - `TRY` <br>  "₺"
-    # - `TTD` <br>  "TT$"
-    # - `TWD` <br>  "NT$"
-    # - `TZS` <br>  "TSh"
-    # - `UAH` <br>  "₴"
-    # - `UGX` <br>  "USh"
-    # - `USD` <br>  "$"
-    # - `USN` <br>  "$"
-    # - `UYI` <br>  "UYI"
-    # - `UYU` <br>  "$U"
-    # - `UZS` <br>  "лв"
-    # - `VEF` <br>  "Bs"
-    # - `VND` <br>  "₫"
-    # - `VUV` <br>  "VT"
-    # - `WST` <br>  "WS$"
-    # - `XAF` <br>  "FCFA"
-    # - `XAG` <br>  "XAG"  Silver
-    # - `XAU` <br>  "XAU"  Gold
-    # - `XBA` <br>  "XBA"  Bond Markets Units European Composite Unit (EURCO)
-    # - `XBB` <br>  "XBB"  European Monetary Unit (E.M.U.-6)
-    # - `XBC` <br>  "XBC"  European Unit of Account 9(E.U.A.-9)
-    # - `XBD` <br>  "XBD"  European Unit of Account 17(E.U.A.-17)
-    # - `XCD` <br>  "$"
-    # - `XDR` <br>  "XDR" }` <br>  // Special Drawing Rights (SDRs)` <br>  units of account for IMF
-    # - `XOF` <br>  "CFA"
-    # - `XPD` <br>  "XPD"  Palladium
-    # - `XPF` <br>  "₣"
-    # - `XPT` <br>  "XPT"  Platinum
-    # - `XSU` <br>  "Sucre"
-    # - `XTS` <br>  "XTS" Reserved for testing purposes
-    # - `XUA` <br>  "XUA"
-    # - `XXX` <br>  "XXX" Denotes transaction involving no currency
-    # - `YER` <br>  "﷼"
-    # - `ZAR` <br>  "R"
-    # - `ZMW` <br>  "ZK"
-    # - `ZWL` <br>  "$"
+    # Specifies the currency symbol associated with the currency code.
     string currencySymbol?;
-    # The per-seat price associated with the plan.
-    # 
-    # Example: `"456.0000"`
+    # The per-seat price associated with the plan, formatted as a string.
     string perSeatPrice?;
-    # 
+    # Supported credit card types for the plan.
     CreditCardTypes supportedCardTypes?;
-    # The support incident fee charged for each support incident.
-    # 
-    # Example: `"$0.00"`
+    # The support incident fee charged for each support incident, formatted as a string.
     string supportIncidentFee?;
-    # The support plan fee charged for this plan.
-    # 
-    # Example: `"$0.00"`
+    # The support plan fee charged for this plan, formatted as a string.
     string supportPlanFee?;
 };
 
-# 
+# Contains information about a user's signature, including default status, rights, and identification details.
 public type SignatureUser record {
-    # Boolean that specifies whether the signature is the default signature for the user.
+    # Indicates if the signature is the default signature for the user.
     string isDefault?;
-    # Indicates whether the property is editable. Valid values are:
-    # 
-    # - `editable`
-    # - `read_only`
+    # Specifies the rights associated with the signature, such as 'editable' or 'read_only'.
     string rights?;
-    # The ID of the user to access.
-    # 
-    # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
+    # The unique identifier of the user. Users can only access their own information.
     string userId?;
-    # The name of the user.
+    # The full name of the user.
     string userName?;
 };
 
