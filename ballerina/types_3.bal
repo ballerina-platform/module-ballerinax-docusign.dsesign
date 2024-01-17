@@ -5683,6 +5683,7 @@ public type Agent record {
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     string userId?;
 };
+
 # Represents the resource information.
 public type ResourceInformation record {
     # The list of name-value pairs representing the resources.
