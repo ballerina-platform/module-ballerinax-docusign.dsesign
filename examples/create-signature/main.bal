@@ -1,20 +1,21 @@
 import ballerina/io;
-import ballerinax/docusign.esign;
+import ballerinax/docusign.dsesign;
 
 configurable string accessToken = ?;
 configurable string accountId = ?;
 configurable string userId = ?;
-esign:ConnectionConfig connectionConfig = {
+
+dsesign:ConnectionConfig connectionConfig = {
     auth: {
         token: accessToken
     }
 };
 
 public function main() returns error? {
-    esign:Client docusignClient = check new(serviceUrl = "https://demo.docusign.net/restapi/", config = connectionConfig);
-    esign:UserSignaturesInformation usageSignatureInfo = check docusignClient->/accounts/[accountId]/users/[userId]/signatures("signature");
+    dsesign:Client docusignClient = check new(serviceUrl = "https://demo.docusign.net/restapi/", config = connectionConfig);
+    dsesign:UserSignaturesInformation usageSignatureInfo = check docusignClient->/accounts/[accountId]/users/[userId]/signatures("signature");
     io:println("All signatures: ", usageSignatureInfo);
-    string signatureId = <string>(<esign:UserSignature[]>usageSignatureInfo.userSignatures)[0].signatureId;
-    esign:UserSignature unionResult = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
+    string signatureId = <string>(<dsesign:UserSignature[]>usageSignatureInfo.userSignatures)[0].signatureId;
+    dsesign:UserSignature unionResult = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
     io:println("Signature Info: ", unionResult);
 }

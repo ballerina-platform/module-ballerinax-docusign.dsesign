@@ -10,7 +10,7 @@
 
 DocuSign eSignature is a document management and electronic signature service developed by DocuSign. It allows users to securely sign, send, and manage documents in a digital environment. This connector provides the capability to programmatically perform DocuSign eSignature related operations. For more information about configuration and operations, refer to the module.
 
-- [docusign.esign](ballerina/Module.md) - Perform DocuSign eSignature related operations
+- [docusign.dsesign](ballerina/Module.md) - Perform DocuSign eSignature related operations
 
 ## Overview
 
@@ -68,27 +68,27 @@ This sample demonstrates a scenario of creating an envelope with a document and 
 
 ### Step 1: Import the package
 
-Import the `ballerinax/docusign.esign` package into your Ballerina project.
+Import the `ballerinax/docusign.dsesign` package into your Ballerina project.
 
 ```ballerina
-import ballerinax/docusign.esign;
+import ballerinax/docusign.dsesign;
 ```
 
 ### Step 2: Instantiate a new connector
 
-Create a `esign:ConnectionConfig` with the obtained OAuth2.0 tokens and initialize the connector with it.
+Create a `dsesign:ConnectionConfig` with the obtained OAuth2.0 tokens and initialize the connector with it.
 
 ```ballerina
 configurable string accessToken = ?;
 
-esign:ConnectionConfig connectionConfig = {
+dsesign:ConnectionConfig connectionConfig = {
     auth: {
         token: accessToken
     }
 };
 
 public function main() returns error? {
-    esign:Client docusignClient = check new(
+    dsesign:Client docusignClient = check new(
         config = connectionConfig,
         serviceUrl = "https://demo.docusign.net/restapi/"
     );
@@ -101,9 +101,9 @@ You can now utilize the operations available within the connector.
 
 ```ballerina
 public function main() returns error? {
-    esign:Client docusignClient = ...//;
+    dsesign:Client docusignClient = ...//;
 
-    esign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post(
+    dsesign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post(
     {
         documents: [
             {
@@ -131,12 +131,12 @@ public function main() returns error? {
 
 ## Examples
 
-The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/tree/main/examples).
+The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples).
 
-1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/send-documents)
+1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.dsesign/tree/main/examples/send-documents)
     This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
 
-2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/create-signature)
+2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.dsesign/tree/main/examples/create-signature)
     This example shows how to create a eSignature for your DocuSign account.
 
 ## Issues and Projects
