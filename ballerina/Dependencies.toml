@@ -298,7 +298,7 @@ modules = [
 
 [[package]]
 org = "ballerinax"
-name = "docusign.esign"
+name = "docusign.dsesign"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
@@ -307,6 +307,6 @@ dependencies = [
 	{org = "ballerina", name = "url"}
 ]
 modules = [
-	{org = "ballerinax", packageName = "docusign.esign", moduleName = "docusign.esign"}
+	{org = "ballerinax", packageName = "docusign.dsesign", moduleName = "docusign.dsesign"}
 ]
 
