@@ -4,10 +4,12 @@
 # Log file
 *.log
 
+target
+generated
 #Config file
 Config.toml
 # Modules
-/modules/googleapis.docusign.esign
+/modules/googleapis.docusign.dsesign
 
 # BlueJ files
 *.ctxt
