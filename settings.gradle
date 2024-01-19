@@ -30,13 +30,13 @@ plugins {
     id "com.gradle.enterprise" version "3.2"
 }
 
-rootProject.name = 'module-ballerinax-docusign.esign'
+rootProject.name = 'module-ballerinax-docusign.dsesign'
 
-include ':docusign.esign-ballerina'
-include ':docusign.esign-examples'
+include ':docusign.dsesign-ballerina'
+include ':docusign.dsesign-examples'
 
-project(':docusign.esign-ballerina').projectDir = file("ballerina")
-project(':docusign.esign-examples').projectDir = file("examples")
+project(':docusign.dsesign-ballerina').projectDir = file("ballerina")
+project(':docusign.dsesign-examples').projectDir = file("examples")
 
 gradleEnterprise {
     buildScan {

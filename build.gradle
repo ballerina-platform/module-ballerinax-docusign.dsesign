@@ -61,8 +61,8 @@ allprojects {
 def moduleVersion = project.version.replace("-SNAPSHOT", "")
 
 task build {
-    dependsOn(':docusign.esign-ballerina:build')
-    dependsOn(':docusign.esign-examples:build')
+    dependsOn(':docusign.dsesign-ballerina:build')
+    dependsOn(':docusign.dsesign-examples:build')
 }
 
 release {

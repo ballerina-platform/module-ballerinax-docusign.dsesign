@@ -46,7 +46,7 @@ task testExamples {
 
 task buildExamples {
     gradle.taskGraph.whenReady { graph ->
-        if (graph.hasTask(":docusign.esign-examples:test")) {
+        if (graph.hasTask(":docusign.dsesign-examples:test")) {
             buildExamples.enabled = false
         } else {
             testExamples.enabled = false
@@ -70,7 +70,7 @@ task buildExamples {
     }
 }
 
-buildExamples.dependsOn ":docusign.esign-ballerina:build"
-testExamples.dependsOn ":docusign.esign-ballerina:build"
+buildExamples.dependsOn ":docusign.dsesign-ballerina:build"
+testExamples.dependsOn ":docusign.dsesign-ballerina:build"
 
 build.dependsOn buildExamples
