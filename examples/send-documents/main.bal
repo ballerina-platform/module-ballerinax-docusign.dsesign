@@ -5,6 +5,7 @@ import ballerina/lang.array;
 configurable string accessToken = ?;
 configurable string accountId = ?;
 configurable string userId = ?;
+
 dsesign:ConnectionConfig connectionConfig = {
     auth: {
         token: accessToken
@@ -57,9 +58,6 @@ public function main() returns error? {
     if envelopeId is () {
         return error("Envelope ID is not available");
     }
-
-    // esign:Envelope envelopeStatus = check docusignClient->/accounts/[accountId]/envelopes/[envelopeId];
-    // io:println(envelopeStatus);
    
     dsesign:EnvelopeDocumentsResult envelopeDocumentsResult = check docusignClient->/accounts/[accountId]/envelopes/[envelopeId]/documents();
 
