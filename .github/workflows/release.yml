@@ -12,5 +12,5 @@ jobs:
     uses: ballerina-platform/ballerina-standard-library/.github/workflows/release-package-connector-template.yml@main
     secrets: inherit
     with:
-      package-name: docusign
+      package-name: docusign.dsesign
       package-org: ballerinax

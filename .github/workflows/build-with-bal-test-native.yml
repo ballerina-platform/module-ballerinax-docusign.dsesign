@@ -16,4 +16,4 @@ jobs:
     uses: ballerina-platform/ballerina-standard-library/.github/workflows/build-with-bal-test-graalvm-connector-template.yml@main
     secrets: inherit
     with:
-      additional-build-flags: "-x :docusign:build -Pgroups=mock"
+      additional-build-flags: "-x :docusign.dsesign:build"
