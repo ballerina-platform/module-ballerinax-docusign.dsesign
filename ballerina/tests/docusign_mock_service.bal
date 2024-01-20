@@ -21,20 +21,20 @@ listener http:Listener ep0 = new (9092, config = {host: "localhost"});
 service /restapi on ep0 {
     resource isolated function get service_information() returns ServiceInformation|error {
         ServiceInformation response = {
-            buildBranch: "main",
-            buildBranchDeployedDateTime: "2022-01-01T00:00:00Z",
-            buildSHA: "abcdef123456",
-            buildVersion: "1.0.0",
-            linkedSites: ["site1", "site2"],
+            buildVersion:"23.4.0.45303 (23.4.00.00.45303+951e7d1b18c5)",
+            linkedSites:["https://www.docusign.net","https://na2.docusign.net","https://na3.docusign.net","https://eu.docusign.net","https://au.docusign.net","https://ca.docusign.net","https://na4.docusign.net"],
             serviceVersions: [
                 {
                     version: "v1",
-                    versionUrl: "https://api.example.com/restapi/v1"
-                    
+                    versionUrl: "https://demo.docusign.net/restapi/v1"
                 },
                 {
                     version: "v2",
-                    versionUrl: "https://api.example.com/restapi/v1"
+                    versionUrl: "https://demo.docusign.net/restapi/v2"
+                },
+                {   
+                    version: "v2.1",
+                    versionUrl: "https://demo.docusign.net/restapi/v2.1"
                 }
             ]
         };
@@ -45,16 +45,37 @@ service /restapi on ep0 {
         ResourceInformation response = {
             resources: [
                 {
-                    name: "Accounts",
-                    originalValue: "/restapi/v2.1/accounts"
+                    name: "accounts",
+                    value: "https://demo.docusign.net/restapi/v2.1/accounts"
                 },
                 {
-                    name: "Accounts",
-                    originalValue: "/restapi/v2.1/accounts"
+                    name: "billing_plans",
+                    value: "https://demo.docusign.net/restapi/v2.1/billing_plans"
+                },
+                {
+                    name: "login_information",
+                    value: "https://demo.docusign.net/restapi/v2.1/login_information"
+                },
+                {
+                    name: "oauth2",
+                    value: "https://demo.docusign.net/restapi/v2.1/oauth2"
                 }
             ]
         };
         return response;
+    }
+
+    resource isolated function get accounts/[string accountId]/billing_invoices(string? from_date = (), string? to_date = ()) returns BillingInvoicesResponse|error {
+        return {};
+    }
+
+    resource isolated function get v2\.1/accounts/[string accountId]/billing_invoices_past_due() returns BillingInvoicesSummary|error {
+        return {
+            pastDueBalance: "$0.00",
+            accountBalance: "$0.00",
+            currencyCode: "USD",
+            paymentAllowed: "false"
+        };
     }
 
     resource isolated function post v2\.1/accounts(NewAccountDefinition payload) returns NewAccountSummary|error {
@@ -67,6 +88,7 @@ service /restapi on ep0 {
 
     resource isolated function get v2\.1/accounts/[string accountId](string? include_account_settings = ()) returns AccountInformation|error {
         AccountInformation response = {
+            accountIdGuid: accountId,
             accountSettings: {
                 accountName: "Test Account"
             }
@@ -75,17 +97,42 @@ service /restapi on ep0 {
     }
 
     resource isolated function get v2\.1/accounts/[string accountId]/billing_payments(string? from_date = (), string? to_date = ()) returns BillingPaymentsResponse|error {
-        BillingPaymentsResponse response = {
-            billingPayments: [
-                {
-                    amount: "10.0",
-                    paymentId: "123456",
-                    paymentNumber: "123456"
-                }
-            ]
-        };
-        return response;
+        return {};
     }
+
+    resource isolated function post v2\.1/accounts/[string accountId]/envelopes(EnvelopeDefinition payload, string? cdse_mode = (), string? change_routing_order = (), string? completed_documents_only = (), string? merge_roles_on_draft = ()) returns EnvelopeSummary|error {
+        return {
+            envelopeId: "12345",
+            status: "created"
+        };
+    }
+
+    resource isolated function get v2\.1/accounts/[string accountId]/envelopes(string? ac_status = (), string? block = (), string? cdse_mode = (), string? continuation_token = (), string? count = (), string? custom_field = (), string? email = (), string? envelope_ids = (), string? exclude = (), string? folder_ids = (), string? folder_types = (), string? from_date = (), string? from_to_status = (), string? include = (), string? include_purge_information = (), string? intersecting_folder_ids = (), string? last_queried_date = (), string? 'order = (), string? order_by = (), string? powerformids = (), string? query_budget = (), string? requester_date_format = (), string? search_mode = (), string? search_text = (), string? start_position = (), string? status = (), string? to_date = (), string? transaction_ids = (), string? user_filter = (), string? user_id = (), string? user_name = ()) returns EnvelopesInformation|error {
+        return {};
+    }
+
+    resource isolated function get v2\.1/accounts/[string accountId]/envelopes/[string envelopeId](string? advanced_update = (), string? include = ()) returns Envelope|error {
+        return {
+            envelopeId: envelopeId
+        };
+    }
+
+    resource isolated function get v2\.1/accounts/[string accountId]/envelopes/[string envelopeId]/recipients(string? include_anchor_tab_locations = (), string? include_extended = (), string? include_metadata = (), string? include_tabs = ()) returns EnvelopeRecipients|error {
+        return {
+            recipientCount: "0"
+        };
+    }
+
+    resource isolated function get v2\.1/accounts/[string accountId]/envelopes/[string envelopeId]/docGenFormFields() returns DocGenFormFieldResponse|error {
+        return {};
+    }
+
+    resource isolated function put v2\.1/accounts/[string accountId]/envelopes/[string envelopeId](Envelope payload, string? advanced_update = (), string? resend_envelope = ()) returns EnvelopeUpdateSummary|error {
+        return {
+            envelopeId: envelopeId
+        };
+    }
+
     resource isolated function delete v2\.1/accounts/[string accountId](string? redact_user_data = ()) returns http:Response|error {
         http:Response response = new;
         response.statusCode = 204;
@@ -106,20 +153,7 @@ service /restapi on ep0 {
     }
 
     resource isolated function get v2\.1/accounts/[string accountId]/billing_invoices(string? from_date = (), string? to_date = ()) returns BillingInvoicesResponse|error {
-        BillingInvoice billingInvoice = {
-            amount: "10.0",
-            balance: "10.0",
-            dueDate: "2022-01-01T00:00:00Z",
-            invoiceId: "123456",
-            invoiceNumber: "123456",
-            invoiceUri: "https://api.example.com/restapi/v2.1/accounts/123456/invoices/123456"
-        };
-        BillingInvoicesResponse response = {
-            billingInvoices: [
-                billingInvoice
-            ]
-        };
-        return response;
+        return {};
     }
 
     resource isolated function get v2\.1/accounts/[string accountId]/billing_invoices/[string invoiceId]() returns BillingInvoice|error {
@@ -130,22 +164,6 @@ service /restapi on ep0 {
             invoiceId: "123456",
             invoiceNumber: "123456",
             invoiceUri: "https://api.example.com/restapi/v2.1/accounts/123456/invoices/123456"
-        };
-        return response;
-    }
-
-    resource isolated function get v2\.1/accounts/[string accountId]/billing_invoices_past_due() returns BillingInvoicesSummary|error {
-        BillingInvoicesSummary response = {
-            billingInvoices: [
-                {
-                    amount: "10.0",
-                    balance: "10.0",
-                    dueDate: "2022-01-01T00:00:00Z",
-                    invoiceId: "123456",
-                    invoiceNumber: "123456",
-                    invoiceUri: "https://api.example.com/restapi/v2.1/accounts/123456/invoices/123456"
-                }
-            ]
         };
         return response;
     }
@@ -170,7 +188,7 @@ service /restapi on ep0 {
             userSignatures: [
                 {
                     signatureFont: (<UserSignature[]>payload.userSignatures)[0].signatureFont,
-                    signatureId: (<UserSignature[]>payload.userSignatures)[0].signatureId,
+                    signatureId: "123456",
                     signatureInitials: (<UserSignature[]>payload.userSignatures)[0].signatureInitials,
                     signatureName: (<UserSignature[]>payload.userSignatures)[0].signatureName,
                     signatureType: (<UserSignature[]>payload.userSignatures)[0].signatureType
@@ -182,11 +200,7 @@ service /restapi on ep0 {
 
     resource isolated function get v2\.1/accounts/[string accountId]/users/[string userId]/signatures/[string signatureId]() returns UserSignature|error {
         UserSignature userSign = {
-            signatureFont: "Arial",
-            signatureId: signatureId,
-            signatureInitials: "JD",
-            signatureName: "John Doe",
-            signatureType: "Electronic"
+            signatureName: "test signature"
         };
         return userSign;        
     }
