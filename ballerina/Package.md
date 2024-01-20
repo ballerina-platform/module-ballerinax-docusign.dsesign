@@ -14,23 +14,23 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
 * You can [create an account](https://go.docusign.com/o/sandbox/) for free at the [Developer Center](https://developers.docusign.com/).
 
-    ![Create DocuSign Account](resources/create-account.png)
+    ![Create DocuSign Account](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/create-account.png)
 
 ### Step 2: Create Integration Key and Secret Key
 
 1. **Create an Integration Key and Secret Key**: Visit the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page on DocuSign. Click on "Add App and Integration Key", provide an App name, and click "Create App". This will generate an Integration Key.
 
-    ![Create Integration Key](resources/app-and-integration-key.png)
+    ![Create Integration Key](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/app-and-integration-key.png)
 
 2. **Generate a Secret Key**: Under the Authentication section, click on "Add Secret Key". This will generate a Secret Key. Make sure to copy and save both the Integration Key and Secret Key.
 
-    ![Add Secret Key](resources/app-and-integration-key.png)
+    ![Add Secret Key](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-secret-key.png)
 
 ### Step 3: Generate Access Token
 
 1. **Add a Redirect URI**: Click on "Add URI" and enter your redirect URI (e.g., <http://www.example.com/callback>).
 
-    ![Add Redirect URI](resources/add-redirect-uri.png)
+    ![Add Redirect URI](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-redirect-uri.png)
 
 2. **Generate the Encoded Key**: The Encoded Key is a base64 encoded string of your Integration Key and Secret Key in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
 
