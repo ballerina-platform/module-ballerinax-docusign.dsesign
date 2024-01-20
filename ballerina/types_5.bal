@@ -3384,7 +3384,7 @@ public type Envelope record {
     # When **true,** recipients can view the history of the envelope.
     string allowViewHistory?;
     # Deprecated. This feature has been replaced by signing groups.
-    string anySigner?;
+    string? anySigner?;
     # When **true,** the envelope is queued for
     # processing and the value of the `status` property
     # is set to `Processing`. Additionally, GET status
