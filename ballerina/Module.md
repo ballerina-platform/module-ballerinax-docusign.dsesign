@@ -12,19 +12,27 @@ To utilize the eSignature connector, you must have access to the DocuSign REST A
 
 In order to use the DocuSign eSignature connector, you need to first create the DocuSign credentials for the connector to interact with DocuSign.
 
-You can [create an account](https://go.docusign.com/o/sandbox/) for free at the [Developer Center](https://developers.docusign.com/).
+* You can [create an account](https://go.docusign.com/o/sandbox/) for free at the [Developer Center](https://developers.docusign.com/).
+
+    ![Create DocuSign Account](resources/create-account.png)
 
 ### Step 2: Create Integration Key and Secret Key
 
 1. **Create an Integration Key and Secret Key**: Visit the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page on DocuSign. Click on "Add App and Integration Key", provide an App name, and click "Create App". This will generate an Integration Key.
 
+    ![Create Integration Key](resources/app-and-integration-key.png)
+
 2. **Generate a Secret Key**: Under the Authentication section, click on "Add Secret Key". This will generate a Secret Key. Make sure to copy and save both the Integration Key and Secret Key.
+
+    ![Add Secret Key](resources/app-and-integration-key.png)
 
 ### Step 3: Generate Access Token
 
 1. **Add a Redirect URI**: Click on "Add URI" and enter your redirect URI (e.g., <http://www.example.com/callback>).
 
-2. **Generate the Encoded Key**: The Encoded Key is a base64 encoded string of your Integration Key and Secret Key in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`.
+    ![Add Redirect URI](resources/add-redirect-uri.png)
+
+2. **Generate the Encoded Key**: The Encoded Key is a base64 encoded string of your Integration Key and Secret Key in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
 
 3. **Get the Authorization Code**: Visit the following URL in your web browser, replacing `{iKey}` with your Integration Key and `{redirectUri}` with your Redirect URI:
 
@@ -47,6 +55,8 @@ You can [create an account](https://go.docusign.com/o/sandbox/) for free at the 
     The response will contain your Access Token.
 
 Remember to replace `{IntegrationKey:SecretKey}`, `{iKey}`, `{redirectUri}`, `{encodedKey}`, and `{codeFromUrl}` with your actual values.
+
+Above is about using the DocuSign eSignature APIs in the developer mode. If your app is ready to go live, you need to follow the guidelines given [here](https://developers.docusign.com/docs/esign-rest-api/go-live/) to make it work.
 
 ## Quickstart
 
