@@ -302,7 +302,10 @@ name = "docusign.dsesign"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "lang.array"},
 	{org = "ballerina", name = "mime"},
+	{org = "ballerina", name = "os"},
 	{org = "ballerina", name = "url"}
 ]
 modules = [
