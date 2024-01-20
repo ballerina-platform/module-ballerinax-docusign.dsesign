@@ -5,7 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.8.3"
+distribution-version = "2201.8.4"
 
 [[package]]
 org = "ballerina"
@@ -56,20 +56,6 @@ dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "os"},
 	{org = "ballerina", name = "time"}
-]
-
-[[package]]
-org = "ballerina"
-name = "get_documents"
-version = "0.1.0"
-dependencies = [
-	{org = "ballerina", name = "io"},
-	{org = "ballerina", name = "lang.array"},
-	{org = "ballerinai", name = "observe"},
-	{org = "ballerinax", name = "docusign.esign"}
-]
-modules = [
-	{org = "ballerina", packageName = "get_documents", moduleName = "get_documents"}
 ]
 
 [[package]]
@@ -245,7 +231,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "observe"
-version = "1.2.0"
+version = "1.2.2"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
@@ -257,6 +243,20 @@ version = "1.8.0"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerina"
+name = "send_documents"
+version = "0.1.0"
+dependencies = [
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "lang.array"},
+	{org = "ballerinai", name = "observe"},
+	{org = "ballerinax", name = "docusign.dsesign"}
+]
+modules = [
+	{org = "ballerina", packageName = "send_documents", moduleName = "send_documents"}
 ]
 
 [[package]]
@@ -298,14 +298,17 @@ modules = [
 
 [[package]]
 org = "ballerinax"
-name = "docusign.esign"
+name = "docusign.dsesign"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "lang.array"},
 	{org = "ballerina", name = "mime"},
+	{org = "ballerina", name = "os"},
 	{org = "ballerina", name = "url"}
 ]
 modules = [
-	{org = "ballerinax", packageName = "docusign.esign", moduleName = "docusign.esign"}
+	{org = "ballerinax", packageName = "docusign.dsesign", moduleName = "docusign.dsesign"}
 ]
 

@@ -1,8 +1,14 @@
 [package]
 org = "ballerina"
-name = "get_documents"
+name = "send_documents"
 version = "0.1.0"
 distribution = "2201.8.4"
+
+[[dependency]]
+org = "ballerinax"
+name = "docusign.dsesign"
+version = "0.1.0"
+repository = "local"
 
 [build-options]
 observabilityIncluded = true
