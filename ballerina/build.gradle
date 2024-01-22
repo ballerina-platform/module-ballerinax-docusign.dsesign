@@ -22,7 +22,7 @@ plugins {
     id 'io.ballerina.plugin'
 }
 
-description = 'DocuSign - Ballerina'
+description = 'DocuSign eSignature - Ballerina'
 
 def packageName = "docusign.dsesign"
 def packageOrg = "ballerinax"
