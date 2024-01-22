@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/http;
 
 # Provides a set of configurations for controlling the behaviours when communicating with a remote HTTP endpoint.
@@ -77,31 +76,31 @@ public type ProxyConfig record {|
 # Contains information about the BCC email address.
 public type BccEmailAddress record {
     # Only users with canManageAccount setting can use this option. An array of up to 5 email addresses the envelope is sent to as a BCC email. 
-    #  
+    #
     # Example: If your account has BCC for Email Archive set up for the email address 'archive@mycompany.com' and you send an envelope using the BCC Email Override to send a BCC email to 'salesarchive@mycompany.com', then a copy of the envelope is only sent to the 'salesarchive@mycompany.com' email address.
     string bccEmailAddressId?;
     # Specifies the BCC email address. DocuSign verifies that the email format is correct, but does not verify that the email is active.Using this overrides the BCC for Email Archive information setting for this envelope.
-    # 
+    #
     # Maximum of length: 100 characters. 
     string email?;
 };
 
 # Use this object to configure a [DocuSign Connect webhook](/platform/webhooks/connect/).
 public type EventNotification record {
-    # 
+    #
     string deliveryMode?;
     # A list of envelope-level event statuses that will trigger Connect to send updates to the endpoint specified in the `url` property. 
-    # 
+    #
     # To receive notifications, you must include either an `envelopeEvents` node or a `recipientEvents` node. You do not need to specify both.
     EnvelopeEvent[] envelopeEvents?;
     # This object lets you choose the data format of your Connect response.
     ConnectEventData eventData?;
     # A comma-separated list of envelope-level event statuses that will trigger Connect to send updates to the endpoint specified in the `urlToPublishTo` property.
-    # 
+    #
     # Set this property when you are using the [JSON SIM event model](/platform/webhooks/connect/improved-json-sim-event-model/). If you are instead using any of [the legacy event message formats](/platform/webhooks/connect/legacy-message-formats/), set either the `envelopeEvents` property or the `recipientEvents` property.
-    # 
+    #
     # The [possible event statuses](/platform/webhooks/connect/improved-json-sim-event-model/#eventreference) are:
-    # 
+    #
     # * `envelope-created`
     # * `envelope-sent`
     # * `envelope-resent`
@@ -149,21 +148,21 @@ public type EventNotification record {
     # When **true,** this tells the Connect Service to include the void reason, as entered by the person that voided the envelope, in the message. 
     string includeEnvelopeVoidReason?;
     # When **true,** HMAC headers will be included with the webhook notifications.
-    # 
+    #
     # **Note:** [HMAC must enabled](/platform/webhooks/connect/hmac/) at the account level with [one or more HMAC secrets](/platform/webhooks/connect/setting-up-hmac/).
     string includeHMAC?;
-    # 
+    #
     string includeOAuth?;
     # When **true,** Connect will include the sender account as Custom Field in the data.
     string includeSenderAccountAsCustomField?;
     # When **true,** the envelope's time zone information is included in the webhook messages. 
     string includeTimeZone?;
-    # 
+    #
     string integratorManaged?;
     # When **true,** the webhook messages are logged. They can be viewed on the DocuSign Administration Web Tool in the Connect section. Logged messages can also be downloaded via the [ConnectEvents resource](/docs/esign-rest-api/reference/connect/connectevents/).
     string loggingEnabled?;
     # A list of recipient event statuses that will trigger Connect to send updates to   the endpoint specified in the URL property.
-    # 
+    #
     # To receive notifications, you must include either an `envelopeEvents` node or a `recipientEvents` node. You do not need to specify both.
     RecipientEvent[] recipientEvents?;
     # When **true,** the DocuSign Connect service checks that the message was received and retries on failures. 
@@ -171,11 +170,11 @@ public type EventNotification record {
     # When **true,** Mutual TLS will be enabled for notifications. Mutual TLS must be initiated by the listener (the customer's web server) during the TLS handshake protocol. 
     string signMessageWithX509Cert?;
     # The namespace of the SOAP interface.
-    # 
+    #
     # The namespace value must be set if useSoapInterface is set to true.
     string soapNameSpace?;
     # The endpoint to which Connect should send webhook notification messages via an HTTPS POST request. The URL must start with `https`. The customer's web server must use an SSL/TLS certificate whose CA is in the Microsoft list of trusted CAs. Self-signed certificates are not acceptable, but you can use free certificates from Let's Encrypt.
-    # 
+    #
     # The maximum length of this property is 4096 bytes.
     string url?;
     # When **true,** this tells the Connect service that the user's endpoint has implemented a SOAP interface. 
@@ -185,9 +184,9 @@ public type EventNotification record {
 # Represents the type for user's signature definition.
 public type UserSignatureDefinition record {
     # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
-    # 
+    #
     # This property contains the following information about the central rectangle:
-    # 
+    #
     # - `DateAreaX`: The X axis position of the top-left corner.
     # - `DateAreaY`: The Y axis position of the top-left corner.
     # - `DateAreaWidth`: The width of the rectangle.
@@ -198,7 +197,7 @@ public type UserSignatureDefinition record {
     # Optionally specify an external identifier for the user's signature.
     string externalID?;
     # Specificies the type of image. Valid values:
-    # 
+    #
     # - `stamp_image`
     # - `signature_image`
     # - `initials_image`
@@ -212,7 +211,7 @@ public type UserSignatureDefinition record {
     # The phonetic spelling of the `signatureName`.
     string phoneticName?;
     # The font type to use for the signature if the signature is not drawn. The following font styles  are supported. The quotes are to indicate that these values are strings, not `enums`.
-    # 
+    #
     # - `"1_DocuSign"`
     # - `"2_DocuSign"`
     # - `"3_DocuSign"`
@@ -233,7 +232,7 @@ public type UserSignatureDefinition record {
     # Specifies the type of signature.
     string signatureType?;
     # The format of a stamp. Valid values are:
-    # 
+    #
     # - `NameHanko`: The stamp represents only the signer's name.
     # - `NameDateHanko`: The stamp represents the signer's name and the date. 
     string stampFormat?;
@@ -243,7 +242,7 @@ public type UserSignatureDefinition record {
 
 # A complex object describing a user authorization.
 public type UserAuthorization record {
-    # 
+    #
     AuthorizationUser agentUser?;
     # The ID of the user authorization.
     string authorizationId?;
@@ -262,10 +261,10 @@ public type UserAuthorization record {
     # * `Manage`
     # * `Sign`
     # * `Edit`
-    # 
+    #
     # This property is required.
     string permission?;
-    # 
+    #
     AuthorizationUser principalUser?;
     # The UTC DateTime at which the authorization will start.
     string startDate?;
@@ -292,56 +291,56 @@ public type PageImages record {
 # Represents the type for a smart section in a document.
 public type SmartSection record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -351,36 +350,36 @@ public type SmartSection record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -394,7 +393,7 @@ public type SmartSection record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -410,7 +409,7 @@ public type SmartSection record {
     string anchorYOffset?;
     # Metadata about a property.
     PropertyMetadata anchorYOffsetMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
@@ -421,7 +420,7 @@ public type SmartSection record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -437,10 +436,10 @@ public type SmartSection record {
     # Metadata about a property.
     PropertyMetadata documentIdMetadata?;
     # Specifies the end of the area in the HTML where the display settings will be applied. If you do not specify an end anchor, the end of the document will be used by default.
-    # 
+    #
     # **Note:** A start anchor, an end anchor, or both are required.
     string endAnchor?;
-    # 
+    #
     SmartSectionAnchorPosition endPosition?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
@@ -470,7 +469,7 @@ public type SmartSection record {
     # Reserved for DocuSign.
     string mergeFieldXml?;
     # The type of overlay to draw on the document. The following overlay types are supported:
-    # 
+    #
     # - `line`
     # - `outline`
     string overlayType?;
@@ -496,18 +495,18 @@ public type SmartSection record {
     string shared?;
     # Metadata about a property.
     PropertyMetadata sharedMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # Specifies the beginning of the area in the HTML where the display settings will be applied. If you do not specify a start anchor, the beginning of the document will be used by default.
-    # 
+    #
     # **Note:** A start anchor, an end anchor, or both are required.
     string startAnchor?;
-    # 
+    #
     SmartSectionAnchorPosition startPosition?;
     # The status of the tab. Possible values are:
-    # 
+    #
     # - `active`: The tab is active, but the recipient has not yet interacted with it.
     # - `signed`: The recipient signed the tab.
     # - `declined`: The recipient declined the envelope.
@@ -516,7 +515,7 @@ public type SmartSection record {
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -527,11 +526,11 @@ public type SmartSection record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -577,7 +576,7 @@ public type AuthenticationMethod record {
     string authenticationType?;
     # The last provider that authenticated the user. 
     string lastProvider?;
-    #  The data and time the user last used the authentication method. 
+    # The data and time the user last used the authentication method. 
     string lastTimestamp?;
     # The number of times the authentication method was used. 
     string totalCount?;
@@ -621,20 +620,20 @@ public type IntegratedConnectUserInfoList record {
     ConnectUserInfo[] users?;
 };
 
-#  This object describes an envelope.
+# This object describes an envelope.
 public type EnvelopeSummary record {
-    # 
+    #
     BulkEnvelopeStatus bulkEnvelopeStatus?;
     # The envelope ID of the envelope status that failed to post.
     string envelopeId?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
-    # 
+    #
     string recipientSigningUri?;
-    # 
+    #
     string recipientSigningUriError?;
     # Indicates the envelope status. Valid values are: 
-    # 
+    #
     # * `completed`: The recipients have finished working with the envelope: the documents are signed and all required tabs are filled in.
     # * `created`: The envelope is created as a draft. It can be modified and sent later.
     # * `declined`: The envelope has been declined by the recipients.
@@ -662,12 +661,12 @@ public type SigningGroups record {
     # The name of the group. The search_text provided in the call automatically performs a wild card search on group_name.
     string groupName?;
     # The group type. Possible values include:
-    # 
+    #
     # - `adminstrators`
     # - `everyone`
     # - `customGroup`
     # - `sharedSigningGroup`
-    # 
+    #
     # <!-- More? To do -->
     string groupType?;
     # The date and time that the signing group was last modified.
@@ -689,7 +688,7 @@ public type RecipientViewRequest record {
     # A sender-generated value that indicates the date and time that the signer was authenticated.
     string authenticationInstant?;
     # Required. Choose a value that most closely matches the technique your application used to authenticate the recipient / signer. 
-    # 
+    #
     # Choose a value from this list: 
     # * Biometric 
     # * Email
@@ -709,22 +708,22 @@ public type RecipientViewRequest record {
     # * Smartcard
     # * SSLMutualAuth
     # * X509Certificate
-    # 
+    #
     # This information is included in the Certificate of Completion.
     string authenticationMethod?;
-    # 
+    #
     RecipientTokenClientURLs clientURLs?;
     # A sender-created value. If provided, the recipient is treated as an embedded (captive) recipient or signer.
-    # 
+    #
     # Use your application's client ID (user ID) for the recipient. Doing so enables the details of your application's authentication of the recipient to be connected to the recipient's signature if the signature is disputed or repudiated.
-    # 
+    #
     # Maximum length: 100 characters.
     string clientUserId?;
     # (Required) Specifies the email of the recipient. You can use either `email` and `userName` or `userId` to identify the recipient.
     string email?;
-    # 
+    #
     string[] frameAncestors?;
-    # 
+    #
     string[] messageOrigins?;
     # Only used if `pingUrl` is specified. This is the interval, in seconds, between pings on the `pingUrl`.  The default is `300` seconds. Valid values are 60-1200 seconds.
     string pingFrequency?;
@@ -734,19 +733,19 @@ public type RecipientViewRequest record {
     string recipientId?;
     # (Required) The URL to which the user should be redirected
     # after the signing session has ended.
-    # 
+    #
     # Maximum Length: 470 characters. If the `returnUrl` exceeds this
     # limit, the user is redirected to a truncated URL
     # Be sure to include `https://` in the URL
     # or redirecting might fail on some browsers.
-    # 
-    # 
+    #
+    #
     # When DocuSign redirects to
     # this URL, it will include an `event` query parameter that your app can use:
-    # 
+    #
     # * `access_code_failed`: Recipient used incorrect access code.
     # * `cancel`: Recipient canceled the signing operation,
-    #   possibly by using the **Finish Later** option.
+    # possibly by using the **Finish Later** option.
     # * `decline`: Recipient declined to sign.
     # * `exception`: A system error occurred during the signing process.
     # * `fax_pending`: Recipient has a fax pending.
@@ -754,26 +753,26 @@ public type RecipientViewRequest record {
     # * `session_timeout`: The session timed out. An account can control this timeout by using the **Signer Session Timeout** option.
     # * `signing_complete`: The recipient completed the signing ceremony.
     # * `ttl_expired`: The Time To Live token for the envelope has expired.
-    #   After being successfully invoked, these tokens expire
-    #   after five minutes.
+    # After being successfully invoked, these tokens expire
+    # after five minutes.
     # * `viewing_complete`: The recipient completed viewing an envelope
-    #   that is in a read-only/terminal state,
-    #   such as completed, declined, or voided.
+    # that is in a read-only/terminal state,
+    # such as completed, declined, or voided.
     string returnUrl?;
     # The domain in which the user authenticated.
     string securityDomain?;
     # The user ID of the recipient. You can use either the user ID or email and user name to identify the recipient. 
-    # 
+    #
     # If `userId` is used and a `clientUserId` is provided, the value in the `userId` property must match a `recipientId` (which you can retrieve with a GET recipients call) for the envelope. 
-    # 
+    #
     # If a `userId` is used and a `clientUserId` is not provided, the `userId` must match the user ID of the authenticating user.
     string userId?;
     # The username of the recipient. You can use either `email` and `userName` or `userId` to identify the recipient.
     string userName?;
     # Specifies whether a browser should be allowed to render a page in a frame or IFrame. Setting this property ensures that your content is not embedded into unauthorized pages or frames.
-    # 
+    #
     # Valid values are:
-    # 
+    #
     # - `deny`: The page cannot be displayed in a frame.
     # - `same_origin`: The page can only be displayed in a frame on the same origin as the page itself.
     # - `allow_from`: The page can only be displayed in a frame on the origin specified by the `xFrameOptionsAllowFromUrl` property.
@@ -791,7 +790,7 @@ public type DocumentVisibility record {
     # The ID of the recipient to whom the document visibility setting is applied. This value should match the `recipientId` defined in the recipient object.
     string recipientId?;
     # Indicates whether the document is editable:
-    # 
+    #
     # - `editable`
     # - `read_only`
     string rights?;
@@ -801,7 +800,7 @@ public type DocumentVisibility record {
 
 # Describes a single notary jurisdiction.
 public type NotaryResult record {
-    # 
+    #
     Jurisdiction[] jurisdictions?;
     # Use DocuSign eNotary to notarize documents digitally.
     # Check the [DocuSign eNotary support documentation](https://support.docusign.com/s/document-item?bundleId=gko1642535666104&topicId=jiv1635359045452.html)
@@ -846,9 +845,9 @@ public type BillingCharge record {
     # Reserved for DocuSign.
     string blocked?;
     # Provides information on what services the charge item is for.
-    # 
+    #
     # The following table provides a description of the different chargeName values available at this time.
-    # 
+    #
     # | chargeName | Description |
     # | --- | --- |
     # | id_check | ID Check Charge |
@@ -877,21 +876,21 @@ public type BillingCharge record {
     string chargeType?;
     # Reserved for DocuSign.
     string chargeUnitOfMeasure?;
-    # 
+    #
     BillingDiscount[] discounts?;
-    # 
+    #
     string firstEffectiveDate?;
-    # 
+    #
     string includedQuantity?;
     # Reserved for DocuSign.
     string incrementalQuantity?;
-    # 
+    #
     string lastEffectiveDate?;
-    # 
+    #
     BillingPrice[] prices?;
     # Reserved for DocuSign.
     string unitPrice?;
-    # 
+    #
     string usedQuantity?;
 };
 
@@ -905,41 +904,41 @@ public type ConsumerDisclosure record {
     # Metadata that indicates whether a property is editable and describes setting-specific options.
     SettingsMetadata allowCDWithdrawMetadata?;
     # If the customer needs to change their email address, this is the email address to which they should the change request.
-    # 
+    #
     # Maximum length: 100 characters.
     string changeEmail?;
     # Other information about the requirements for the user to change their email address.
-    # 
+    #
     # Maximum length: 255 characters.
-    # 
+    #
     # Example: 
-    # 
+    #
     # `We do not require any other information from you to change your email address.`
     string changeEmailOther?;
     # Specifies the company name used in the disclosure. The default value is the account name.
-    # 
+    #
     # However, if your account uses signing brands that specify a company name, you can substitute the brand's company name by setting the `useBrand` property to **true.** Whenever an envelope is sent from the account that uses a signing brand with a specified `companyName`, that value is used in email notifications and in the signing experience.
-    # 
+    #
     # **Note:** This substitution only works if you use the default legal disclosure or if you apply the `companyName` to the merge fields in a custom ERSD. You must also set the value of the `useBrand` property to **true.**
     string companyName?;
     # The phone number of the company associated with the consumer disclosure, as a free-formatted string.
     string companyPhone?;
     # The cost per page if the customer requests paper copies.
-    # 
+    #
     # Example: 
-    # 
+    #
     # `0.0000`
     string copyCostPerPage?;
     # Specifies the fee collection method for cases in which the customer requires paper copies of the document.
-    # 
+    #
     # Maximum length: 255 characters.
-    # 
+    #
     # Example: 
-    # 
+    #
     # `We will bill you for any fees at that time, if any.`
     string copyFeeCollectionMethod?;
     # The email address to which the customer should send a request for copies of a document.
-    # 
+    #
     # Maximum length: 100 characters.
     string copyRequestEmail?;
     # When **true,** indicates that the consumer disclosure is a custom disclosure. The default is **false.**
@@ -949,11 +948,11 @@ public type ConsumerDisclosure record {
     # The final, assembled text of the Electronic Record and Signature Disclosure that includes the appropriate `companyName` and other specifics. It also includes the HTML tags used for formatting.
     string esignAgreement?;
     # The template for the Electronic Record and Signature Disclosure, which contains placeholders for information such as the `companyName`. It also includes the HTML tags used for formatting.
-    # 
+    #
     # **Note:** If you are switching to or updating a custom disclosure, you can edit both the text and the HTML formatting.
     string esignText?;
     # The code for the language version of the disclosure. The following languages are supported:
-    # 
+    #
     # - Arabic (`ar`)
     # - Bulgarian (`bg`)
     # - Czech (`cs`)
@@ -997,19 +996,19 @@ public type ConsumerDisclosure record {
     # - Turkish (`tr`)
     # - Ukrainian (`uk`) 
     # - Vietnamese (`vi`)
-    # 
+    #
     # Additionally, you can automatically detect the browser language being used by the viewer and display the disclosure in that language by setting the value to `browser`.
     string languageCode?;
     # When **true,** the  recipient must agree to the consumer disclosure. The value of this property is read-only. It is calculated based on the account setting `consumerDisclosureFrequency` and the user's actions.
     string mustAgreeToEsign?;
     # **Deprecated.** 
-    # 
+    #
     # The `pdfId` property in the consumer_disclosure PUT request is deprecated. For security reasons going forward, any value provided in the request packet must be ignored. 
     string pdfId?;
     # When **true,** specifies that the company name in the signing brand is used for the disclosure. Whenever an envelope is sent from the account that uses a signing brand with a specified company name, that value is used in email notifications and in the signing experience.  
-    # 
+    #
     # When **false** (default), or if the signing brand does not specify a company name, the account name is used instead.
-    # 
+    #
     # **Note:** This substitution only works if you use the default legal disclosure or if you apply the `companyName` to the merge fields in a custom ERSD. 
     string useBrand?;
     # When **true,** specifies that recipients in the same account as the sender must agree to eSign an Electronic Record and Signature Disclosure Statement.
@@ -1017,11 +1016,11 @@ public type ConsumerDisclosure record {
     # Metadata that indicates whether a property is editable and describes setting-specific options.
     SettingsMetadata useConsumerDisclosureWithinAccountMetadata?;
     # Contains the first address line of the postal address to which a customer can send a consent withdrawal notification.
-    # 
+    #
     # Maximum length: 100 characters. 
     string withdrawAddressLine1?;
     # Contains the second address line of the postal address to which a customer can send a consent withdrawal notification.
-    # 
+    #
     # Maximum length: 100 characters. 
     string withdrawAddressLine2?;
     # When **true** (default), indicates that the customer can withdraw consent by email.
@@ -1031,35 +1030,35 @@ public type ConsumerDisclosure record {
     # When **true,** indicates that the customer can withdraw consent by phone. The default is **false.**
     string withdrawByPhone?;
     # Contains the city of the postal address to which a customer can send a consent withdrawal notification.
-    # 
+    #
     # Maximum length: 50 characters. 
     string withdrawCity?;
     # Text indicating the consequences of withdrawing consent.
-    # 
+    #
     # Maximum length: 255 characters.
     string withdrawConsequences?;
     # Contains the email address to which a customer can send a consent withdrawal notification.
-    # 
+    #
     # Maximum length: 100 characters. 
     string withdrawEmail?;
     # Contains any other information needed to withdraw consent.
-    # 
+    #
     # Maximum length: 255 characters.
-    # 
+    #
     # Example:
-    # 
+    #
     # `We do not need any other information from you to withdraw consent.`
     string withdrawOther?;
     # Contains the phone number that a customer can call to register consent withdrawal notification as a free-formatted string.
-    # 
+    #
     # Maximum length: 20 characters. 
     string withdrawPhone?;
     # Contains the postal code of the postal address to which a customer can send a consent withdrawal notification.
-    # 
+    #
     # Maximum length: 20 characters. 
     string withdrawPostalCode?;
     # Contains the state of the postal address to which a customer can send a consent withdrawal notification.
-    # 
+    #
     # Example: `PA`
     string withdrawState?;
 };
@@ -1073,26 +1072,26 @@ public type RecipientsUpdateSummary record {
 # This object contains information about a payment method that the gateway accepts and the payment options that are compatible with it.
 public type PaymentMethodWithOptions record {
     # A list of ISO 4217 currency codes for the currencies that the payment gateway account supports.
-    # 
+    #
     # Examples: 
-    # 
+    #
     # - `USD`
     # - `CAD`
     # - `EUR`
     # - `HKD`
     string[] supportedCurrencies?;
     # The payment options that are compatible with the payment method in the `type` property.
-    # 
+    #
     # Possible values are:
-    # 
+    #
     # - `save` 
     # - `save_and_authorize`
     # - `authorize`
     string[] supportedOptions?;
     # The name of a payment method that the gateway accepts.
-    # 
+    #
     # Possible values are:
-    # 
+    #
     # - `CreditCard`
     # - `ApplePay`
     # - `AndroidPay`
@@ -1107,15 +1106,15 @@ public type PaymentMethodWithOptions record {
 # for more information on how to retrieve workflow IDs available for an account.
 # This can be used in addition to other [recipient authentication](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=kzp1578456318101.html) methods.
 public type RecipientIdentityVerification record {
-    # 
+    #
     RecipientIdentityInputOption[] inputOptions?;
     # ID of the Identity Verification worklow used to verify recipients' identity.
-    # 
+    #
     # This ID must match one of the [workflowId](/docs/esign-rest-api/reference/accounts/identityverifications/list/) available to your account.
     string workflowId?;
     # Metadata about a property.
     PropertyMetadata workflowIdMetadata?;
-    # 
+    #
     string workflowLabel?;
 };
 
@@ -1191,7 +1190,7 @@ public type Jurisdiction record {
     # The ID of the jurisdiction.
     # The following jurisdictions
     # are supported:
-    # 
+    #
     # -  `5 - California`
     # -  `6 - Colorado`
     # -  `9 - Florida`
@@ -1243,56 +1242,56 @@ public type MobileNotifierConfigurationInformation record {
 # note, for the recipient.
 public type Note record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -1302,36 +1301,36 @@ public type Note record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -1345,7 +1344,7 @@ public type Note record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -1365,7 +1364,7 @@ public type Note record {
     string bold?;
     # Metadata about a property.
     PropertyMetadata boldMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
@@ -1374,7 +1373,7 @@ public type Note record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -1390,7 +1389,7 @@ public type Note record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # The font to be used for the tab value. Supported fonts include:
-    # 
+    #
     # - Default
     # - Arial
     # - ArialNarrow
@@ -1409,7 +1408,7 @@ public type Note record {
     # - Verdana
     string font?;
     # The font color to use for the information in the tab. Possible values are: 
-    # 
+    #
     # - Black
     # - BrightBlue
     # - BrightRed
@@ -1426,7 +1425,7 @@ public type Note record {
     # Metadata about a property.
     PropertyMetadata fontMetadata?;
     # The font size used for the information in the tab. Possible values are:
-    # 
+    #
     # - Size7
     # - Size8
     # - Size9
@@ -1475,7 +1474,7 @@ public type Note record {
     # Reserved for DocuSign.
     string mergeFieldXml?;
     # The name of the tab. For example, `Sign Here` or `Initial Here`.
-    # 
+    #
     # If the `tooltip` attribute is not set, this value will be displayed as the custom tooltip text.
     string name?;
     # Metadata about a property.
@@ -1496,12 +1495,12 @@ public type Note record {
     string shared?;
     # Metadata about a property.
     PropertyMetadata sharedMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # The status of the tab. Possible values are:
-    # 
+    #
     # - `active`: The tab is active, but the recipient has not yet interacted with it.
     # - `signed`: The recipient signed the tab.
     # - `declined`: The recipient declined the envelope.
@@ -1510,7 +1509,7 @@ public type Note record {
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -1521,13 +1520,13 @@ public type Note record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # Metadata about a property.
     PropertyMetadata tabLabelMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -1545,7 +1544,7 @@ public type Note record {
     # Metadata about a property.
     PropertyMetadata templateRequiredMetadata?;
     # **Note:** Note tabs never display this tooltip in the signing interface.
-    # 
+    #
     # Although you can technically set a value via the API for this tab,
     # it will not be displayed to the recipient.
     string tooltip?;
@@ -1567,7 +1566,7 @@ public type Note record {
     # This property indicates the horizontal offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -1580,7 +1579,7 @@ public type Note record {
     # This property indicates the vertical offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -1601,7 +1600,7 @@ public type BillingChargeResponse record {
 # Represents information about the audit events of an envelope.
 public type EnvelopeAuditEvent record {
     # The fields related to different audit events. 
-    NameValue[] eventFields?; 
+    NameValue[] eventFields?;
 };
 
 # Numerical tabs provide robust display and validation features,
@@ -1611,56 +1610,56 @@ public type EnvelopeAuditEvent record {
 # to learn more about this tab type.
 public type Numerical record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -1670,36 +1669,36 @@ public type Numerical record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -1713,7 +1712,7 @@ public type Numerical record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -1733,14 +1732,14 @@ public type Numerical record {
     string bold?;
     # Metadata about a property.
     PropertyMetadata boldMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
     # When **true,** the field appears normally while the recipient is adding or modifying the information in the field, but the data is not visible (the characters are hidden by asterisks) to any other signer or the sender.
-    # 
+    #
     # When an envelope is completed the information is only available to the sender through the Form Data link in the DocuSign Console. The information on the downloaded document remains masked by asterisks.
-    # 
+    #
     # This setting applies only to text boxes and does not affect list boxes, radio buttons, or check boxes.
     string concealValueOnDocument?;
     # Metadata about a property.
@@ -1750,7 +1749,7 @@ public type Numerical record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -1772,7 +1771,7 @@ public type Numerical record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # The font to be used for the tab value. Supported fonts include:
-    # 
+    #
     # - Default
     # - Arial
     # - ArialNarrow
@@ -1791,7 +1790,7 @@ public type Numerical record {
     # - Verdana
     string font?;
     # The font color to use for the information in the tab. Possible values are: 
-    # 
+    #
     # - Black
     # - BrightBlue
     # - BrightRed
@@ -1808,7 +1807,7 @@ public type Numerical record {
     # Metadata about a property.
     PropertyMetadata fontMetadata?;
     # The font size used for the information in the tab. Possible values are:
-    # 
+    #
     # - Size7
     # - Size8
     # - Size9
@@ -1873,13 +1872,13 @@ public type Numerical record {
     # `-999999999.99`
     string minNumericalValue?;
     # The name of the tab. For example, `Sign Here` or `Initial Here`.
-    # 
+    #
     # If the `tooltip` attribute is not set, this value will be displayed as the custom tooltip text.
     string name?;
     # Metadata about a property.
     PropertyMetadata nameMetadata?;
     # The raw numerical value of the tab.
-    # 
+    #
     # For example,
     # if the locale policy is `en-US`
     # and the `numericalValue` is `-1234.56`,
@@ -1917,9 +1916,9 @@ public type Numerical record {
     # Metadata about a property.
     PropertyMetadata requireInitialOnSharedChangeMetadata?;
     # When **true,** the sender must populate the tab before an envelope can be sent using the template. 
-    # 
+    #
     # This value tab can only be changed by modifying (PUT) the template. 
-    # 
+    #
     # Tabs with a `senderRequired` value of true cannot be deleted from an envelope.
     string senderRequired?;
     # Metadata about a property.
@@ -1932,19 +1931,19 @@ public type Numerical record {
     string shareToRecipients?;
     # Metadata about a property.
     PropertyMetadata shareToRecipientsMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
-    # 
+    #
     string 'source?;
     # Indicates the envelope status. Valid values are:
-    # 
+    #
     # * sent - The envelope is sent to the recipients. 
     # * created - The envelope is saved as a draft and can be modified and sent later.
     string status?;
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -1955,13 +1954,13 @@ public type Numerical record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # Metadata about a property.
     PropertyMetadata tabLabelMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -1987,13 +1986,13 @@ public type Numerical record {
     # Metadata about a property.
     PropertyMetadata underlineMetadata?;
     # Specifies how numerical data is validated. Valid values:
-    # 
+    #
     # - `number`
     # - `currency`
     string validationType?;
     # The `numericalValue` of the tab
     # displayed according to its locale policy.
-    # 
+    #
     # For example,
     # if the locale policy is `en-US`
     # and the `numericalValue` is `-1234.56`,
@@ -2024,11 +2023,11 @@ public type Numerical record {
 # Details about the phone numbers associated with a specific contact.
 public type ContactPhoneNumber record {
     # The contact's phone number.
-    # 
+    #
     # Example: `+12223334444`
     string phoneNumber?;
     # The type of phone number. Valid values are:
-    # 
+    #
     # - `home`
     # - `mobile`
     # - `work`
@@ -2038,7 +2037,7 @@ public type ContactPhoneNumber record {
 };
 
 # The bulk send list resource provides methods that enable you to create and manage bulk sending lists, which you can use to send multiple copies of an envelope in a single batch. 
-# 
+#
 # **Note:** The Bulk Send feature is only available on Business Pro and Enterprise Pro plans.
 public type BulkSend record {
     # An array of `bulkCopy` objects. Each object represents an instance or copy of an envelope and contains details such as the recipient, custom fields, tabs, and other information.
@@ -2086,10 +2085,10 @@ public type UserInformation record {
     ForgottenPasswordInformation forgottenPasswordInfo?;
     # A list of the group information for groups to add the user to.
     # Use [UserGroups: listGroups](/docs/esign-rest-api/reference/usergroups/groups/list/) to get information about groups.
-    # 
+    #
     # When setting a user's group, only the `groupId` is required.
     Group[] groupList?;
-    # 
+    #
     boolean hasRemoteNotary?;
     # Contains address information.
     AddressInformation homeAddress?;
@@ -2097,7 +2096,7 @@ public type UserInformation record {
     string initialsImageUri?;
     # Determines if the feature set is actively set as part of the plan.
     string isAdmin?;
-    # 
+    #
     string isAlternateAdmin?;
     # When **true,** National Association of Realtors (NAR) signature logos are enabled for the user.
     string isNAREnabled?;
@@ -2118,16 +2117,16 @@ public type UserInformation record {
     # If password expiration is enabled, the date-time when the user's password expires.
     string passwordExpiration?;
     # The ID of the permission profile.
-    # 
+    #
     # Use [AccountPermissionProfiles: list](/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/)
     # to get a list of permission profiles and their IDs.
-    # 
+    #
     # You can also download a CSV file of all permission profiles
     # and their IDs from the **Settings > Permission Profiles** page
     # of your eSignature account page.
     string permissionProfileId?;
     # The name of the account permission profile. 
-    # 
+    #
     # Example: `Account Administrator`
     string permissionProfileName?;
     # The URL for retrieving the user's profile image.
@@ -2138,10 +2137,10 @@ public type UserInformation record {
     string sendActivationOnInvalidLogin?;
     # An endpoint URI that you can use to retrieve the user's signature image.
     string signatureImageUri?;
-    # 
+    #
     string subscribe?;
     # The suffix for the user's name, such as Jr, IV, PhD, etc.
-    # 
+    #
     # Limit: 50 characters. 
     string suffixName?;
     # The title of the user.
@@ -2151,7 +2150,7 @@ public type UserInformation record {
     # The date and time that the user was added to the account.
     string userAddedToAccountDateTime?;
     # The ID of the user to access.
-    # 
+    #
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     string userId?;
     # The name of the user.
@@ -2164,7 +2163,7 @@ public type UserInformation record {
     # - `options`: The values supported for this setting (not all settings have this element)
     UserSettingsInformation userSettings?;
     # Status of the user's account. One of:
-    # 
+    #
     # - `ActivationRequired`
     # - `ActivationSent`
     # - `Active`
@@ -2181,15 +2180,15 @@ public type UserInformation record {
 # configure [eNote][eNote] functionality.
 # To use eNote, the Allow eNote for eOriginal account plan item must be on,
 # and the Connect configuration for eOriginal must be set correctly.
-# 
+#
 # [eNote]: https://support.docusign.com/s/document-item?bundleId=pik1583277475390&topicId=tsn1583277394951.html
 public type ENoteConfiguration record {
-    # 
+    #
     string apiKey?;
     # When **false,** the user must configure Connect and eOriginal for the integration to work.
     string connectConfigured?;
     # When **false,** the user must configure eNote for the feature to work.
-    # 
+    #
     # **Note:** In the account settings, `allowENoteEOriginal` must be **true**
     # to make changes to the configuration.
     string eNoteConfigured?;
@@ -2224,11 +2223,11 @@ public type Notification record {
 # Represents the type for a notary recipient in a transaction.
 public type NotaryRecipient record {
     # If a value is provided, the recipient must enter the value as the access code to view and sign the envelope. 
-    # 
+    #
     # Maximum Length: 50 characters and it must conform to the account's access code format setting.
-    # 
+    #
     # If blank, but the signer `accessCode` property is set in the envelope, then that value is used.
-    # 
+    #
     # If blank and the signer `accessCode` property is not set, then the access code is not required.
     string accessCode?;
     # Metadata about a property.
@@ -2249,23 +2248,23 @@ public type NotaryRecipient record {
     string autoRespondedReason?;
     # Reserved for DocuSign.
     string bulkRecipientsUri?;
-    # 
+    #
     string bulkSendV2Recipient?;
     # When **true,** specifies that the signer can perform the signing ceremony offline.
     string canSignOffline?;
     # Specifies whether the recipient is embedded or remote. 
-    # 
+    #
     # If the `clientUserId` property is not null then the recipient is embedded. Use this field to associate the signer with their userId in your app. Authenticating the user is the responsibility of your app when you use embedded signing.
-    # 
+    #
     # If the `clientUserId` property is set and either `SignerMustHaveAccount` or `SignerMustLoginToSign` property of the account settings is set to  **true,** an error is generated on sending.
-    # 
+    #
     # **Note:** This property is not returned by the [listStatusChanges](/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/) endpoint.
-    # 
+    #
     # Maximum length: 100 characters. 
     string clientUserId?;
     # Indicates the number of times that the recipient has been through a signing completion for the envelope. If this number is greater than 0 for a signing group, only the user who previously completed may sign again. This property is read-only.
     string completedCount?;
-    # 
+    #
     ConsentDetails[] consentDetailsList?;
     # The reason why the item was created.
     string creationReason?;
@@ -2277,29 +2276,29 @@ public type NotaryRecipient record {
     string declinedReason?;
     # When **true,** this recipient is the default recipient and any tabs generated by the transformPdfFields option are mapped to this recipient.
     string defaultRecipient?;
-    # 
+    #
     DelegationInfo delegatedBy?;
-    # 
+    #
     DelegationInfo[] delegatedTo?;
     # The date and time that the envelope was delivered to the recipient. This property is read-only.
     string deliveredDateTime?;
     # The delivery method. One of:
-    # 
+    #
     # - `email`
     # - `fax`
     # - `SMS`
     # - `WhatsApp`
     # - `offline`
-    # 
+    #
     # The `SMS` and `WhatsApp` delivery methods
     # are limited to `signer`, `carbonCopy`, and `certifiedDelivery`
     # recipients.
-    # 
+    #
     # **Related topics**
-    # 
+    #
     # - [Using SMS delivery with the eSignature API][smsconcept]
     # - [How to request a signature by SMS delivery][howto]
-    # 
+    #
     # [smsconcept]: /docs/esign-rest-api/esign101/concepts/sms-delivery/using-sms-esignature/
     # [howto]: /docs/esign-rest-api/how-to/request-signature-sms/
     string deliveryMethod?;
@@ -2312,7 +2311,7 @@ public type NotaryRecipient record {
     # A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient. For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true.**
     DocumentVisibility[] documentVisibility?;
     # The recipient's email address. Notification of the document to sign is sent to this email address.
-    # 
+    #
     # Maximum length: 100 characters.
     string email?;
     # Metadata about a property.
@@ -2321,24 +2320,24 @@ public type NotaryRecipient record {
     # recipients. **Note:** You must explicitly set `supportedLanguage`
     # if you use this feature.
     RecipientEmailNotification emailNotification?;
-    # 
+    #
     string emailRecipientPostSigningURL?;
     # Specifies a sender-provided valid URL string for redirecting an embedded recipient. When using this option, the embedded recipient still receives an email from DocuSign, just as a remote recipient would. When the document link in the email is clicked the recipient is redirected, through DocuSign, to the supplied URL to complete their actions. When routing to the URL, the sender's system (the server responding to the URL) must request a recipient token to launch a signing session. 
-    # 
+    #
     # When `SIGN_AT_DOCUSIGN`, the recipient is directed to an embedded signing or viewing process directly at DocuSign. The signing or viewing action is initiated by the DocuSign system and the transaction activity and Certificate of Completion records will reflect this. In all other ways the process is identical to an embedded signing or viewing operation launched by a partner.
-    # 
+    #
     # It is important to understand that in a typical embedded workflow, the authentication of an embedded recipient is the responsibility of the sending application. DocuSign expects that senders will follow their own processes for establishing the recipient's identity. In this workflow the recipient goes through the sending application before the embedded signing or viewing process is initiated. However, when the sending application sets `EmbeddedRecipientStartURL=SIGN_AT_DOCUSIGN`, the recipient goes directly to the embedded signing or viewing process, bypassing the sending application and any authentication steps the sending application would use. In this case, DocuSign recommends that you use one of the normal DocuSign authentication features (Access Code, Phone Authentication, SMS Authentication, etc.) to verify the identity of the recipient.
-    # 
+    #
     # If the `clientUserId` property is NOT set, and the `embeddedRecipientStartURL` is set, DocuSign will ignore the redirect URL and launch the standard signing process for the email recipient. Information can be appended to the embedded recipient start URL using merge fields. The available merge fields items are: `envelopeId`, `recipientId`, `recipientName`, `recipientEmail`, and `customFields`. The `customFields` property must be set for the recipient or envelope. The merge fields are enclosed in double brackets. 
-    # 
+    #
     # *Example*: 
-    # 
+    #
     # `http://senderHost/[[mergeField1]]/ beginSigningSession? [[mergeField2]]&[[mergeField3]]` 
     string embeddedRecipientStartURL?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true** for the envelope to use this.
-    # 
+    #
     # When enforce signer visibility is enabled, documents with tabs can only be viewed by signers that have a tab on that document. Recipients that have an administrative role (Agent, Editor, or Intermediaries) or informational role (Certified Deliveries or Carbon Copies) can always see all the documents in an envelope, unless they are specifically excluded using this setting when an envelope is sent. Documents that do not have tabs are always visible to all recipients, unless they are specifically excluded using this setting when an envelope is sent.
     string[] excludedDocuments?;
     # Reserved for DocuSign.
@@ -2355,11 +2354,11 @@ public type NotaryRecipient record {
     # Metadata about a property.
     PropertyMetadata fullNameMetadata?;
     # The name of the authentication check to use. This value must match one of the authentication types that the account uses. The names of these authentication types appear in the web console sending interface in the Identify list for a recipient. This setting overrides any default authentication setting. Valid values are:
-    # 
+    #
     # - `Phone Auth $`: The recipient must authenticate by using two-factor authentication (2FA). You provide the phone number to use for 2FA in the `phoneAuthentication` object.
     # - `SMS Auth $`: The recipient must authenticate via SMS. You provide the phone number to use in the `smsAuthentication` object.
     # - `ID Check $`: The  recipient must answer detailed security questions. 
-    # 
+    #
     # **Example:** Your account has ID Check and SMS Authentication available. In the web console Identify list, these appear as ID Check $ and SMS Auth $. To use ID Check in an envelope, the idCheckConfigurationName should be ID Check $. For SMS, you would use SMS Auth $, and you would also need to add a phone number to the smsAuthentication node.
     string idCheckConfigurationName?;
     # Metadata about a property.
@@ -2390,23 +2389,23 @@ public type NotaryRecipient record {
     # Reserved for DocuSign.
     string lockedRecipientSmsEditable?;
     # The full legal name of the recipient. Maximum length: 100 characters.
-    # 
+    #
     # Note: You must always set a value for this property in requests, even if `firstName` and `lastName` are set.
     string name?;
     # Metadata about a property.
     PropertyMetadata nameMetadata?;
     # Not applicable to Notary tab.
     string notaryId?;
-    # 
+    #
     string notarySignerEmailSent?;
     # An array of strings that correspond to the `recipientId` of each signer in the notary group. This property is read-only.
     string[] notarySigners?;
-    # 
+    #
     string notarySourceType?;
-    # 
+    #
     string notaryThirdPartyPartner?;
     # The notary type. This property is read-only. Valid values:
-    # 
+    #
     # - `inperson`
     # - `remote`
     string notaryType?;
@@ -2416,7 +2415,7 @@ public type NotaryRecipient record {
     # it appears near the upper left corner
     # of the document
     # on the signing screen.
-    # 
+    #
     # Maximum Length: 1000 characters.
     string note?;
     # Metadata about a property.
@@ -2424,7 +2423,7 @@ public type NotaryRecipient record {
     # Reserved for DocuSign.
     OfflineAttributes offlineAttributes?;
     # A complex type that contains the elements:
-    # 
+    #
     # * `recipMayProvideNumber`: A Boolean value that specifies whether the recipient can use the phone number of their choice.
     # * `senderProvidedNumbers`: A list of phone numbers that the recipient can use.
     # * `recordVoicePrint`: Reserved for DocuSign.
@@ -2443,12 +2442,12 @@ public type NotaryRecipient record {
     # A local reference used to map
     # recipients to other objects, such as specific
     # document tabs.
-    # 
+    #
     # A `recipientId` must be
     # either an integer or a GUID,
     # and the `recipientId` must be
     # unique within an envelope.
-    # 
+    #
     # For example, many envelopes assign the first recipient
     # a `recipientId` of `1`.
     string recipientId?;
@@ -2476,11 +2475,11 @@ public type NotaryRecipient record {
     # Metadata about a property.
     PropertyMetadata requireIdLookupMetadata?;
     # By default, DocuSign signers create electronic signatures. This field can be used to require the signer to use a SAFE-BioPharma digital certificate for signing.
-    # 
+    #
     # This parameter should only be used to select a SAFE-BioPharma certificate. New integrations should use the `recipientSignatureProviders` parameter for other types of digital certificates. 
-    # 
+    #
     # Set this parameter to `safe` to use a SAFE-BioPharma certificate.
-    # 
+    #
     # The signer must be enrolled in the SAFE program to sign with a SAFE certificate.
     string requireSignerCertificate?;
     # When **true,** the signer must print, sign, and upload or fax the signed documents to DocuSign.
@@ -2496,7 +2495,7 @@ public type NotaryRecipient record {
     # The UTC DateTime when the envelope was sent. This property is read-only.
     string sentDateTime?;
     # Allows the sender to pre-specify the signature name, signature initials and signature font used in the signature stamp for the recipient.
-    # 
+    #
     # Used only with recipient types In Person Signers and Signers.
     RecipientSignatureInformation signatureInfo?;
     # Reserved for DocuSign.
@@ -2510,7 +2509,7 @@ public type NotaryRecipient record {
     # Metadata about a property.
     PropertyMetadata signingGroupIdMetadata?;
     # Optional. The name of the signing group. 
-    # 
+    #
     # Maximum Length: 100 characters. 
     string signingGroupName?;
     # A complex type that contains information about users in the signing group.
@@ -2520,7 +2519,7 @@ public type NotaryRecipient record {
     # Deprecated.
     SocialAuthentication[] socialAuthentications?;
     # Indicates the envelope status. Valid values are:
-    # 
+    #
     # * sent - The envelope is sent to the recipients. 
     # * created - The envelope is saved as a draft and can be modified and sent later.
     string status?;
@@ -2537,43 +2536,43 @@ public type NotaryRecipient record {
     # The total number of tabs in the documents. This property is read-only.
     string totalTabCount?;
     # The ID of the user to access.
-    # 
+    #
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     string userId?;
 };
 
 # Represents a transaction for publishing an envelope.
 public type EnvelopePublishTransaction record {
-    # 
+    #
     string applyConnectSettings?;
-    # 
+    #
     string envelopeCount?;
-    # 
+    #
     EnvelopePublishTransactionErrorRollup[] envelopeLevelErrorRollups?;
     # The ID of the publish transaction.
     string envelopePublishTransactionId?;
-    # 
+    #
     string errorCount?;
-    # 
+    #
     string[] fileLevelErrors?;
-    # 
+    #
     string noActionRequiredEnvelopeCount?;
-    # 
+    #
     string processedEnvelopeCount?;
     # The status of the transaction. Valid values:
-    # 
+    #
     # * `unprocessed`
     # * `processing`
     # * `complete`
     # * `fatal_error`
     string processingStatus?;
-    # 
+    #
     string resultsUri?;
-    # 
+    #
     string submissionDate?;
-    # 
+    #
     UserInfo submittedByUserInfo?;
-    # 
+    #
     string submittedForPublishingEnvelopeCount?;
 };
 
@@ -2596,7 +2595,7 @@ public type EnvelopeTemplate record {
     # When **true,** users can add comments to the documents in the envelope. For example, if a signer has a question about the text in the document, they can add a comment to the document.
     string allowComments?;
     # When **true,** the Document Markup feature is enabled.
-    # 
+    #
     # **Note:**  To use this feature, Document Markup must be enabled at both the account and envelope levels. Only Admin users can change this setting at the account level.
     string allowMarkup?;
     # When **true,** the recipient can redirect an envelope to a more appropriate recipient.
@@ -2609,8 +2608,8 @@ public type EnvelopeTemplate record {
     # processing and the value of the `status` property
     # is set to `Processing`. Additionally, GET status
     # calls return `Processing` until completed.
-    # 
-    # 
+    #
+    #
     # **Note:** A `transactionId` is required for this
     # call to work correctly. When the envelope is
     # created, the status is `Processing` and an
@@ -2623,7 +2622,7 @@ public type EnvelopeTemplate record {
     # Contains a URL for retrieving the attachments that are associated with the envelope.
     string attachmentsUri?;
     # When **true,** marks all of the documents in the envelope as authoritative copies.
-    # 
+    #
     # **Note:** You can override this value for a specific document. For example, you can set the `authoritativeCopy` property to **true** at the envelope level, but turn it off for a single document by setting the `authoritativeCopy` property for the document to **false.**
     string authoritativeCopy?;
     # The default `authoritativeCopy` setting for documents in this envelope that do not have `authoritativeCopy` set.
@@ -2631,14 +2630,14 @@ public type EnvelopeTemplate record {
     string authoritativeCopyDefault?;
     # By default, templates that have been used within
     # the last 60 days are included in auto-matching.
-    # 
+    #
     # By explicitly setting `autoMatch`,
     # you can permanently include or exclude the template
     # in auto matching.
-    # 
+    #
     # When **true** the template is included in auto-matching
     # regardless of when it was last used.
-    # 
+    #
     # When **false** the template is never included in auto-matching.
     string autoMatch?;
     # When **true,** the template has been explicitly included in or excluded from auto-matching. The default is false.
@@ -2650,13 +2649,13 @@ public type EnvelopeTemplate record {
     string brandId?;
     # When **true,** the `brandId` for the envelope is locked and senders cannot change the brand used for the envelope.
     string brandLock?;
-    # 
+    #
     string burnDefaultTabData?;
     # The URI for retrieving certificate information.
     string certificateUri?;
     # Specifies the date and time this item was completed.
     string completedDateTime?;
-    # 
+    #
     string copyRecipientData?;
     # The UTC DateTime when the workspace user authorization was created.
     string created?;
@@ -2688,13 +2687,13 @@ public type EnvelopeTemplate record {
     # This is the same as the email body. If the sender enters an email blurb, it is included in the email body for all envelope recipients.
     string emailBlurb?;
     # A complex element that allows  the sender to override some envelope email setting information. This can be used to override the Reply To email address and name associated with the envelope and to override the BCC email addresses to which an envelope is sent. 
-    # 
+    #
     # When the emailSettings information is used for an envelope, it only applies to that envelope. 
-    # 
+    #
     # **IMPORTANT:** The emailSettings information is not returned in the GET for envelope status. Use GET /email_settings to return information about the emailSettings. 
-    # 
+    #
     # EmailSettings consists of: 
-    # 
+    #
     # * replyEmailAddressOverride - The Reply To email used for the envelope. DocuSign will verify that a correct email format is used, but does not verify that the email is active. Maximum Length: 100 characters.
     # * replyEmailNameOverride - The name associated with the Reply To email address. Maximum Length: 100 characters.
     # * bccEmailAddresses - An array of up to five email addresses to which the envelope is sent to as a BCC email. Only users with canManageAccount setting set to true can use this option. 
@@ -2702,22 +2701,22 @@ public type EnvelopeTemplate record {
     # *Example*: if your account has BCC for Email Archive set up for the email address 'archive@mycompany.com' and you send an envelope using the BCC Email Override to send a BCC email to 'salesarchive@mycompany.com', then a copy of the envelope is only sent to the 'salesarchive@mycompany.com' email address.
     EmailSettings emailSettings?;
     # The subject line of the email message that is sent to all recipients.
-    # 
+    #
     # For information about adding merge field information to the email subject, see [Template Email Subject Merge Fields](/docs/esign-rest-api/reference/templates/templates/create/#template-email-subject-merge-fields).
-    # 
+    #
     # **Note:** The subject line is limited to 100 characters, including any merged fields.It is not truncated. It is an error if the text is longer than 100 characters.
     string emailSubject?;
     # When **true,** the signer is allowed to print the document and sign it on paper.
     string enableWetSign?;
     # When **true,** signers can only view the documents on which they have tabs. Recipients that have an administrative role (Agent, Editor, or Intermediaries) or informational role (Certified Deliveries or Carbon Copies) can always see all of the documents in an envelope, unless they are specifically excluded by using this setting when an envelope is sent. Documents that do not have tabs are always visible to all recipients, unless they are specifically excluded by using this setting when an envelope is sent.
-    # 
+    #
     # **Note:** To use this functionality, [Document Visibility][docviz] must be enabled for the account by making the account setting `allowDocumentVisibility` **true.**
-    # 
+    #
     # [docviz]: /docs/esign-rest-api/reference/envelopes/envelopedocumentvisibility/
     string enforceSignerVisibility?;
     # An array of attachment objects that provide information about the attachments that are associated with the envelope.
     Attachment[] envelopeAttachments?;
-    # 
+    #
     EnvelopeCustomMetadata envelopeCustomMetadata?;
     # An array containing information about the documents that are included in the envelope.
     EnvelopeDocument[] envelopeDocuments?;
@@ -2733,7 +2732,7 @@ public type EnvelopeTemplate record {
     string envelopeIdStamping?;
     # Reserved for DocuSign.
     string envelopeLocation?;
-    # 
+    #
     EnvelopeMetadata envelopeMetadata?;
     # The URI for retrieving the envelope or envelopes.
     string envelopeUri?;
@@ -2751,13 +2750,13 @@ public type EnvelopeTemplate record {
     string expireEnabled?;
     # May contain an external identifier for the envelope.
     string externalEnvelopeId?;
-    # 
+    #
     string favoritedByMe?;
     # The ID of the folder.
     string folderId?;
-    # 
+    #
     string[] folderIds?;
-    # 
+    #
     string folderName?;
     # A list of folder objects.
     Folder[] folders?;
@@ -2773,35 +2772,35 @@ public type EnvelopeTemplate record {
     string initialSentDateTime?;
     # When **true,** indicates compliance with United States Food and Drug Administration (FDA) regulations on electronic records and electronic signatures (ERES).
     string is21CFRPart11?;
-    # 
+    #
     string isAceGenTemplate?;
-    # 
+    #
     string isDocGenTemplate?;
     # When **true,** indicates that the envelope is a dynamic envelope.
     string isDynamicEnvelope?;
     # When **true,** indicates that the envelope is a signature-provided envelope.
     string isSignatureProviderEnvelope?;
     # The UTC date and time that the comment was last updated.
-    # 
+    #
     # **Note:** This can only be done by the creator.
     string lastModified?;
-    # 
+    #
     UserInfo lastModifiedBy?;
     # The date and time that the item was last modified.
     string lastModifiedDateTime?;
-    # 
+    #
     string lastUsed?;
     # Reserved for DocuSign.
     string location?;
     # Envelope locks let you lock an envelope to prevent any changes while you are updating an envelope.
     EnvelopeLocks lockInformation?;
     # When **true,** prevents senders from changing the contents of `emailBlurb` and `emailSubject` properties for the envelope. 
-    # 
+    #
     # Additionally, this prevents users from making changes to the contents of `emailBlurb` and `emailSubject` properties when correcting envelopes. 
-    # 
+    #
     # However, if the `messageLock` node is set to **true** and the `emailSubject` property is empty, senders and correctors are able to add a subject to the envelope.
     string messageLock?;
-    # 
+    #
     string name?;
     # The user's new password.
     string newPassword?;
@@ -2809,13 +2808,13 @@ public type EnvelopeTemplate record {
     Notification notification?;
     # The URI for retrieving notifications.
     string notificationUri?;
-    # 
+    #
     UserInfo owner?;
     # An integer value specifying the number of document pages in the template. 
     string pageCount?;
     # The user's encrypted password hash.
     string password?;
-    # 
+    #
     string passwordProtected?;
     # Contains details about a PowerForm.
     PowerForm powerForm?;
@@ -2826,7 +2825,7 @@ public type EnvelopeTemplate record {
     # The date that a purge was requested.
     string purgeRequestDate?;
     # Shows the current purge state for the envelope. Valid values:
-    # 
+    #
     # - `unpurged`: There has been no successful request to purge documents.
     # - `documents_queued`: The envelope documents have been added to the purge queue, but have not been purged.
     # - `documents_dequeued`: The envelope documents have been taken out of the purge queue.
@@ -2835,9 +2834,9 @@ public type EnvelopeTemplate record {
     # - `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
     # - `documents_and_metadata_and_redact_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged, nor has personal information been redacted.
     # - `documents_and_metadata_and_redact_purged`: The envelope documents and metadata have been successfully purged, and personal information has been redacted.
-    # 
+    #
     # **Related topics**
-    # 
+    #
     # - [Purging documents (eSingature Concepts)](/docs/esign-rest-api/esign101/concepts/documents/purging/)
     # - [Purging documents in an envelope (blog post)](https://www.docusign.com/blog/developers/purging-documents-envelope)
     string purgeState?;
@@ -2847,23 +2846,23 @@ public type EnvelopeTemplate record {
     string recipientsLock?;
     # Contains a URI for an endpoint that you can use to retrieve the recipients.
     string recipientsUri?;
-    # 
+    #
     UserInfo sender?;
     # The UTC DateTime when the envelope was sent. This property is read-only.
     string sentDateTime?;
     # When **true,** indicates the template is shared with the **Everyone** group,
     # which includes all users on the account.
-    # 
+    #
     # When **false,** the template is shared only with the groups you specify.
     string shared?;
     # When **true,** recipients can sign on a mobile device.
-    # 
+    #
     # **Note:** Only Admin users can change this setting.
     string signerCanSignOnMobile?;
     # Specifies the physical location where the signing takes place. It can have two enumeration values; `inPerson` and `online`. The default value is `online`.
     string signingLocation?;
     # Indicates the envelope status. Valid values are:
-    # 
+    #
     # * `completed`: The recipients have finished working with the envelope: the documents are signed and all required tabs are filled in.
     # * `created`: The envelope is created as a draft. It can be modified and sent later.
     # * `declined`: The envelope has been declined by the recipients.
@@ -2880,25 +2879,25 @@ public type EnvelopeTemplate record {
     string templateId?;
     # The URI for retrieving the templates.
     string templatesUri?;
-    #  Used to identify an envelope.
-    # 
-    #  The ID is a sender-generated value and is valid in the DocuSign system for 7 days.
-    #  It is recommended that a transaction ID is used for offline
-    #  signing to ensure that an envelope is not sent multiple times.
-    #  The `transactionId` property can be used determine an envelope's
-    #  status (i.e. was it created or not) in cases where the internet c
-    #  onnection was lost before the envelope status was returned.
+    # Used to identify an envelope.
+    #
+    # The ID is a sender-generated value and is valid in the DocuSign system for 7 days.
+    # It is recommended that a transaction ID is used for offline
+    # signing to ensure that an envelope is not sent multiple times.
+    # The `transactionId` property can be used determine an envelope's
+    # status (i.e. was it created or not) in cases where the internet c
+    # onnection was lost before the envelope status was returned.
     string transactionId?;
     # A URI containing the user ID.
     string uri?;
     # When **true,** the disclosure is shown to recipients in accordance with the account's Electronic Record and Signature Disclosure frequency setting. When **false,** the Electronic Record and Signature Disclosure is not shown to any envelope recipients. 
-    # 
+    #
     # If the `useDisclosure` property is not set, then the account's normal disclosure setting is used and the value of the `useDisclosure` property is not returned in responses when getting envelope information.
     string useDisclosure?;
     # The date and time the envelope or template was voided.
     string voidedDateTime?;
     # The reason the envelope or template was voided.
-    # 
+    #
     # **Note:** The string is truncated to the first 200 characters.
     string voidedReason?;
     # Describes the workflow for an envelope.
@@ -2926,56 +2925,56 @@ public type GroupUsers record {
 # A Commission County tab displays the county of a notary's commission. The tab is populated with the notary's commission information, but the recipient can also edit the value when notarizing. This tab can only be assigned to a remote notary recipient using [DocuSign Notary](/docs/notary-api/).
 public type CommissionCounty record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -2985,36 +2984,36 @@ public type CommissionCounty record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -3028,7 +3027,7 @@ public type CommissionCounty record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -3048,14 +3047,14 @@ public type CommissionCounty record {
     string bold?;
     # Metadata about a property.
     PropertyMetadata boldMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
     # When **true,** the field appears normally while the recipient is adding or modifying the information in the field, but the data is not visible (the characters are hidden by asterisks) to any other signer or the sender.
-    # 
+    #
     # When an envelope is completed the information is only available to the sender through the Form Data link in the DocuSign Console. The information on the downloaded document remains masked by asterisks.
-    # 
+    #
     # This setting applies only to text boxes and does not affect list boxes, radio buttons, or check boxes.
     string concealValueOnDocument?;
     # Metadata about a property.
@@ -3065,7 +3064,7 @@ public type CommissionCounty record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -3085,7 +3084,7 @@ public type CommissionCounty record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # The font to be used for the tab value. Supported fonts include:
-    # 
+    #
     # - Default
     # - Arial
     # - ArialNarrow
@@ -3104,7 +3103,7 @@ public type CommissionCounty record {
     # - Verdana
     string font?;
     # The font color to use for the information in the tab. Possible values are: 
-    # 
+    #
     # - Black
     # - BrightBlue
     # - BrightRed
@@ -3121,7 +3120,7 @@ public type CommissionCounty record {
     # Metadata about a property.
     PropertyMetadata fontMetadata?;
     # The font size used for the information in the tab. Possible values are:
-    # 
+    #
     # - Size7
     # - Size8
     # - Size9
@@ -3177,7 +3176,7 @@ public type CommissionCounty record {
     MergeField mergeField?;
     # Reserved for DocuSign.
     string mergeFieldXml?;
-    # 
+    #
     string name?;
     # Metadata about a property.
     PropertyMetadata nameMetadata?;
@@ -3201,19 +3200,19 @@ public type CommissionCounty record {
     string required?;
     # Metadata about a property.
     PropertyMetadata requiredMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # Indicates the envelope status. Valid values are:
-    # 
+    #
     # * sent - The envelope is sent to the recipients. 
     # * created - The envelope is saved as a draft and can be modified and sent later.
     string status?;
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -3224,13 +3223,13 @@ public type CommissionCounty record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # Metadata about a property.
     PropertyMetadata tabLabelMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -3291,16 +3290,16 @@ public type NewUser record {
     # The user's membership ID.
     string membershipId?;
     # The ID of the permission profile.
-    # 
+    #
     # Use [AccountPermissionProfiles: list](/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/)
     # to get a list of permission profiles and their IDs.
-    # 
+    #
     # You can also download a CSV file of all permission profiles
     # and their IDs from the **Settings > Permission Profiles** page
     # of your eSignature account page.
     string permissionProfileId?;
     # The name of the account permission profile. 
-    # 
+    #
     # Example: `Account Administrator`
     string permissionProfileName?;
     # A URI containing the user ID.
@@ -3310,7 +3309,7 @@ public type NewUser record {
     # The name of the user.
     string userName?;
     # Status of the user's account. One of:
-    # 
+    #
     # - `ActivationRequired`
     # - `ActivationSent`
     # - `Active`
@@ -3327,14 +3326,14 @@ public type FolderSharedItem record {
     string folderId?;
     # The name of the folder.
     string name?;
-    # 
+    #
     UserInfo owner?;
     # The ID of the parent folder.
     string parentFolderId?;
     # The URI for the parent folder.
     string parentFolderUri?;
     # Indicates how the folder is shared. Valid values are:
-    # 
+    #
     # - `not_shared`
     # - `shared_to`
     string shared?;
@@ -3344,7 +3343,7 @@ public type FolderSharedItem record {
     UserSharedItem[] sharedUsers?;
     # A URI containing the user ID.
     string uri?;
-    # 
+    #
     UserInfo user?;
 };
 
@@ -3353,7 +3352,7 @@ public type UserPasswordRules record {
     # Contains details about the password rules for an account.
     AccountPasswordRules passwordRules?;
     # The ID of the user to access.
-    # 
+    #
     # **Note:** Users can only access their own information. A user, even one with Admin rights, cannot access another user's settings.
     string userId?;
 };
@@ -3361,13 +3360,13 @@ public type UserPasswordRules record {
 # This object contains details about a captive (embedded) recipient.
 public type CaptiveRecipient record {
     # Specifies whether the recipient is embedded or remote. 
-    # 
+    #
     # If the `clientUserId` property is not null then the recipient is embedded. Use this field to associate the signer with their userId in your app. Authenticating the user is the responsibility of your app when you use embedded signing.
-    # 
+    #
     # If the `clientUserId` property is set and either `SignerMustHaveAccount` or `SignerMustLoginToSign` property of the account settings is set to  **true,** an error is generated on sending.
-    # 
+    #
     # **Note:** This property is not returned by the [listStatusChanges](/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/) endpoint.
-    # 
+    #
     # Maximum length: 100 characters. 
     string clientUserId?;
     # The email address associated with the captive recipient.
@@ -3420,56 +3419,56 @@ public type EnvelopeAttachmentsRequest record {
 # Represents a group of tabs in a document
 public type TabGroup record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -3479,36 +3478,36 @@ public type TabGroup record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -3522,7 +3521,7 @@ public type TabGroup record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -3538,7 +3537,7 @@ public type TabGroup record {
     string anchorYOffset?;
     # Metadata about a property.
     PropertyMetadata anchorYOffsetMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
@@ -3547,7 +3546,7 @@ public type TabGroup record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -3580,9 +3579,9 @@ public type TabGroup record {
     PropertyMetadata groupLabelMetadata?;
     # Specifies how `maximumAllowed` and `minimumRequired`
     # are interpreted when selecting tabs in a `tabGroup`.
-    # 
+    #
     # Possible values are:
-    # 
+    #
     # - `SelectAtLeast`
     # - `SelectAtMost`
     # - `SelectExactly`
@@ -3619,12 +3618,12 @@ public type TabGroup record {
     PropertyMetadata recipientIdGuidMetadata?;
     # Metadata about a property.
     PropertyMetadata recipientIdMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # The status of the tab. Possible values are:
-    # 
+    #
     # - `active`: The tab is active, but the recipient has not yet interacted with it.
     # - `signed`: The recipient signed the tab.
     # - `declined`: The recipient declined the envelope.
@@ -3633,7 +3632,7 @@ public type TabGroup record {
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -3643,13 +3642,13 @@ public type TabGroup record {
     # Metadata about a property.
     PropertyMetadata tabIdMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
     PropertyMetadata tabOrderMetadata?;
     # The scope of the tab group. Possible values are:
-    # 
+    #
     # - `document`
     # - `envelope` (default)
     string tabScope?;
@@ -3696,24 +3695,24 @@ public type TabGroup record {
 
 # Represents a collection of comments to be published.
 public type CommentsPublish record {
-    # 
+    #
     CommentPublish[] commentsToPublish?;
 };
 
 # Represents a summary of an envelope update.
 public type EnvelopeUpdateSummary record {
-    # 
+    #
     BulkEnvelopeStatus bulkEnvelopeStatus?;
     # The envelope ID of the envelope status that failed to post.
     string envelopeId?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
-    # 
+    #
     ListCustomField[] listCustomFieldUpdateResults?;
     # Envelope locks let you lock an envelope to prevent any changes while you are updating an envelope.
     EnvelopeLocks lockInformation?;
     # Shows the current purge state for the envelope. Valid values:
-    # 
+    #
     # - `unpurged`: There has been no successful request to purge documents.
     # - `documents_queued`: The envelope documents have been added to the purge queue, but have not been purged.
     # - `documents_dequeued`: The envelope documents have been taken out of the purge queue.
@@ -3722,9 +3721,9 @@ public type EnvelopeUpdateSummary record {
     # - `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
     # - `documents_and_metadata_and_redact_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged, nor has personal information been redacted.
     # - `documents_and_metadata_and_redact_purged`: The envelope documents and metadata have been successfully purged, and personal information has been redacted.
-    # 
+    #
     # **Related topics**
-    # 
+    #
     # - [Purging documents (eSingature Concepts)](/docs/esign-rest-api/esign101/concepts/documents/purging/)
     # - [Purging documents in an envelope (blog post)](https://www.docusign.com/blog/developers/purging-documents-envelope)
     string purgeState?;
@@ -3732,7 +3731,7 @@ public type EnvelopeUpdateSummary record {
     RecipientUpdateResponse[] recipientUpdateResults?;
     # All of the tabs associated with a recipient. Each property is a list of a type of tab.
     EnvelopeRecipientTabs tabUpdateResults?;
-    # 
+    #
     TextCustomField[] textCustomFieldUpdateResults?;
 };
 
@@ -3820,7 +3819,7 @@ public type Accounts record {
     # The billing period start date in UTC timedate format.
     string billingPeriodStartDate?;
     # The type of billing method on the account. Valid values are: 
-    # 
+    #
     # - `direct`
     # - `web`
     string billingProfile?;
@@ -3828,7 +3827,7 @@ public type Accounts record {
     AccountBrands brands?;
     # When **true,** specifies that you can upgrade the account through the API. For GET methods, you must set the `include_metadata` query parameter to **true** for this property to appear in the response.
     string canUpgrade?;
-    # 
+    #
     string connectPermission?;
     # The creation date of the account in UTC timedate format.
     string createdDate?;
@@ -3836,15 +3835,15 @@ public type Accounts record {
     string currencyCode?;
     # ID of the plan used to create this account.
     string currentPlanId?;
-    # 
+    #
     string displayApplianceStartUrl?;
-    # 
+    #
     string displayApplianceUrl?;
     # The code that identifies the billing plan groups and plans for the new account.
     string distributorCode?;
     # URL of the landing page used to create the account.
     string docuSignLandingUrl?;
-    # 
+    #
     record {|string...;|} dssValues?;
     # When **true,** the ability to send envelopes is blocked. When **false,** envelopes can be sent.
     string envelopeSendingBlocked?;
@@ -3852,12 +3851,12 @@ public type Accounts record {
     string envelopeUnitPrice?;
     # The Account ID displayed on the user's Account page.
     string externalAccountId?;
-    #  A complex element that contains up to four Question/Answer pairs for forgotten password information for a user.
+    # A complex element that contains up to four Question/Answer pairs for forgotten password information for a user.
     string forgottenPasswordQuestionsCount?;
     # When **true,** the account has been downgraded from a premium account type. Otherwise **false.**
     string isDowngrade?;
     # The payment method used for the billing plan. Valid values are:
-    # 
+    #
     # - `NotSupported`
     # - `CreditCard`
     # - `PurchaseOrder`
@@ -3869,7 +3868,7 @@ public type Accounts record {
     # - `DirectDebit`
     string paymentMethod?;
     # Identifies the type of plan. Examples include:
-    # 
+    #
     # - `business`
     # - `corporate`
     # - `enterprise` 
@@ -3878,15 +3877,15 @@ public type Accounts record {
     # The date that the current plan will end.
     string planEndDate?;
     # The name of the billing plan used for the account.
-    # 
+    #
     # Examples: 
-    # 
+    #
     # - `Personal - Annual`
     # - `Unlimited Envelope Subscription - Annual Billing`
     string planName?;
     # The date that the Account started using the current plan.
     string planStartDate?;
-    # 
+    #
     RecipientDomain[] recipientDomains?;
     # The number of active users the account can have at one time.
     string seatsAllowed?;
@@ -3898,7 +3897,7 @@ public type Accounts record {
     string suspensionDate?;
     # Indicates whether the account is currently suspended.
     string suspensionStatus?;
-    # 
+    #
     boolean useDisplayAppliance?;
 };
 
@@ -3907,7 +3906,7 @@ public type BrandLink record {
     # The text used for the link.
     string linkText?;
     # The type of link. Valid values include:
-    # 
+    #
     # - `aboutDocusign`
     # - `closeButton`
     string linkType?;
@@ -3922,62 +3921,62 @@ public type BrandLink record {
 # address is entered. It uses the same parameters as a Text
 # tab, with the validation message and pattern set for email
 # information.
-# 
+#
 # When getting information that includes
 # this tab type, the original value of the tab when the
 # associated envelope was sent is included in the response.
 public type Email record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -3987,36 +3986,36 @@ public type Email record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -4030,7 +4029,7 @@ public type Email record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -4050,14 +4049,14 @@ public type Email record {
     string bold?;
     # Metadata about a property.
     PropertyMetadata boldMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
     # When **true,** the field appears normally while the recipient is adding or modifying the information in the field, but the data is not visible (the characters are hidden by asterisks) to any other signer or the sender.
-    # 
+    #
     # When an envelope is completed the information is only available to the sender through the Form Data link in the DocuSign Console. The information on the downloaded document remains masked by asterisks.
-    # 
+    #
     # This setting applies only to text boxes and does not affect list boxes, radio buttons, or check boxes.
     string concealValueOnDocument?;
     # Metadata about a property.
@@ -4067,7 +4066,7 @@ public type Email record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -4087,7 +4086,7 @@ public type Email record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # The font to be used for the tab value. Supported fonts include:
-    # 
+    #
     # - Default
     # - Arial
     # - ArialNarrow
@@ -4106,7 +4105,7 @@ public type Email record {
     # - Verdana
     string font?;
     # The font color to use for the information in the tab. Possible values are: 
-    # 
+    #
     # - Black
     # - BrightBlue
     # - BrightRed
@@ -4123,7 +4122,7 @@ public type Email record {
     # Metadata about a property.
     PropertyMetadata fontMetadata?;
     # The font size used for the information in the tab. Possible values are:
-    # 
+    #
     # - Size7
     # - Size8
     # - Size9
@@ -4180,7 +4179,7 @@ public type Email record {
     # Reserved for DocuSign.
     string mergeFieldXml?;
     # The name of the tab. For example, `Sign Here` or `Initial Here`.
-    # 
+    #
     # If the `tooltip` attribute is not set, this value will be displayed as the custom tooltip text.
     string name?;
     # Metadata about a property.
@@ -4215,9 +4214,9 @@ public type Email record {
     # Metadata about a property.
     PropertyMetadata requireInitialOnSharedChangeMetadata?;
     # When **true,** the sender must populate the tab before an envelope can be sent using the template. 
-    # 
+    #
     # This value tab can only be changed by modifying (PUT) the template. 
-    # 
+    #
     # Tabs with a `senderRequired` value of true cannot be deleted from an envelope.
     string senderRequired?;
     # Metadata about a property.
@@ -4230,12 +4229,12 @@ public type Email record {
     string shareToRecipients?;
     # Metadata about a property.
     PropertyMetadata shareToRecipientsMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # The status of the tab. Possible values are:
-    # 
+    #
     # - `active`: The tab is active, but the recipient has not yet interacted with it.
     # - `signed`: The recipient signed the tab.
     # - `declined`: The recipient declined the envelope.
@@ -4244,7 +4243,7 @@ public type Email record {
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -4255,13 +4254,13 @@ public type Email record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # Metadata about a property.
     PropertyMetadata tabLabelMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -4306,7 +4305,7 @@ public type Email record {
     # This property indicates the horizontal offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -4319,7 +4318,7 @@ public type Email record {
     # This property indicates the vertical offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -4334,7 +4333,7 @@ public type Email record {
 # Defines a billing plan update response object.
 public type BillingPlanUpdateResponse record {
     # The type of payment method used for the account. Valid values are:
-    # 
+    #
     # - `credit_card`
     # - 
     string accountPaymentMethod?;
@@ -4345,12 +4344,12 @@ public type BillingPlanUpdateResponse record {
     # The number of seats (users) included in the plan.
     string includedSeats?;
     # The payment cycle associated with the plan. Valid values: 
-    # 
+    #
     # - `Monthly`
     # - `Annually` 
     string paymentCycle?;
     # The payment method used for the billing plan. Valid values are:
-    # 
+    #
     # - `NotSupported`
     # - `CreditCard`
     # - `PurchaseOrder`
@@ -4364,9 +4363,9 @@ public type BillingPlanUpdateResponse record {
     # DocuSign's ID for the account plan.
     string planId?;
     # The name of the billing plan used for the account.
-    # 
+    #
     # Examples: 
-    # 
+    #
     # - `Personal - Annual`
     # - `Unlimited Envelope Subscription - Annual Billing`
     string planName?;
@@ -4375,10 +4374,10 @@ public type BillingPlanUpdateResponse record {
 # Represents custom data strings to be added to a document.
 public type DocumentFieldsInformation record {
     # The array of name/value custom data strings to be added to a document. Custom document field information is returned in the status, but otherwise is not used by DocuSign. The array contains the elements: 
-    # 
+    #
     # * `name`: A string that can be a maximum of 50 characters. 
     # * `value`: A string that can be a maximum of 200 characters.
-    # 
+    #
     # If you are using XML, the name/value pair is contained in a `nameValue` element. 
     NameValue[] documentFields?;
 };
@@ -4392,7 +4391,7 @@ public type EnvelopeTransferRuleRequest record {
     # The ID of the envelope transfer rule. The system generates this ID when the rule is first created.
     string envelopeTransferRuleId?;
     # The type of envelope event that triggers the transfer. Valid values are:
-    # 
+    #
     # - `sent`
     # - `before sent` 
     # - `completed`
@@ -4422,7 +4421,7 @@ public type Attachment record {
     # A Base64-encoded representation of the attachment that is used to upload and download the file. File attachments may be up to 50 MB in size.
     string data?;
     # A label for the attachment. Potential values include: 
-    # 
+    #
     # - `guidedForm`: [Guided forms](https://www.docusign.com/products/guided-forms) provide a step-by-step, mobile-ready experience to help signers easily complete long or complex forms.
     # - `eventNotifications`: A list of envelope-level event statuses that trigger Connect to send updates to the endpoint specified in the `url` property. 
     string label?;
@@ -4468,116 +4467,116 @@ public type Ssn4InformationInput record {
 # before the envelope is sent.
 # They are sometimes called
 # sender tags or pre-fill fields.
-# 
+#
 # Only the following tab types can be
 # prefill tabs:
-# 
+#
 # - text
 # - check boxes
 # - radio buttons
-# 
-# 
-# 
+#
+#
+#
 # [Pre-Fill Your Own Document Fields][app]
 # describes how prefill tabs
 # work in the web application.
-# 
-# 
+#
+#
 # [Customize your envelopes with pre-fill fields][catblog]
 # shows how to use prefill tabs
 # in your application using the eSignature
 # SDKs.
-# 
+#
 # [app]:      https://support.docusign.com/s/document-item?bundleId=gbo1643332197980&topicId=nwo1611173513994.html
 # [catblog]:  https://www.docusign.com/blog/developers/common-api-tasks-customize-your-envelopes-pre-fill-fields
 public type PrefillTabs record {
     # A list of
     # [Checkbox tabs][checkbox].
-    # 
-    # 
+    #
+    #
     # A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
-    # 
-    # 
+    #
+    #
     # [checkbox]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Checkbox[] checkboxTabs?;
     # A list of
     # [Date tabs][date].
-    # 
+    #
     # A Date tab enables the recipient to enter a date. This value can't be set. The tooltip for this tab recommends the date format MM/DD/YYYY, but several other date formats are also accepted. The system retains the format that the recipient enters.
-    # 
+    #
     # **Note:** If you need to enforce a specific date format, DocuSign recommends that you use a Text tab with a validation pattern and validation message.
-    # 
-    # 
+    #
+    #
     # [date]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Date[] dateTabs?;
     # A list of
     # [Email tabs][email].
-    # 
+    #
     # An Email tab enables the recipient to enter an email address.
     # This is a one-line field that checks that a valid email
     # address is entered. It uses the same parameters as a Text
     # tab, with the validation message and pattern set for email
     # information. This value can be set.
-    # 
+    #
     # When getting information that includes
     # this tab type, the original value of the tab when the
     # associated envelope was sent is included in the response.
-    # 
+    #
     # [email]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Email[] emailTabs?;
     # A list of Number tabs.
-    # 
+    #
     # Number tabs validate that the entered value is a number.
     # They do not support advanced validation or display options.
-    # 
+    #
     # To learn more about the different forms of number tabs,
     # see [Number fields](/docs/esign-rest-api/esign101/concepts/tabs/number-fields/) in the Concepts guide.
     # For specific information about number tabs
     # see [Features of numberTabs](/docs/esign-rest-api/esign101/concepts/tabs/number-fields/#features-of-numbertabs).
-    # 
+    #
     # [number]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Number[] numberTabs?;
     # A list of [Radio Group tabs][radioGroup].
-    # 
+    #
     # A Radio Group tab places a group of radio buttons on a document. The `radios` property is used to add and place the radio
     # buttons associated with the group. Only one radio button can be selected in a group. This value can be set.
-    # 
-    # 
+    #
+    #
     # [radioGroup]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     RadioGroup[] radioGroupTabs?;
-    # 
+    #
     SenderCompany[] senderCompanyTabs?;
-    # 
+    #
     SenderName[] senderNameTabs?;
     # A list of
     # [SSN tabs][ssn].
-    # 
+    #
     # An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
     # dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
-    # 
-    # 
+    #
+    #
     # [ssn]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Ssn[] ssnTabs?;
     # An array of `tabGroup` items.
-    # 
+    #
     # To associate a tab with a tab group, add the tab group's `groupLabel` to the tab's `tabGroupLabels` array.
     TabGroup[] tabGroups?;
     # A list of
     # Text tabs.
-    # 
+    #
     # A text tab enables the recipient to enter free text. This value can be set.
-    # 
+    #
     # Find descriptions of all tab types in
     # the [EnvelopeRecipientTabs Resource][ert].
-    # 
+    #
     # [ert]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Text[] textTabs?;
     # A list of
     # [Zip tabs][zip].
-    # 
+    #
     # A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
-    # 
-    # 
+    #
+    #
     # [zip]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Zip[] zipTabs?;
 };
@@ -4585,17 +4584,17 @@ public type PrefillTabs record {
 # A complex element that specifies the delayed routing settings for the workflow step.
 public type DelayedRouting record {
     # The ISO 8601 timestamp of when the envelope is scheduled to be sent to the recipients associated with the workflow step. This property is `null` if the workflow step has not been initiated.
-    # 
+    #
     # This property is read-only.
     string resumeDate?;
     # User-specified rules indicating how and when the envelope should sent for the workflow step and its associated recipients. Only one rule may be specified.
     EnvelopeDelayRule[] rules?;
     # Status of the delayed routing step. Valid values:
-    # 
+    #
     # * `pending`: The workflow step has not been reached and the delay has not been initiated.
     # * `started`: The workflow step has begun and the delay is in progress. The envelope has not yet been sent to the workflow step's recipients.
     # * `completed`: The delay has elapsed and the envelope has been sent to the workflow step's recipients.
-    # 
+    #
     # This property is read-only.
     string status?;
 };
@@ -4603,56 +4602,56 @@ public type DelayedRouting record {
 # A tab that allows the recipient to select a yes/no (on/off) option.
 public type Checkbox record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -4662,36 +4661,36 @@ public type Checkbox record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -4705,7 +4704,7 @@ public type Checkbox record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -4725,7 +4724,7 @@ public type Checkbox record {
     string bold?;
     # Metadata about a property.
     PropertyMetadata boldMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
@@ -4734,7 +4733,7 @@ public type Checkbox record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -4750,7 +4749,7 @@ public type Checkbox record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # The font to be used for the tab value. Supported fonts include:
-    # 
+    #
     # - Default
     # - Arial
     # - ArialNarrow
@@ -4769,7 +4768,7 @@ public type Checkbox record {
     # - Verdana
     string font?;
     # The font color to use for the information in the tab. Possible values are: 
-    # 
+    #
     # - Black
     # - BrightBlue
     # - BrightRed
@@ -4786,7 +4785,7 @@ public type Checkbox record {
     # Metadata about a property.
     PropertyMetadata fontMetadata?;
     # The font size used for the information in the tab. Possible values are:
-    # 
+    #
     # - Size7
     # - Size8
     # - Size9
@@ -4837,7 +4836,7 @@ public type Checkbox record {
     # Reserved for DocuSign.
     string mergeFieldXml?;
     # The name of the tab. For example, `Sign Here` or `Initial Here`.
-    # 
+    #
     # If the `tooltip` attribute is not set, this value will be displayed as the custom tooltip text.
     string name?;
     # Metadata about a property.
@@ -4856,21 +4855,21 @@ public type Checkbox record {
     # Metadata about a property.
     PropertyMetadata recipientIdMetadata?;
     # This property does not apply to `checkbox` tabs.
-    # 
+    #
     # To require users to check
     # at least one, or at most some number
     # of checkboxes,
     # associate the checkbox tabs
     # with a [`tabGroup`][tabGroup].
     # Then set the following `tabGroup` properties:
-    # 
+    #
     # - [`maximumAllowed`][maximumAllowed]
     # - [`minimumRequired`][minimumRequired]
     # - [`groupRule`][groupRule] specifies how the other two properties are interpreted.
-    # 
+    #
     # You can find an example
     # at [Stack Overflow][so].
-    # 
+    #
     # [so]:               https://stackoverflow.com/questions/58209376/checkbox-validation-using-docusign-rest-api/58210277#58210277
     # [tabGroup]:         /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/create/#definition__enveloperecipienttabs_tabgroups
     # [groupRule]:        /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/create/#definition__enveloperecipienttabs_tabgroups_grouprule
@@ -4887,7 +4886,7 @@ public type Checkbox record {
     string selected?;
     # Metadata about a property.
     PropertyMetadata selectedMetadata?;
-    # 
+    #
     string selectedOriginal?;
     # Metadata about a property.
     PropertyMetadata selectedOriginalMetadata?;
@@ -4899,12 +4898,12 @@ public type Checkbox record {
     string shareToRecipients?;
     # Metadata about a property.
     PropertyMetadata shareToRecipientsMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # The status of the tab. Possible values are:
-    # 
+    #
     # - `active`: The tab is active, but the recipient has not yet interacted with it.
     # - `signed`: The recipient signed the tab.
     # - `declined`: The recipient declined the envelope.
@@ -4913,7 +4912,7 @@ public type Checkbox record {
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -4924,13 +4923,13 @@ public type Checkbox record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # Metadata about a property.
     PropertyMetadata tabLabelMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -4963,7 +4962,7 @@ public type Checkbox record {
     # This property indicates the horizontal offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -4976,7 +4975,7 @@ public type Checkbox record {
     # This property indicates the vertical offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -5021,56 +5020,56 @@ public type FavoriteTemplatesContentItem record {
 # objects to specify the selectable options.
 public type List record {
     # When **true,** the text string in the document may have extra whitespace and still match the anchor string. This occurs in two cases.
-    # 
+    #
     # First, it matches if the document string has a single extra whitespace character following a non-whitespace character in the anchor string. For example, if the anchor string is `DocuSign`, then `Docu Sign` will match. However, <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will not match.
-    # 
+    #
     # Second, it matches if the document string has one or more extra whitespace characters following a whitespace character in the anchor string. For example, if the anchor string is `Docu Sign`, then <code>Docu&nbsp;&nbsp;&nbsp;Sign</code> will match.
-    # 
+    #
     # The default value is **true.**
     string anchorAllowWhiteSpaceInCharacters?;
     # Metadata about a property.
     PropertyMetadata anchorAllowWhiteSpaceInCharactersMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are placed. When **true,** the text string in a document must match the case of the `anchorString` property for an anchor tab to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the anchor string is `DocuSign`, then `DocuSign` will match but `Docusign`, `docusign`, `DoCuSiGn`, etc. will not match. When **false,** `DocuSign`, `Docusign`, `docusign`, `DoCuSiGn`, etc. will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorCaseSensitive?;
     # Metadata about a property.
     PropertyMetadata anchorCaseSensitiveMetadata?;
     # This property controls how [anchor tabs][AnchorTabs] are aligned in relation to the anchor text. Possible values are :
-    # 
+    #
     # - `left`: Aligns the left side of the tab with the beginning of the first character of the matching anchor word. This is the default value.
     # - `right`: Aligns the tab’s left side with the last character of the matching anchor word.
-    # 
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTabs]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorHorizontalAlignment?;
     # Metadata about a property.
@@ -5080,36 +5079,36 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata anchorIgnoreIfNotPresentMetadata?;
     # When **true,** the text string in a document must match the value of the `anchorString` property in its entirety for an [anchor tab][AnchorTab] to be created. The default value is **false.**
-    # 
+    #
     # For example, when set to **true,** if the input is `man` then `man` will match but `manpower`, `fireman`, and `penmanship` will not. When **false,** if the input is `man` then `man`, `manpower`, `fireman`, and `penmanship` will all match.
-    # 
+    #
     # This functionality uses the following rules:
-    # 
+    #
     # - Unless punctuation is specified in the `anchorString`, this functionality ignores punctuation and the following characters:
-    # 
-    #   $~><|^+=
-    # 
-    #   For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
-    # 
+    #
+    # $~><|^+=
+    #
+    # For example, the `anchorString` `water` will match on the string `Fetch a pail of water.`
+    #
     # - Strings embedded in other strings are ignored during the matching process.
-    # 
+    #
     # - In words that have dashes, the parts separated by dashes are treated as distinct words.
-    # 
-    #   Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
-    # 
+    #
+    # Example: If the anchor string is `forget`, then an anchor tab is placed on the `forget` in `forget-me-not`, even when `anchorMatchWholeWord` is set to **true.**
+    #
     # - Letters with accent marks are treated as distinct characters from their unaccented counterparts.
-    # 
+    #
     # - For single-character anchor strings, if the two characters appear right next to each other in the document, a single anchor tab is placed for both of them.
-    # 
-    #   Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
-    # 
+    #
+    # Example: If the anchor string is `i`, then only one anchor tab is placed in `skiing`.
+    #
     # - Unlike punctuation, numbers are not ignored when finding anchor words.
-    # 
-    #   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
-    # 
-    # 
+    #
+    # Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
+    #
+    #
     # **Note:** You can only specify the value of this property in POST requests.
-    # 
+    #
     # [AnchorTab]: /docs/esign-rest-api/esign101/concepts/tabs/auto-place/
     string anchorMatchWholeWord?;
     # Metadata about a property.
@@ -5123,7 +5122,7 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata anchorTabProcessorVersionMetadata?;
     # Specifies units of the `anchorXOffset` and `anchorYOffset`. Valid units are:
-    # 
+    #
     # - `pixels` (default)
     # - `inches`
     # - `mms`
@@ -5143,7 +5142,7 @@ public type List record {
     string bold?;
     # Metadata about a property.
     PropertyMetadata boldMetadata?;
-    # 
+    #
     string caption?;
     # Metadata about a property.
     PropertyMetadata captionMetadata?;
@@ -5152,7 +5151,7 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata conditionalParentLabelMetadata?;
     # For conditional fields, this is the value of the parent tab that controls the tab's visibility.
-    # 
+    #
     # If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
     string conditionalParentValue?;
     # Metadata about a property.
@@ -5168,7 +5167,7 @@ public type List record {
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
     # The font to be used for the tab value. Supported fonts include:
-    # 
+    #
     # - Default
     # - Arial
     # - ArialNarrow
@@ -5187,7 +5186,7 @@ public type List record {
     # - Verdana
     string font?;
     # The font color to use for the information in the tab. Possible values are: 
-    # 
+    #
     # - Black
     # - BrightBlue
     # - BrightRed
@@ -5204,7 +5203,7 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata fontMetadata?;
     # The font size used for the information in the tab. Possible values are:
-    # 
+    #
     # - Size7
     # - Size8
     # - Size9
@@ -5247,7 +5246,7 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata italicMetadata?;
     # The list of values that can be selected by senders. The list values are separated by semi-colons. Example: [one;two;three;four]
-    # 
+    #
     # Maximum Length of listItems:  2048 characters.
     # Maximum Length of items in the list: 100 characters. 
     ListItem[] listItems?;
@@ -5294,9 +5293,9 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata requireInitialOnSharedChangeMetadata?;
     # When **true,** the sender must populate the tab before an envelope can be sent using the template. 
-    # 
+    #
     # This value tab can only be changed by modifying (PUT) the template. 
-    # 
+    #
     # Tabs with a `senderRequired` value of true cannot be deleted from an envelope.
     string senderRequired?;
     # Metadata about a property.
@@ -5309,12 +5308,12 @@ public type List record {
     string shareToRecipients?;
     # Metadata about a property.
     PropertyMetadata shareToRecipientsMetadata?;
-    # 
+    #
     SmartContractInformation smartContractInformation?;
     # Reserved for DocuSign.
     string 'source?;
     # The status of the tab. Possible values are:
-    # 
+    #
     # - `active`: The tab is active, but the recipient has not yet interacted with it.
     # - `signed`: The recipient signed the tab.
     # - `declined`: The recipient declined the envelope.
@@ -5323,7 +5322,7 @@ public type List record {
     # Metadata about a property.
     PropertyMetadata statusMetadata?;
     # An array of tab groups that this tab belongs to. Tab groups are identified by their `groupLabel` property.
-    # 
+    #
     # To associate this tab with a tab group, add the tab group's `groupLabel` to this array.
     string[] tabGroupLabels?;
     # Metadata about a property.
@@ -5334,13 +5333,13 @@ public type List record {
     PropertyMetadata tabIdMetadata?;
     # The label associated with the tab. This value may be an empty string.
     # If no value is provided, the tab type is used as the value.
-    # 
+    #
     # Maximum Length: 500 characters.
     string tabLabel?;
     # Metadata about a property.
     PropertyMetadata tabLabelMetadata?;
     # A positive integer that sets the order the tab is navigated to during signing.
-    # 
+    #
     # Tabs on a page are navigated to in ascending order, starting with the lowest number and moving to the highest. If two or more tabs have the same `tabOrder` value, the normal auto-navigation setting behavior for the envelope is used.
     string tabOrder?;
     # Metadata about a property.
@@ -5377,7 +5376,7 @@ public type List record {
     # This property indicates the horizontal offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -5390,7 +5389,7 @@ public type List record {
     # This property indicates the vertical offset of the object on the page.
     # DocuSign uses 72 DPI when determining position.
     # Required. Must be an integer. May be zero.
-    # 
+    #
     # To improve the tab's position on the document,
     # DocuSign recommends
     # adjusting `xPosition`
@@ -5445,9 +5444,9 @@ public type BillingInvoiceItem record {
     string invoiceItemId?;
     # The quantity of envelopes to add to the account.
     string quantity?;
-    # 
+    #
     string taxAmount?;
-    # 
+    #
     string taxExemptAmount?;
     # Reserved for DocuSign.
     string unitPrice?;
@@ -5457,7 +5456,7 @@ public type BillingInvoiceItem record {
 public type TemplateTabs record {
     # A list of
     # [Approve tabs][approve].
-    # 
+    #
     # An Approve tab enables
     # the recipient to approve documents without
     # placing a signature or initials on the document. If the
@@ -5466,217 +5465,217 @@ public type TemplateTabs record {
     # information is shown on the document of the approval, but it
     # is recorded as a signature in the envelope history.
     # The value of an approve tab can't be set.
-    # 
+    #
     # [approve]:          /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Approve[] approveTabs?;
     # A list of
     # [Checkbox tabs][checkbox].
-    # 
-    # 
+    #
+    #
     # A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
-    # 
-    # 
+    #
+    #
     # [checkbox]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Checkbox[] checkboxTabs?;
     # An array of tabs that represents a collection of comments in a comment thread. For example, if a recipient has questions about the content of a document, they can add a comment to the document and control who else can see the comment. This value can't be set.
     CommentThread[] commentThreadTabs?;
     # A list of
     # [Commission County tabs][cc].
-    # 
-    # 
+    #
+    #
     # A Commission County tab displays the county of a notary's commission. This tab can only be assigned to a remote notary recipient using [DocuSign Notary][notary]. The tab's value can be edited by the recipient.
-    # 
-    # 
+    #
+    #
     # [cc]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     # [notary]: /docs/notary-api/
     CommissionCounty[] commissionCountyTabs?;
     # A list of
     # [Commission Expiration tabs][tabref].
-    # 
-    # 
+    #
+    #
     # A Commission Expiration tab displays the expiration date of a notary's commission. This tab can only be assigned to a remote notary recipient using [DocuSign Notary][notary]. The tab's value can be edited by the recipient.
-    # 
-    # 
+    #
+    #
     # [tabref]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     # [notary]: /docs/notary-api/
     CommissionExpiration[] commissionExpirationTabs?;
     # A list of
     # [Commission Number tabs][tabref].
-    # 
-    # 
+    #
+    #
     # A Commission Number tab displays a notary's commission number. This tab can only be assigned to a remote notary recipient using [DocuSign Notary][notary]. The tab's value can be edited by the recipient.
-    # 
-    # 
+    #
+    #
     # [tabref]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     # [notary]: /docs/notary-api/
     CommissionNumber[] commissionNumberTabs?;
     # A list of
     # [Commission State tabs][cc].
-    # 
-    # 
+    #
+    #
     # A Commission County tab displays the state in which a notary's commission was granted. This tab can only be assigned to a remote notary recipient using [DocuSign Notary][notary]. The tab's value can be edited by the recipient.
-    # 
-    # 
+    #
+    #
     # [cc]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     # [notary]: /docs/notary-api/
     CommissionState[] commissionStateTabs?;
     # A list of
     # [Company tabs][company].
-    # 
+    #
     # A Company tab displays a field for the name of the recipient's company. This value can't be set.
-    # 
+    #
     # [company]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/create/#parameters_company
     Company[] companyTabs?;
     # A list of
     # [Date Signed tabs][dateSigned].
-    # 
-    # 
+    #
+    #
     # A Date Signed tab displays the date that the recipient signed the document. This value can't be set.
-    # 
+    #
     # [dateSigned]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     DateSigned[] dateSignedTabs?;
     # A list of
     # [Date tabs][date].
-    # 
+    #
     # A Date tab enables the recipient to enter a date. This value can't be set. The tooltip for this tab recommends the date format MM/DD/YYYY, but several other date formats are also accepted. The system retains the format that the recipient enters.
-    # 
+    #
     # **Note:** If you need to enforce a specific date format, DocuSign recommends that you use a Text tab with a validation pattern and validation message.
-    # 
-    # 
+    #
+    #
     # [date]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Date[] dateTabs?;
     # A list of
     # [Decline tabs][decline].
-    # 
+    #
     # A Decline tab enables the recipient to decline the envelope. If the recipient clicks the tab during the signing process, the envelope is voided. The value of this tab can't be set.
-    # 
-    # 
+    #
+    #
     # [decline]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Decline[] declineTabs?;
     # A list of Draw Tabs.
-    # 
+    #
     # A Draw Tab allows the recipient to add a free-form drawing to the document.
     Draw[] drawTabs?;
     # A list of
     # [Email Address tabs][emailAddress].
-    # 
+    #
     # An Email Address tab displays the recipient's email as entered in the recipient information. This value can't be set.
-    # 
-    # 
+    #
+    #
     # [emailAddress]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     EmailAddress[] emailAddressTabs?;
     # A list of
     # [Email tabs][email].
-    # 
+    #
     # An Email tab enables the recipient to enter an email address.
     # This is a one-line field that checks that a valid email
     # address is entered. It uses the same parameters as a Text
     # tab, with the validation message and pattern set for email
     # information. This value can be set.
-    # 
+    #
     # When getting information that includes
     # this tab type, the original value of the tab when the
     # associated envelope was sent is included in the response.
-    # 
+    #
     # [email]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Email[] emailTabs?;
     # A list of
     # [Envelope ID tabs][envelopeId].
-    # 
+    #
     # An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
-    # 
-    # 
+    #
+    #
     # [envelopeId]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/create/#response201_envelopeid
     EnvelopeId[] envelopeIdTabs?;
     # A list of
     # [First Name tabs][firstName].
-    # 
+    #
     # A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces. This value can't be set.
-    # 
-    # 
+    #
+    #
     # [firstName]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/create/#parameters_firstname
     FirstName[] firstNameTabs?;
     # A list of [Formula tabs][formulaTab].
-    # 
+    #
     # The value of a Formula tab is calculated from the values of other number or date tabs in the document. When the recipient completes the underlying fields, the Formula tab calculates and displays the result. This value can be set.
-    # 
+    #
     # The `formula` property of the tab contains the references to the underlying tabs. To learn more about formulas, see [Calculated Fields][calculatedfields].
-    # 
+    #
     # If a Formula tab contains a `paymentDetails` property, the tab is considered a payment item. To learn more about payments, see [Requesting Payments Along with Signatures][paymentguide].
-    # 
+    #
     # [calculatedfields]: https://support.docusign.com/s/document-item?bundleId=gbo1643332197980&topicId=crs1578456361259.html
     # [paymentguide]:     https://support.docusign.com/s/document-item?bundleId=juu1573854950452&topicId=fyw1573854935374.html
     # [formulaTab]:       /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     FormulaTab[] formulaTabs?;
     # A list of
     # [Full Name tabs][fullName].
-    # 
+    #
     # A Full Name tab displays the recipient's full name. This value can't be set.
-    # 
-    # 
+    #
+    #
     # [fullName]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     FullName[] fullNameTabs?;
     # A list of
     # [Initial Here tabs][initialHere].
-    # 
+    #
     # This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
-    # 
+    #
     # [initialHere]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     InitialHere[] initialHereTabs?;
     # A list of
     # [Last Name tabs][lastName].
-    # 
+    #
     # A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the recipient information on spaces. This value can't be set.
-    # 
-    # 
+    #
+    #
     # [lastName]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     LastName[] lastNameTabs?;
     # An array of List tabs.
-    # 
+    #
     # A List tab enables the recipient to choose from a list of options. You specify the options in the `listItems` property. This value can't be set.
-    # 
+    #
     # Find descriptions of all tab types in
     # the [EnvelopeRecipientTabs Resource][ert].
-    # 
+    #
     # [ert]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     List[] listTabs?;
     # A list of  [Notarize tabs][notarize].
-    # 
+    #
     # A Notarize tab alerts notary recipients that they must take action on the page. This value can be set.
-    # 
+    #
     # **Note:** Only one notarize tab can appear on a page.
-    # 
+    #
     # [notarize]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Notarize[] notarizeTabs?;
     # A list of Notary Seal tabs.
-    # 
+    #
     # A Notary Seal tab enables the recipient to notarize a document. This tab can only be assigned to a remote notary recipient using [DocuSign Notary][notary].
-    # 
+    #
     # [notary]: /docs/notary-api/
     NotarySeal[] notarySealTabs?;
     # A list of
     # [Note tabs][note].
-    # 
+    #
     # A Note tab displays additional information to the recipient in the form of a note. This value can be set.
-    # 
+    #
     # [note]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Note[] noteTabs?;
     # A list of Number tabs.
-    # 
+    #
     # Number tabs validate that the entered value is a number.
     # They do not support advanced validation or display options.
-    # 
+    #
     # To learn more about the different forms of number tabs,
     # see [Number fields](/docs/esign-rest-api/esign101/concepts/tabs/number-fields/) in the Concepts guide.
     # For specific information about number tabs
     # see [Features of numberTabs](/docs/esign-rest-api/esign101/concepts/tabs/number-fields/#features-of-numbertabs).
-    # 
+    #
     # [number]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Number[] numberTabs?;
     # A list of numerical tabs.
-    # 
+    #
     # Numerical  tabs provide robust display and validation features, including formatting for different regions and currencies, and minimum and maximum value validation.                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    # 
+    #
     # To learn more about the different forms of number tabs,
     # see [Number fields](/docs/esign-rest-api/esign101/concepts/tabs/number-fields/) in the Concepts guide.
     # For specific information about numerical tabs
@@ -5684,12 +5683,12 @@ public type TemplateTabs record {
     Numerical[] numericalTabs?;
     # A list of
     # [Phone Number tabs][cc].
-    # 
-    # 
+    #
+    #
     # A Phone Number tab enables a recipient to enter a phone number.
-    # 
+    #
     # **Note:** This tab can only be assigned to a remote notary recipient using [DocuSign Notary][notary].
-    # 
+    #
     # [cc]:  /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     # [notary]: /docs/notary-api/
     PhoneNumber[] phoneNumberTabs?;
@@ -5700,102 +5699,102 @@ public type TemplateTabs record {
     # before the envelope is sent.
     # They are sometimes called
     # sender tags or pre-fill fields.
-    # 
+    #
     # Only the following tab types can be
     # prefill tabs:
-    # 
+    #
     # - text
     # - check boxes
     # - radio buttons
-    # 
-    # 
-    # 
+    #
+    #
+    #
     # [Pre-Fill Your Own Document Fields][app]
     # describes how prefill tabs
     # work in the web application.
-    # 
-    # 
+    #
+    #
     # [Customize your envelopes with pre-fill fields][catblog]
     # shows how to use prefill tabs
     # in your application using the eSignature
     # SDKs.
-    # 
+    #
     # [app]:      https://support.docusign.com/s/document-item?bundleId=gbo1643332197980&topicId=nwo1611173513994.html
     # [catblog]:  https://www.docusign.com/blog/developers/common-api-tasks-customize-your-envelopes-pre-fill-fields
     PrefillTabs prefillTabs?;
     # A list of [Radio Group tabs][radioGroup].
-    # 
+    #
     # A Radio Group tab places a group of radio buttons on a document. The `radios` property is used to add and place the radio
     # buttons associated with the group. Only one radio button can be selected in a group. This value can be set.
-    # 
-    # 
+    #
+    #
     # [radioGroup]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     RadioGroup[] radioGroupTabs?;
     # A list of
     # [Signer Attachment tabs][signerAttachment].
-    # 
+    #
     # This type of tab enables the recipient to attach supporting documents to an envelope. This value can't be set.
-    # 
-    # 
+    #
+    #
     # [signerAttachment]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     SignerAttachment[] signerAttachmentTabs?;
     # A list of
     # [Sign Here tabs][signHere].
-    # 
+    #
     # This type of tab enables the recipient to sign a document. May be optional. This value can't be set.
-    # 
+    #
     # [signHere]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     SignHere[] signHereTabs?;
     # A list of [Smart Section](https://www.docusign.com/blog/dsdev-deep-dive-responsive-smart-sections) tabs.
-    # 
+    #
     # Smart Section tabs enhance responsive signing on mobile devices by enabling collapsible sections, page breaks, custom formatting options, and other advanced functionality.
-    # 
+    #
     # **Note:** Smart Sections are a premium feature. Responsive signing must also be enabled for your account.
     SmartSection[] smartSectionTabs?;
     # A list of
     # [SSN tabs][ssn].
-    # 
+    #
     # An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
     # dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
-    # 
-    # 
+    #
+    #
     # [ssn]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Ssn[] ssnTabs?;
     # An array of `tabGroup` items.
-    # 
+    #
     # To associate a tab with a tab group, add the tab group's `groupLabel` to the tab's `tabGroupLabels` array.
     TabGroup[] tabGroups?;
     # A list of
     # Text tabs.
-    # 
+    #
     # A text tab enables the recipient to enter free text. This value can be set.
-    # 
+    #
     # Find descriptions of all tab types in
     # the [EnvelopeRecipientTabs Resource][ert].
-    # 
+    #
     # [ert]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Text[] textTabs?;
     # A list of
     # [Title tabs][title].
-    # 
+    #
     # A Title tab displays the recipient's title.  This value can't be set.
-    # 
-    # 
+    #
+    #
     # [title]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Title[] titleTabs?;
     # A list of
     # [View tabs][view].
-    # 
+    #
     # A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
-    # 
+    #
     # [view]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     View[] viewTabs?;
     # A list of
     # [Zip tabs][zip].
-    # 
+    #
     # A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
-    # 
-    # 
+    #
+    #
     # [zip]: /docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/
     Zip[] zipTabs?;
 };
@@ -5808,11 +5807,11 @@ public type CommentPublish record {
     string[] mentions?;
     # Specifies the text that is shown in the dropdown list. 
     string text?;
-    # 
+    #
     record {|string...;|} threadAnchorKeys?;
     # The unique identifier for the comment thread.
     string threadId?;
-    # 
+    #
     string[] visibleTo?;
 };
 
@@ -5825,9 +5824,9 @@ public type SigningGroupInformation record {
 # Represents the definition of an account signature.
 public type AccountSignatureDefinition record {
     # Specifies the area in which a date stamp is placed. This parameter uses pixel positioning to draw a rectangle at the center of the stamp area. The stamp is superimposed on top of this central area.
-    # 
+    #
     # This property contains the following information about the central rectangle:
-    # 
+    #
     # - `DateAreaX`: The X axis position of the top-left corner.
     # - `DateAreaY`: The Y axis position of the top-left corner.
     # - `DateAreaWidth`: The width of the rectangle.
@@ -5838,7 +5837,7 @@ public type AccountSignatureDefinition record {
     # Optionally specify an external identifier for the user's signature.
     string externalID?;
     # Specificies the type of image. Valid values:
-    # 
+    #
     # - `stamp_image`
     # - `signature_image`
     # - `initials_image`
@@ -5852,7 +5851,7 @@ public type AccountSignatureDefinition record {
     # The phonetic spelling of the `signatureName`.
     string phoneticName?;
     # The font type to use for the signature if the signature is not drawn. The following font styles  are supported. The quotes are to indicate that these values are strings, not `enums`.
-    # 
+    #
     # - `"1_DocuSign"`
     # - `"2_DocuSign"`
     # - `"3_DocuSign"`
@@ -5864,7 +5863,7 @@ public type AccountSignatureDefinition record {
     # - `"Mistral"`
     # - `"Rage Italic"`
     string signatureFont?;
-    # 
+    #
     SignatureGroupDef[] signatureGroups?;
     # Specifies the signature ID associated with the signature name. You can use the signature ID in the URI in place of the signature name, and the value stored in the `signatureName` property in the body is used. This allows the use of special characters (such as "&", "<", ">") in a the signature name. Note that with each update to signatures, the returned signature ID might change, so the caller will need to trigger off the signature name to get the new signature ID.
     string signatureId?;
@@ -5874,10 +5873,10 @@ public type AccountSignatureDefinition record {
     string signatureName?;
     # Specifies the type of signature.
     string signatureType?;
-    # 
+    #
     SignatureUserDef[] signatureUsers?;
     # The format of a stamp. Valid values are:
-    # 
+    #
     # - `NameHanko`: The stamp represents only the signer's name.
     # - `NameDateHanko`: The stamp represents the signer's name and the date. 
     string stampFormat?;
@@ -5892,7 +5891,7 @@ public type Brand record {
     # The ID used to identify a specific brand in API calls.
     string brandId?;
     # An array of two-letter codes for the languages that you want to use with the brand. The supported languages are:
-    # 
+    #
     # - Arabic (`ar`)
     # - Armenian (`hy`)
     # - Bahasa Indonesia (`id`)
@@ -5941,14 +5940,14 @@ public type Brand record {
     # The name of the brand.
     string brandName?;
     # An array of name-value pairs specifying the colors that the brand uses for the following elements:
-    # 
+    #
     # - Button background
     # - Button text
     # - Header background
     # - Header text
     NameValue[] colors?;
     # The two-letter code for the language that you want to use as the brand default. The supported languages are:
-    # 
+    #
     # - Arabic (`ar`)
     # - Armenian (`hy`)
     # - Bahasa Indonesia (`id`)
@@ -5998,7 +5997,7 @@ public type Brand record {
     BrandEmailContent[] emailContent?;
     # This object describes errors that occur. It is only valid for responses and ignored in requests.
     ErrorDetails errorDetails?;
-    # 
+    #
     string isOrganizationBrand?;
     # When **true,** the `brandCompany` property is overriding the name of the company in the account settings.
     boolean isOverridingCompanyName?;
@@ -6007,33 +6006,33 @@ public type Brand record {
     # When **true,** the siging brand is the default brand for the signing experience.
     boolean isSigningDefault?;
     # An array of name/value pairs specifying the pages to which the user is redirected after the following events occur:
-    # 
+    #
     # - Signing Completed
     # - Viewed Exit
     # - Finish Later
     # - Decline
     # - Session Timeout
     # - Authentication Failure
-    # 
+    #
     # If you do not specify landing pages, the DocuSign default pages are used.
     NameValue[] landingPages?;
     # An array of `brandLink` objects that contain information about the links that the brand uses.
     BrandLink[] links?;
     # The URIs for retrieving the logos that are associated with the brand.
-    # 
+    #
     # These are read-only properties that provide a URI to logos in use.
     # To update a logo use
     # [AccountBrands: updateLogo](/docs/esign-rest-api/reference/accounts/accountbrands/updatelogo/).
     BrandLogos logos?;
-    # 
+    #
     string organizationBrandLogo?;
     # Brands use resource files to style the following experiences: 
-    # 
+    #
     # - Email
     # - Sending
     # - Signing
     # - Captive (embedded) signing 
-    # 
+    #
     # You can modify these resource files to customize these experiences.
     BrandResourceUrls resources?;
 };

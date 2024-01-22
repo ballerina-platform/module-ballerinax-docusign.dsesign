@@ -52,7 +52,6 @@ function initializeClientsForCalendarServer () returns error? {
     }
 }
 
-
 @test:Config {
     groups: ["account"]
 }
