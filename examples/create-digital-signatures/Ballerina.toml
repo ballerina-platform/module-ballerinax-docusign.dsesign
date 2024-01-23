@@ -1,6 +1,6 @@
 [package]
 org = "ballerina"
-name = "send_documents"
+name = "create_digital_signatures"
 version = "0.1.0"
 distribution = "2201.8.4"
 
