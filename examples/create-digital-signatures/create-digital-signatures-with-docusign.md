@@ -41,11 +41,10 @@ dsesign:Client docusignClient = check new(serviceUrl = "https://demo.docusign.ne
 Encode the signature image in Base64 format and use the DocuSign API to add a user signature.
 
 ```ballerina
-string base64Encoded = array:toBase64(check io:fileReadBytes("./resources/signature.png"));
 dsesign:UserSignaturesInformation addSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures.post({
     userSignatures: [
         {
-            imageBase64: base64Encoded,
+            imageBase64: array:toBase64(check io:fileReadBytes("./resources/signature.png")),
             signatureName: "test signature"
         }
     ]

@@ -1,16 +1,16 @@
 ## Examples
 
-The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/tree/main/examples).
+The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples).
 
-1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/tree/main/examples/send-documents)
-    This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
-
-2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.esign/tree/main/examples/create-signature)
+1. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.dsesign/tree/main/examples/create-signature)
     This example shows how to create a eSignature for your DocuSign account.
+
+2. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/send-documents)
+    This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
 
 ## Prerequisites
 
-1. Follow the [instructions](https://github.com/ballerina-platform/module-ballerinax-docusign.esign#set-up-guide) to set up the DocuSign eSignature API.
+1. Follow the [instructions](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign#set-up-guide) to set up the DocuSign eSignature API.
 
 2. For each example, create a `Config.toml` file with your OAuth2 tokens, client ID, and client secret. Here's an example of how your `Config.toml` file should look:
 

@@ -1,11 +1,11 @@
 # Ballerina Docusign eSignature Connector
 
-[![Build](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/actions/workflows/ci.yml)
-[![Trivy](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/actions/workflows/trivy-scan.yml)
-[![codecov](https://codecov.io/gh/ballerina-platform/module-ballerinax-docusign.esign/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/module-ballerinax-docusign.esign)
-[![GraalVM Check](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/actions/workflows/build-with-bal-test-graalvm.yml)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-docusign.esign.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.esign/commits/main)
-[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/docusign.esign.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fdocusign.esign)
+[![Build](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/ci.yml)
+[![Trivy](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/trivy-scan.yml)
+[![codecov](https://codecov.io/gh/ballerina-platform/module-ballerinax-docusign.dsesign/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/module-ballerinax-docusign.dsesign)
+[![GraalVM Check](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/build-with-bal-test-graalvm.yml)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-docusign.dsesign.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/commits/main)
+[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/docusign.dsesign.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fdocusign.dsesign)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 DocuSign eSignature is a document management and electronic signature service developed by DocuSign. It allows users to securely sign, send, and manage documents in a digital environment. This connector provides the capability to programmatically perform DocuSign eSignature related operations. For more information about configuration and operations, refer to the module.
@@ -178,8 +178,6 @@ This repository only contains the source code for the package.
    export packageUser=<Your GitHub Username>
    export packagePAT=<GitHub Personal Access Token>
     ```
-
-To utilize the Google eSignature connector in your Ballerina application, modify the `.bal` file as follows:
 
 ### Build options
 
