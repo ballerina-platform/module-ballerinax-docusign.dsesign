@@ -28,7 +28,7 @@ configurable string accountId = ?;
 configurable string userId = ?;
 
 @test:BeforeSuite
-function initializeClientsForCalendarServer () returns error? {
+function initializeClientsForDocuSignServer () returns error? {
     if isTestOnLiveServer {
         docuSignClient = check new(
             {

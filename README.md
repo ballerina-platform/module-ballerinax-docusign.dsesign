@@ -179,7 +179,7 @@ This repository only contains the source code for the package.
    export packagePAT=<GitHub Personal Access Token>
     ```
 
-To utilize the Google Calendar connector in your Ballerina application, modify the `.bal` file as follows:
+To utilize the Google eSignature connector in your Ballerina application, modify the `.bal` file as follows:
 
 ### Build options
 
