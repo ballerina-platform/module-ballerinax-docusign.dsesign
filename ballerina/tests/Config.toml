@@ -1,0 +1,4 @@
+[docusign.dsesign]
+accessToken = "mock_access_token"
+accountId = "mock-account-id"
+userId = "mock-user-id"
