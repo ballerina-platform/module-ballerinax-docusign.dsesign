@@ -17,10 +17,11 @@
 import ballerina/io;
 import ballerinax/docusign.dsesign;
 import ballerina/lang.array;
+import ballerina/os;
 
-configurable string accessToken = ?;
-configurable string accountId = ?;
-configurable string userId = ?;
+configurable string accessToken = os:getEnv("ACCESS_TOKEN");
+configurable string accountId = os:getEnv("ACCOUNT_ID");
+configurable string userId = os:getEnv("USER_ID");
 
 dsesign:ConnectionConfig connectionConfig = {
     auth: {
