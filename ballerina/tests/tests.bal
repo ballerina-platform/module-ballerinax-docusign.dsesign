@@ -111,17 +111,22 @@ function testVersion() returns error? {
 }
 function testCreateAndDeleteUserSignatures() returns error? {
     string base64Encoded = array:toBase64(check io:fileReadBytes("tests/resources/signature.png"));
+    string signatureName = "test signature";
     UserSignaturesInformation payload = {
         userSignatures: [
             {
                 imageBase64: base64Encoded,
-                signatureName: "test signature"
+                signatureName: signatureName
             }
         ]
     };
     UserSignaturesInformation response = check docuSignClient->/accounts/[accountId]/users/[userId]/signatures.post(payload);
-    test:assertEquals((<UserSignature[]>response.userSignatures)[0].signatureName, (<UserSignature[]>payload.userSignatures)[0].signatureName);
-    string? signatureId = (<UserSignature[]>response.userSignatures)[0].signatureId;
+    UserSignature[]? signatures = response.userSignatures;
+    if signatures is () {
+        return error("signatures are null");
+    }
+    test:assertEquals(signatures[0].signatureName, signatureName);
+    string? signatureId = signatures[0].signatureId;
     if signatureId is () {
         return error("signatureId is null");
     }
@@ -134,23 +139,28 @@ function testCreateAndDeleteUserSignatures() returns error? {
 }
 function testGetUserSignature() returns error? {
     string base64Encoded = array:toBase64(check io:fileReadBytes("tests/resources/signature.png"));
+    string signatureName = "test signature";
     UserSignaturesInformation payload = {
         userSignatures: [
             {
                 imageBase64: base64Encoded,
-                signatureName: "test signature"
+                signatureName: signatureName
             }
         ]
     };
     UserSignaturesInformation response = check docuSignClient->/accounts/[accountId]/users/[userId]/signatures.post(payload);
-    test:assertEquals((<UserSignature[]>response.userSignatures)[0].signatureName, (<UserSignature[]>payload.userSignatures)[0].signatureName);
-    string? signatureId = (<UserSignature[]>response.userSignatures)[0].signatureId;
+    UserSignature[]? signatures = response.userSignatures;
+    if signatures is () {
+        return error("signatures are null");
+    }
+    test:assertEquals(signatures[0].signatureName, signatureName);
+    string? signatureId = signatures[0].signatureId;
     if signatureId is () {
         return error("signatureId is null");
     }
 
     UserSignature getSignature = check docuSignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId]();
-    test:assertEquals(getSignature.signatureName, (<UserSignature[]>payload.userSignatures)[0].signatureName);
+    test:assertEquals(getSignature.signatureName, signatureName);
 
     error? userSignature = docuSignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId].delete();
     test:assertEquals(userSignature, ());
@@ -161,17 +171,22 @@ function testGetUserSignature() returns error? {
 }
 function testAllUserSignature() returns error? {
     string base64Encoded = array:toBase64(check io:fileReadBytes("tests/resources/signature.png"));
+    string signatureName = "test signature";
     UserSignaturesInformation payload = {
         userSignatures: [
             {
                 imageBase64: base64Encoded,
-                signatureName: "test signature"
+                signatureName: signatureName
             }
         ]
     };
     UserSignaturesInformation response = check docuSignClient->/accounts/[accountId]/users/[userId]/signatures.post(payload);
-    test:assertEquals((<UserSignature[]>response.userSignatures)[0].signatureName, (<UserSignature[]>payload.userSignatures)[0].signatureName);
-    string? signatureId = (<UserSignature[]>response.userSignatures)[0].signatureId;
+    UserSignature[]? signatures = response.userSignatures;
+    if signatures is () {
+        return error("signatures are null");
+    }
+    test:assertEquals(signatures[0].signatureName, signatureName);
+    string? signatureId = signatures[0].signatureId;
     if signatureId is () {
         return error("signatureId is null");
     }
@@ -229,17 +244,22 @@ function testGetPastDueInvoices() returns error? {
 }
 function testPutUserSignature() returns error? {
     string base64Encoded = array:toBase64(check io:fileReadBytes("tests/resources/signature.png"));
+    string signatureName = "test signature";
     UserSignaturesInformation payload = {
         userSignatures: [
             {
                 imageBase64: base64Encoded,
-                signatureName: "test signature"
+                signatureName: signatureName
             }
         ]
     };
     UserSignaturesInformation response = check docuSignClient->/accounts/[accountId]/users/[userId]/signatures.post(payload);
-    test:assertEquals((<UserSignature[]>response.userSignatures)[0].signatureName, (<UserSignature[]>payload.userSignatures)[0].signatureName);
-    string? signatureId = (<UserSignature[]>response.userSignatures)[0].signatureId;
+    UserSignature[]? signatures = response.userSignatures;
+    if signatures is () {
+        return error("signatures are null");
+    }
+    test:assertEquals(signatures[0].signatureName, signatureName);
+    string? signatureId = signatures[0].signatureId;
     if signatureId is () {
         return error("signatureId is null");
     }
@@ -248,7 +268,7 @@ function testPutUserSignature() returns error? {
         signatureName: "updated signature"
     };
     UserSignature getSignature = check docuSignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId].put(updatedPayload);
-    test:assertEquals(getSignature.signatureName, (<UserSignature[]>payload.userSignatures)[0].signatureName);
+    test:assertEquals(getSignature.signatureName, updatedPayload.signatureName);
 }
 
 @test:Config {
@@ -275,7 +295,11 @@ function testGetEnvelopeDetails() returns error? {
     string expectedStatus = "created";
     EnvelopeSummary response = check docuSignClient->/accounts/[accountId]/envelopes.post({});
     test:assertEquals(response.status, expectedStatus);
-    Envelope getEnvelope = check docuSignClient->/accounts/[accountId]/envelopes/[<string>response.envelopeId]();
+    string? envelopeId = response.envelopeId;
+    if envelopeId is () {
+        return error("envelopeId is null");
+    }
+    Envelope getEnvelope = check docuSignClient->/accounts/[accountId]/envelopes/[envelopeId]();
     test:assertEquals(getEnvelope.envelopeId, response.envelopeId);
 }
 
@@ -284,7 +308,10 @@ function testGetEnvelopeDetails() returns error? {
 }
 function testUpdateEnvelope() returns error? {
     EnvelopeSummary response = check docuSignClient->/accounts/[accountId]/envelopes.post({});
-    string envelopeId = <string>response.envelopeId;
+    string? envelopeId = response.envelopeId;
+    if envelopeId is () {
+        return error("envelopeId is null");
+    }
     EnvelopeUpdateSummary updatedEnv = check docuSignClient->/accounts/[accountId]/envelopes/[envelopeId].put({});
     test:assertEquals(updatedEnv.envelopeId, envelopeId);
 }
@@ -292,7 +319,10 @@ function testUpdateEnvelope() returns error? {
 @test:Config{}
 function testGetRecipients() returns error? {
     EnvelopeSummary response = check docuSignClient->/accounts/[accountId]/envelopes.post({});
-    string envelopeId = <string>response.envelopeId;
+    string? envelopeId = response.envelopeId;
+    if envelopeId is () {
+        return error("envelopeId is null");
+    }
     EnvelopeRecipients actualResponse = check docuSignClient->/accounts/[accountId]/envelopes/[envelopeId]/recipients();
     test:assertEquals(actualResponse.recipientCount, "0");
 }
@@ -300,7 +330,10 @@ function testGetRecipients() returns error? {
 @test:Config{}
 function testGetDocGenFormFields() returns error? {
     EnvelopeSummary envelope = check docuSignClient->/accounts/[accountId]/envelopes.post({});
-    string envelopeId = <string>envelope.envelopeId;
+    string? envelopeId = envelope.envelopeId;
+    if envelopeId is () {
+        return error("envelopeId is null");
+    }
     DocGenFormFieldResponse response = check docuSignClient->/accounts/[accountId]/envelopes/[envelopeId]/docGenFormFields();
     test:assertEquals(response, {});
 }

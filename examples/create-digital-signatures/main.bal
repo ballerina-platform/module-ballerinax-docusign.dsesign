@@ -30,11 +30,10 @@ dsesign:ConnectionConfig connectionConfig = {
 
 public function main() returns error? {
     dsesign:Client docusignClient = check new(serviceUrl = "https://demo.docusign.net/restapi/", config = connectionConfig);
-    string base64Encoded = array:toBase64(check io:fileReadBytes("./resources/signature.png"));
     dsesign:UserSignaturesInformation addSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures.post({
         userSignatures: [
             {
-                imageBase64: base64Encoded,
+                imageBase64: array:toBase64(check io:fileReadBytes("./resources/signature.png")),
                 signatureName: "test signature"
             }
         ]
@@ -43,6 +42,6 @@ public function main() returns error? {
     dsesign:UserSignaturesInformation usageSignatureInfo = check docusignClient->/accounts/[accountId]/users/[userId]/signatures("signature");
     io:println("All signatures: ", usageSignatureInfo);
     string signatureId = <string>(<dsesign:UserSignature[]>usageSignatureInfo.userSignatures)[0].signatureId;
-    dsesign:UserSignature unionResult = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
-    io:println("Signature Info: ", unionResult);
+    dsesign:UserSignature userSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
+    io:println("Signature Info: ", userSignature);
 }

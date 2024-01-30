@@ -111,7 +111,7 @@ You can now utilize the operations available within the connector.
 
 ```ballerina
 public function main() returns error? {
-    dsesign:Client docusignClient = ...//;
+    dsesign:Client docusignClient = ...// Initialize the DocuSign Click connector;
 
     dsesign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post(
     {
