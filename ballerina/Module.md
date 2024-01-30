@@ -129,8 +129,8 @@ public function main() returns error? {
 
 The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples).
 
-1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.dsesign/tree/main/examples/send-documents)
+1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/send-documents-for-esignatures)
     This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
 
-2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-googleapis.docusign.dsesign/tree/main/examples/create-signature)
+2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/create-digital-signatures)
     This example shows how to create a eSignature for your DocuSign account.
