@@ -1794,7 +1794,7 @@ public isolated client class Client {
     # envelopes from one user to another through the DocuSign Admin console).
     # + show_changes - When **true,** any changed fields for the returned PDF are highlighted in yellow and optional signatures or initials outlined in red. The account must have the **Highlight Data Changes** feature enabled.
     # + watermark - When **true,** the account has the watermark feature enabled, and the envelope is not complete, then the watermark for the account is added to the PDF documents. This option can remove the watermark. 
-    # + return - A successful response or an error. 
+    # + return - A successful response or an error.
     resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/documents/[string documentId](string? certificate = (), string? documents_by_userid = (), string? encoding = (), string? encrypt = (), string? language = (), string? recipient_id = (), string? shared_user_id = (), string? show_changes = (), string? watermark = ()) returns byte[]|error {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/documents/${getEncodedUri(documentId)}`;
         map<anydata> queryParam = {"certificate": certificate, "documents_by_userid": documents_by_userid, "encoding": encoding, "encrypt": encrypt, "language": language, "recipient_id": recipient_id, "shared_user_id": shared_user_id, "show_changes": show_changes, "watermark": watermark};
@@ -4018,6 +4018,2409 @@ public isolated client class Client {
     resource isolated function get accounts/[string accountId]/workspaces/[string workspaceId]() returns Workspace|error {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/workspaces/${getEncodedUri(workspaceId)}`;
         Workspace response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+
+    # Creates a preview of the responsive versions of all of the documents in an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/responsive_html_preview(DocumentHtmlDefinition payload) returns DocumentHtmlDefinitions|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/responsive_html_preview`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DocumentHtmlDefinitions response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Reserved for DocuSign.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/tabs_blob() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/tabs_blob`;
+        http:Response response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Reserved for DocuSign.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/tabs_blob() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/tabs_blob`;
+        http:Request request = new;
+        http:Response response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Get List of Templates used in an Envelope
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + include - The possible value is `matching_applied`, which returns template matching information for the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/templates(string? include = ()) returns TemplateInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/templates`;
+        map<anydata> queryParam = {"include": include};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        TemplateInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Adds templates to an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + preserve_template_recipient - If omitted or set to false (the default),
+    # envelope recipients _will be removed_
+    # if the template being applied
+    # includes only  tabs positioned via anchor text for the recipient,
+    # and none of the documents include the anchor text. 
+    # When **true,** the recipients _will be preserved_ after the template is applied.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/templates(DocumentTemplateList payload, string? preserve_template_recipient = ()) returns DocumentTemplateList|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/templates`;
+        map<anydata> queryParam = {"preserve_template_recipient": preserve_template_recipient};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DocumentTemplateList response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns a URL to the envelope correction UI.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/views/correct(CorrectViewRequest payload) returns EnvelopeViews|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/correct`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeViews response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Revokes the correction view URL to the Envelope UI.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/views/correct(CorrectViewRequest payload) returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/correct`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        http:Response response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Returns a URL to the edit view UI.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/views/edit(ReturnUrlRequest payload) returns EnvelopeViews|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/edit`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeViews response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns a URL to the recipient view UI.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The ID of the draft envelope or template to preview.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/views/recipient(RecipientViewRequest payload) returns EnvelopeViews|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/recipient`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeViews response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Creates an envelope recipient preview.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/views/recipient_preview(RecipientPreviewRequest payload) returns ViewUrl|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/recipient_preview`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        ViewUrl response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns a URL to the sender view UI.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/views/sender(ReturnUrlRequest payload) returns EnvelopeViews|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/sender`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeViews response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns a URL to the shared recipient view UI for an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/views/shared(RecipientViewRequest payload) returns ViewUrl|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/views/shared`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        ViewUrl response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns the workflow definition for an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/workflow() returns Workflow|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow`;
+        Workflow response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the workflow definition for an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/workflow(Workflow payload) returns Workflow|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Workflow response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Delete the workflow definition for an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/workflow() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Returns the scheduled sending rules for an envelope's workflow definition.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/workflow/scheduledSending() returns ScheduledSending|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/scheduledSending`;
+        ScheduledSending response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the scheduled sending rules for an envelope's workflow.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + payload - An object that describes the settings for scheduled sending.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/workflow/scheduledSending(ScheduledSending payload) returns ScheduledSending|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/scheduledSending`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        ScheduledSending response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes the scheduled sending rules for the envelope's workflow.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/workflow/scheduledSending() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/scheduledSending`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Adds a new step to an envelope's workflow.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps(WorkflowStep payload) returns WorkflowStep|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        WorkflowStep response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns a specified workflow step for a specified template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + workflowStepId - The ID of the workflow step.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps/[string workflowStepId]() returns WorkflowStep|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps/${getEncodedUri(workflowStepId)}`;
+        WorkflowStep response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the specified workflow step for an envelope.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + workflowStepId - The ID of the workflow step.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps/[string workflowStepId](WorkflowStep payload) returns WorkflowStep|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps/${getEncodedUri(workflowStepId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        WorkflowStep response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes a workflow step from an envelope's workflow definition.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + workflowStepId - The ID of the workflow step.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps/[string workflowStepId]() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps/${getEncodedUri(workflowStepId)}`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Returns the delayed routing rules for an envelope's workflow step definition.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + workflowStepId - The ID of the workflow step.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps/[string workflowStepId]/delayedRouting() returns DelayedRouting|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps/${getEncodedUri(workflowStepId)}/delayedRouting`;
+        DelayedRouting response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the delayed routing rules for an envelope's workflow step definition.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + workflowStepId - The ID of the workflow step.
+    # + payload - A complex element that specifies the delayed routing settings for the workflow step.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps/[string workflowStepId]/delayedRouting(DelayedRouting payload) returns DelayedRouting|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps/${getEncodedUri(workflowStepId)}/delayedRouting`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DelayedRouting response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes the delayed routing rules for the specified envelope workflow step.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeId - The envelope's GUID. 
+    # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
+    # + workflowStepId - The ID of the workflow step.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/envelopes/[string envelopeId]/workflow/steps/[string workflowStepId]/delayedRouting() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/workflow/steps/${getEncodedUri(workflowStepId)}/delayedRouting`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Gets envelope statuses for a set of envelopes.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + ac_status - Specifies the Authoritative Copy Status for the envelopes. Valid values: 
+    # - `Unknown`
+    # - `Original`
+    # - `Transferred`
+    # - `AuthoritativeCopy`
+    # - `AuthoritativeCopyExportPending`
+    # - `AuthoritativeCopyExported`
+    # - `DepositPending`
+    # - `Deposited`
+    # - `DepositedEO`
+    # - `DepositFailed`
+    # + block - When **true,** removes any results that match one of the provided `transaction_ids`.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # + email - The email address of the sender.
+    # + envelope_ids - The envelope IDs to include in the results.
+    # The value of this property can be:
+    # - A comma-separated list of envelope IDs
+    # - The special value `request_body`. In this case, the method uses the envelope IDs in the request body.
+    # + from_date - The date/time setting that specifies when the request begins checking for status changes for envelopes in the account. This is required unless parameters `envelope_ids` and/or `transaction_Ids` are provided.
+    # **Note:** This parameter must be set to a valid  `DateTime`, or  `envelope_ids` and/or `transaction_ids` must be specified.
+    # + from_to_status - The envelope status that you are checking for. Possible values are:
+    # - `Changed` (default)
+    # - `Completed`
+    # - `Created`
+    # - `Declined`
+    # - `Deleted`
+    # - `Delivered`
+    # - `Processing`
+    # - `Sent`
+    # - `Signed`
+    # - `TimedOut`
+    # - `Voided`
+    # For example, if you specify `Changed`, this method
+    # returns a list of envelopes that changed status
+    # during the `from_date` to `to_date` time period. 
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + status - A comma-separated list of envelope status to search for. Possible values are:
+    # - `completed`
+    # - `created`
+    # - `declined`
+    # - `deleted`
+    # - `delivered`
+    # - `processing`
+    # - `sent`
+    # - `signed`
+    # - `template`
+    # - `voided`
+    # + to_date - Optional date/time setting
+    # that specifies the last date/time 
+    # or envelope status changes in the result set. 
+    # The default value is the time that you call the method. 
+    # + transaction_ids - The transaction IDs to include in the results. Note that transaction IDs are valid for seven days.
+    # The value of this property can be:
+    # - A list of comma-separated transaction IDs
+    # - The special value `request_body`. In this case, this method uses the transaction IDs in the request body.
+    # + user_name - Limits results to envelopes
+    # sent by the account user
+    # with this user name.
+    # `email` must be given as well,
+    # and both `email` and `user_name`
+    # must refer to an existing account user.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/status(EnvelopeIdsRequest payload, string? ac_status = (), string? block = (), string? count = (), string? email = (), string? envelope_ids = (), string? from_date = (), string? from_to_status = (), string? start_position = (), string? status = (), string? to_date = (), string? transaction_ids = (), string? user_name = ()) returns EnvelopesInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/status`;
+        map<anydata> queryParam = {"ac_status": ac_status, "block": block, "count": count, "email": email, "envelope_ids": envelope_ids, "from_date": from_date, "from_to_status": from_to_status, "start_position": start_position, "status": status, "to_date": to_date, "transaction_ids": transaction_ids, "user_name": user_name};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopesInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets envelope transfer rules.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/envelopes/transfer_rules(string? count = (), string? start_position = ()) returns EnvelopeTransferRuleInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/transfer_rules`;
+        map<anydata> queryParam = {"count": count, "start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        EnvelopeTransferRuleInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Changes the status of multiple envelope transfer rules.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/transfer_rules(EnvelopeTransferRuleInformation payload) returns EnvelopeTransferRuleInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/transfer_rules`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeTransferRuleInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Creates an envelope transfer rule.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/envelopes/transfer_rules(EnvelopeTransferRuleRequest payload) returns EnvelopeTransferRuleInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/transfer_rules`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeTransferRuleInformation response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Changes the status of an envelope transfer rule.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeTransferRuleId - The ID of the envelope transfer rule. The system generates this ID when the rule is first created.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/envelopes/transfer_rules/[string envelopeTransferRuleId](EnvelopeTransferRule payload) returns EnvelopeTransferRule|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/transfer_rules/${getEncodedUri(envelopeTransferRuleId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeTransferRule response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes an envelope transfer rule.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + envelopeTransferRuleId - The ID of the envelope transfer rule. The system generates this ID when the rule is first created.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/envelopes/transfer_rules/[string envelopeTransferRuleId]() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/transfer_rules/${getEncodedUri(envelopeTransferRuleId)}`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Retrieves the list of favorite templates for the account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/favorite_templates() returns FavoriteTemplatesInfo|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/favorite_templates`;
+        FavoriteTemplatesInfo response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Set one or more templates as account favorites.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/favorite_templates(FavoriteTemplatesInfo payload) returns FavoriteTemplatesInfo|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/favorite_templates`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        FavoriteTemplatesInfo response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Remove one or more templates from the account favorites.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/favorite_templates(FavoriteTemplatesInfo payload) returns FavoriteTemplatesInfo|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/favorite_templates`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        FavoriteTemplatesInfo response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Returns a list of the account's folders.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + count - The maximum number of results to return.
+    # + include - A comma-separated list of folder types to include in the response.
+    # Valid values are:
+    # - `envelope_folders`: Returns a list of envelope folders. (Default)
+    # - `template_folders`: Returns a list of template folders. 
+    # - `shared_template_folders`: Returns a list of shared template folders.
+    # + include_items - Indicates whether folder items are included in the response. If this parameter is omitted, the default is false.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # The default value is `0`.
+    # + sub_folder_depth - If missing or any value other than `-1`, the returned list contains only the top-level folders.
+    # A value of `-1` returns the complete folder hierarchy.
+    # + template - This parameter is deprecated as of version 2.1. Use `include` instead.
+    # + user_filter - Narrows down the resulting folder list by the following values:
+    # - `all`: Returns all templates owned or shared with the user. (default)
+    # - `owned_by_me`: Returns only  templates the user owns.
+    # - `shared_with_me`: Returns only templates that are shared with the user.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/folders(string? count = (), string? include = (), string? include_items = (), string? start_position = (), string? sub_folder_depth = (), string? template = (), string? user_filter = ()) returns FoldersResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/folders`;
+        map<anydata> queryParam = {"count": count, "include": include, "include_items": include_items, "start_position": start_position, "sub_folder_depth": sub_folder_depth, "template": template, "user_filter": user_filter};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        FoldersResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets information about items in a specified folder. 
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + folderId - The ID of the folder.
+    # + from_date - Reserved for DocuSign.
+    # + include_items - Indicates whether folder items are included in the response. If this parameter is omitted, the default is false.
+    # + owner_email - Reserved for DocuSign.
+    # + owner_name - Reserved for DocuSign.
+    # + search_text - Reserved for DocuSign.
+    # + start_position - Reserved for DocuSign.
+    # + status - Reserved for DocuSign.
+    # + to_date - Reserved for DocuSign.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/folders/[string folderId](string? from_date = (), string? include_items = (), string? owner_email = (), string? owner_name = (), string? search_text = (), string? start_position = (), string? status = (), string? to_date = ()) returns FolderItemsResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/folders/${getEncodedUri(folderId)}`;
+        map<anydata> queryParam = {"from_date": from_date, "include_items": include_items, "owner_email": owner_email, "owner_name": owner_name, "search_text": search_text, "start_position": start_position, "status": status, "to_date": to_date};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        FolderItemsResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Moves a set of envelopes from their current folder to another folder.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + folderId - The ID of the folder.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/folders/[string folderId](FoldersRequest payload) returns FoldersResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/folders/${getEncodedUri(folderId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        FoldersResponse response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets information about groups associated with the account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # Valid values: `1` to `100`
+    # + group_type - The type of group to return. Valid values:
+    # * `AdminGroup`
+    # * `CustomGroup`
+    # * `EveryoneGroup`
+    # + include_usercount - When **true,** every group returned in the response includes a `userCount` property that contains the total number of users in the group. The default is **true.**
+    # + search_text - Filters the results of a GET request based on the text that you specify.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/groups(string? count = (), string? group_type = (), string? include_usercount = (), string? search_text = (), string? start_position = ()) returns GroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups`;
+        map<anydata> queryParam = {"count": count, "group_type": group_type, "include_usercount": include_usercount, "search_text": search_text, "start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        GroupInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the group information for a group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/groups(GroupInformation payload) returns GroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Creates one or more groups for the account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/groups(GroupInformation payload) returns GroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupInformation response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes an existing user group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/groups(GroupInformation payload) returns GroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupInformation response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets the brand information for a group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + groupId - The ID of the group.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/groups/[string groupId]/brands() returns GroupBrands|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups/${getEncodedUri(groupId)}/brands`;
+        GroupBrands response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Adds an existing brand to a group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + groupId - The ID of the group being accessed.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/groups/[string groupId]/brands(BrandsRequest payload) returns GroupBrands|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups/${getEncodedUri(groupId)}/brands`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupBrands response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes brand information from a group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + groupId - The ID of the group.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/groups/[string groupId]/brands(BrandsRequest payload) returns GroupBrands|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups/${getEncodedUri(groupId)}/brands`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupBrands response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets a list of users in a group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + groupId - The ID of the group being accessed.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # Valid values: `1` to `100`
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/groups/[string groupId]/users(string? count = (), string? start_position = ()) returns UsersResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups/${getEncodedUri(groupId)}/users`;
+        map<anydata> queryParam = {"count": count, "start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        UsersResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Adds one or more users to an existing group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + groupId - The ID of the group being accessed.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/groups/[string groupId]/users(UserInfoList payload) returns UsersResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups/${getEncodedUri(groupId)}/users`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        UsersResponse response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes one or more users from a group
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + groupId - The ID of the group being accessed.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/groups/[string groupId]/users(UserInfoList payload) returns UsersResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/groups/${getEncodedUri(groupId)}/users`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        UsersResponse response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Retrieves the Identity Verification workflows available to an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + identity_verification_workflow_status - Filters the workflows returned according to status. Valid values:
+    # - `active`: Only active workflows are returned. This is the default.
+    # - `deactivated`: Only deactivated workflows are returned.
+    # - `all`: All workflows are returned.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/identity_verification(string? identity_verification_workflow_status = ()) returns AccountIdentityVerificationResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/identity_verification`;
+        map<anydata> queryParam = {"identity_verification_workflow_status": identity_verification_workflow_status};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        AccountIdentityVerificationResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # List payment gateway accounts
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/payment_gateway_accounts() returns PaymentGatewayAccountsInfo|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/payment_gateway_accounts`;
+        PaymentGatewayAccountsInfo response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets a list of permission profiles.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + include - A comma-separated list of additional properties to return in the response. Valid values are:
+    # - `user_count`: The total number of users associated with the permission profile.
+    # - `closed_users`: Includes closed users in the `user_count`.
+    # - `account_management`: The account management settings.
+    # - `metadata`: Metadata indicating whether the properties associated with the account permission profile are editable.
+    # Example: `user_count,closed_users`
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/permission_profiles(string? include = ()) returns PermissionProfileInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/permission_profiles`;
+        map<anydata> queryParam = {"include": include};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        PermissionProfileInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Creates a new permission profile for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + include - A comma-separated list of additional properties to return in the response. The only valid value for this request is `metadata`, which returns metadata indicating whether the properties associated with the account permission profile are editable.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/permission_profiles(PermissionProfile payload, string? include = ()) returns PermissionProfile|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/permission_profiles`;
+        map<anydata> queryParam = {"include": include};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        PermissionProfile response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns a permission profile for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + permissionProfileId - The ID of the permission profile.
+    # Use [AccountPermissionProfiles: list](/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/)
+    # to get a list of permission profiles and their IDs.
+    # You can also download a CSV file of all permission profiles
+    # and their IDs from the **Settings > Permission Profiles** page
+    # of your eSignature account page.
+    # + include - A comma-separated list of additional properties to return in the response. The only valid value for this request is `metadata`, which returns metadata indicating whether the properties associated with the account permission profile are editable.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/permission_profiles/[string permissionProfileId](string? include = ()) returns PermissionProfile|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/permission_profiles/${getEncodedUri(permissionProfileId)}`;
+        map<anydata> queryParam = {"include": include};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        PermissionProfile response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates a permission profile.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + permissionProfileId - The ID of the permission profile.
+    # Use [AccountPermissionProfiles: list](/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/)
+    # to get a list of permission profiles and their IDs.
+    # You can also download a CSV file of all permission profiles
+    # and their IDs from the **Settings > Permission Profiles** page
+    # of your eSignature account page.
+    # + include - A comma-separated list of additional properties to return in the response. The only valid value for this request is `metadata`, which returns metadata indicating whether the properties associated with the account permission profile are editable.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/permission_profiles/[string permissionProfileId](PermissionProfile payload, string? include = ()) returns PermissionProfile|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/permission_profiles/${getEncodedUri(permissionProfileId)}`;
+        map<anydata> queryParam = {"include": include};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        PermissionProfile response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes a permission profile from an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + permissionProfileId - The ID of the permission profile.
+    # Use [AccountPermissionProfiles: list](/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/)
+    # to get a list of permission profiles and their IDs.
+    # You can also download a CSV file of all permission profiles
+    # and their IDs from the **Settings > Permission Profiles** page
+    # of your eSignature account page.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/permission_profiles/[string permissionProfileId](string? move_users_to = ()) returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/permission_profiles/${getEncodedUri(permissionProfileId)}`;
+        map<anydata> queryParam = {"move_users_to": move_users_to};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Returns a list of PowerForms.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + from_date - The start date for a date range.
+    # **Note:** If no value is provided, no date filtering is applied.
+    # + 'order - The order in which to sort the results.
+    # Valid values are: 
+    # * `asc`: Ascending order.
+    # * `desc`: Descending order. 
+    # + order_by - The file attribute to use to sort the results.
+    # Valid values are:
+    # - `sender`
+    # - `auth`
+    # - `used`
+    # - `remaining`
+    # - `lastused`
+    # - `status`
+    # - `type`
+    # - `templatename`
+    # - `created`
+    # + search_fields - A comma-separated list of additional properties to include in a search.
+    # - `sender`: Include sender name and email in the search.
+    # - `recipients`: Include recipient names and emails in the search.
+    # - `envelope`: Include envelope information in the search.
+    # + search_text - Use this parameter to search for specific text.
+    # + to_date - The end date for a date range.
+    # **Note:** If no value is provided, this property defaults to the current date.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/powerforms(string? from_date = (), string? 'order = (), string? order_by = (), string? search_fields = (), string? search_text = (), string? to_date = ()) returns PowerFormsResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms`;
+        map<anydata> queryParam = {"from_date": from_date, "order": 'order, "order_by": order_by, "search_fields": search_fields, "search_text": search_text, "to_date": to_date};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        PowerFormsResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Creates a new PowerForm
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + payload - Information about any PowerForms that are included in the envelope.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/powerforms(PowerForm payload) returns PowerForm|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        PowerForm response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes one or more PowerForms.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/powerforms(PowerFormsRequest payload) returns PowerFormsResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        PowerFormsResponse response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Returns a single PowerForm.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + powerFormId - The ID of the PowerForm.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/powerforms/[string powerFormId]() returns PowerForm|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms/${getEncodedUri(powerFormId)}`;
+        PowerForm response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates an existing PowerForm.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + powerFormId - The ID of the PowerForm.
+    # + payload - Information about any PowerForms that are included in the envelope.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/powerforms/[string powerFormId](PowerForm payload) returns PowerForm|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms/${getEncodedUri(powerFormId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        PowerForm response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes a PowerForm.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + powerFormId - The ID of the PowerForm.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/powerforms/[string powerFormId]() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms/${getEncodedUri(powerFormId)}`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Returns the data that users entered in a PowerForm.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + powerFormId - The ID of the PowerForm.
+    # + data_layout - The layout in which to return the PowerForm data. Valid values are:
+    # - `Native`
+    # - `Csv_Classic`
+    # - `Csv_One_Envelope_Per_Line`
+    # - `Xml_Classic`
+    # + from_date - The start date for a date range in UTC DateTime format.
+    # **Note:** If this property is null, no date filtering is applied.
+    # + to_date - The end date of a date range in UTC DateTime format. The default value is `UtcNow`.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/powerforms/[string powerFormId]/form_data(string? data_layout = (), string? from_date = (), string? to_date = ()) returns PowerFormsFormDataResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms/${getEncodedUri(powerFormId)}/form_data`;
+        map<anydata> queryParam = {"data_layout": data_layout, "from_date": from_date, "to_date": to_date};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        PowerFormsFormDataResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets PowerForm senders.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + start_position - The position within the total result set from which to start returning values. The value **thumbnail** may be used to return the page image.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/powerforms/senders(string? start_position = ()) returns PowerFormSendersResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/powerforms/senders`;
+        map<anydata> queryParam = {"start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        PowerFormSendersResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets the recipient names associated with an email address.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + email - (Required) The email address for which you want to retrieve recipient names.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/recipient_names(string? email = ()) returns RecipientNamesResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/recipient_names`;
+        map<anydata> queryParam = {"email": email};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        RecipientNamesResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Returns available seals for specified account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/seals() returns AccountSealProviders|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/seals`;
+        AccountSealProviders response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Deprecated. Use Envelopes: listStatusChanges.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + searchFolderId - Specifies the envelope group that is searched by the request. These are logical groupings, not actual folder names. Valid values are: drafts, awaiting_my_signature, completed, out_for_signature.
+    # + all - Specifies that all envelopes that match the criteria are returned.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # Valid values: `1` to `100`
+    # + from_date - Specifies the start of the date range to return. If no value is provided, the default search is the previous 30 days.
+    # + include_recipients - When **true,** the recipient information is returned in the response.
+    # + 'order - Specifies the order in which the list is returned. Valid values are: `asc` for ascending order, and `desc` for descending order.
+    # + order_by - Specifies the property used to sort the list. Valid values are: `action_required`, `created`, `completed`, `sent`, `signer_list`, `status`, or `subject`.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + to_date - Specifies the end of the date range to return.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/search_folders/[string searchFolderId](string? all = (), string? count = (), string? from_date = (), string? include_recipients = (), string? 'order = (), string? order_by = (), string? start_position = (), string? to_date = ()) returns FolderItemResponse|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/search_folders/${getEncodedUri(searchFolderId)}`;
+        map<anydata> queryParam = {"all": all, "count": count, "from_date": from_date, "include_recipients": include_recipients, "order": 'order, "order_by": order_by, "start_position": start_position, "to_date": to_date};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        FolderItemResponse response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets account settings information.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings() returns AccountSettingsInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings`;
+        AccountSettingsInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the account settings for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/settings(AccountSettingsInformation payload) returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        http:Response response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets the BCC email archive configurations for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/bcc_email_archives(string? count = (), string? start_position = ()) returns BccEmailArchiveList|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/bcc_email_archives`;
+        map<anydata> queryParam = {"count": count, "start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        BccEmailArchiveList response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Creates a BCC email archive configuration.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + payload - Boolean that specifies whether BCC for Email Archive is enabled for the account. BCC for Email Archive allows you to set up an archive email address so that a BCC copy of an envelope is sent only to that address.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/settings/bcc_email_archives(BccEmailArchive payload) returns BccEmailArchive|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/bcc_email_archives`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        BccEmailArchive response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Gets a BCC email archive configuration and its history.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + bccEmailArchiveId - The ID of the BCC email archive configuration.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of items to skip.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/bcc_email_archives/[string bccEmailArchiveId](string? count = (), string? start_position = ()) returns BccEmailArchiveHistoryList|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/bcc_email_archives/${getEncodedUri(bccEmailArchiveId)}`;
+        map<anydata> queryParam = {"count": count, "start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        BccEmailArchiveHistoryList response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Deletes a BCC email archive configuration.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + bccEmailArchiveId - The ID of the BCC email archive configuration.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/settings/bcc_email_archives/[string bccEmailArchiveId]() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/bcc_email_archives/${getEncodedUri(bccEmailArchiveId)}`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Returns the configuration information for the eNote eOriginal integration.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/enote_configuration() returns ENoteConfiguration|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/enote_configuration`;
+        ENoteConfiguration response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates configuration information for the eNote eOriginal integration.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/settings/enote_configuration(ENoteConfiguration payload) returns ENoteConfiguration|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/enote_configuration`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        ENoteConfiguration response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes configuration information for the eNote eOriginal integration.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/settings/enote_configuration() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/enote_configuration`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Gets the envelope purge configuration for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/envelope_purge_configuration() returns EnvelopePurgeConfiguration|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/envelope_purge_configuration`;
+        EnvelopePurgeConfiguration response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Sets the envelope purge configuration for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/settings/envelope_purge_configuration(EnvelopePurgeConfiguration payload) returns EnvelopePurgeConfiguration|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/envelope_purge_configuration`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopePurgeConfiguration response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets envelope notification defaults.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/notification_defaults() returns NotificationDefaults|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/notification_defaults`;
+        NotificationDefaults response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates envelope notification default settings.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/settings/notification_defaults(NotificationDefaults payload) returns NotificationDefaults|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/notification_defaults`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        NotificationDefaults response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets the password rules for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/password_rules() returns AccountPasswordRules|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/password_rules`;
+        AccountPasswordRules response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the password rules for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/settings/password_rules(AccountPasswordRules payload) returns AccountPasswordRules|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/password_rules`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        AccountPasswordRules response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Returns tab settings list for specified account
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/settings/tabs() returns TabAccountSettings|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/tabs`;
+        TabAccountSettings response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Modifies tab settings for specified account
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + payload - Account-wide tab settings.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/settings/tabs(TabAccountSettings payload) returns TabAccountSettings|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/settings/tabs`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TabAccountSettings response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Reserved: Gets the shared item status for one or more users.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # Default: `1000`
+    # + envelopes_not_shared_user_status - This query parameter works in conjunction with `user_ids`. When you specify one of the following user statuses, the query limits the results to only users that match the specified status:
+    # - `ActivationRequired`: Membership Activation required
+    # - `ActivationSent`: Membership activation sent to user
+    # - `Active`: User Membership is active
+    # - `Closed`: User Membership is closed
+    # - `Disabled`: User Membership is disabled
+    # + folder_ids - A comma-separated list of folder IDs for which to return shared item information. If `item_type` is set to `folders`, at least one folder ID is required.
+    # + item_type - Specifies the type of shared item being requested. Valid values:
+    # - `envelopes`: Get information about envelope sharing between users.
+    # - `templates`: Get information about template sharing among users and groups.
+    # - `folders`: Get information about folder sharing among users and groups.
+    # + search_text - Filter user names based on the specified string. The wild-card '*' (asterisk) can be used in the string.
+    # + shared - A comma-separated list of sharing filters that specifies which users appear in the response. 
+    # - `not_shared`: The response lists users who do not share items of `item_type` with the current user.
+    # - `shared_to`: The response lists users in `user_list` who are sharing items to current user.
+    # - `shared_from`: The response lists users in `user_list` who are sharing items from the current user.
+    # - `shared_to_and_from`: The response lists users in `user_list` who are sharing items to and from the current user.
+    # If the current user does not have administrative privileges, only the `shared_to` option is valid.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + user_ids - A comma-separated list of user IDs for whom the shared item information is being requested.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/shared_access(string? count = (), string? envelopes_not_shared_user_status = (), string? folder_ids = (), string? item_type = (), string? search_text = (), string? shared = (), string? start_position = (), string? user_ids = ()) returns AccountSharedAccess|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/shared_access`;
+        map<anydata> queryParam = {"count": count, "envelopes_not_shared_user_status": envelopes_not_shared_user_status, "folder_ids": folder_ids, "item_type": item_type, "search_text": search_text, "shared": shared, "start_position": start_position, "user_ids": user_ids};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        AccountSharedAccess response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Reserved: Sets the shared access information for users.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + item_type - Specifies the type of shared item being set:
+    # - `envelopes`: Set envelope sharing between users.
+    # - `templates`: Set information about template sharing among users and groups.
+    # - `folders`: Get information about folder sharing among users and groups.
+    # + preserve_existing_shared_access - When **true,** preserve the existing shared access settings.
+    # + user_ids - A comma-separated list of IDs for users whose shared item access is being set.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/shared_access(AccountSharedAccess payload, string? item_type = (), string? preserve_existing_shared_access = (), string? user_ids = ()) returns AccountSharedAccess|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/shared_access`;
+        map<anydata> queryParam = {"item_type": item_type, "preserve_existing_shared_access": preserve_existing_shared_access, "user_ids": user_ids};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        AccountSharedAccess response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets the available signature providers for an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signatureProviders() returns AccountSignatureProviders|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatureProviders`;
+        AccountSignatureProviders response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Returns a list of stamps available in the account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + stamp_format - The format of the stamp to return. Valid values:
+    # - `NameDateHanko`
+    # - `NameHanko`
+    # - `PlaceholderHanko`
+    # + stamp_name - The name associated with the stamps to return. This value can be a Japanese surname (up to 5 characters) or a purchase order ID.
+    # + stamp_type - The type of the stamps to return. Valid values:
+    # - `name_stamp`
+    # - `stamp`
+    # - `signature`
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signatures(string? stamp_format = (), string? stamp_name = (), string? stamp_type = ()) returns AccountSignaturesInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures`;
+        map<anydata> queryParam = {"stamp_format": stamp_format, "stamp_name": stamp_name, "stamp_type": stamp_type};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        AccountSignaturesInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates an account stamp.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/signatures(AccountSignaturesInformation payload) returns AccountSignaturesInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        AccountSignaturesInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Adds or updates one or more account stamps.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/signatures(AccountSignaturesInformation payload, string? decode_only = ()) returns AccountSignaturesInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures`;
+        map<anydata> queryParam = {"decode_only": decode_only};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        AccountSignaturesInformation response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns information about the specified stamp.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signatureId - The ID of the account stamp.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signatures/[string signatureId]() returns AccountSignature|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures/${getEncodedUri(signatureId)}`;
+        AccountSignature response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates an account stamp by ID.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signatureId - The ID of the account stamp.
+    # + close_existing_signature - When **true,** closes the current signature.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/signatures/[string signatureId](AccountSignatureDefinition payload, string? close_existing_signature = ()) returns AccountSignature|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures/${getEncodedUri(signatureId)}`;
+        map<anydata> queryParam = {"close_existing_signature": close_existing_signature};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        AccountSignature response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes an account stamp.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signatureId - The ID of the account stamp.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/signatures/[string signatureId]() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures/${getEncodedUri(signatureId)}`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Returns the image for an account stamp.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + imageType - Specificies the type of image. Valid values:
+    # - `stamp_image`
+    # - `signature_image`
+    # - `initials_image`
+    # + signatureId - The ID of the account stamp.
+    # + include_chrome - When **true,** the chrome (or frame containing the added line and identifier) is included with the signature image.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signatures/[string signatureId]/[string imageType](string? include_chrome = ()) returns byte[]|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures/${getEncodedUri(signatureId)}/${getEncodedUri(imageType)}`;
+        map<anydata> queryParam = {"include_chrome": include_chrome};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        byte[] response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Sets a signature image, initials, or stamp.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + imageType - Specificies the type of image. Valid values:
+    # - `stamp_image`
+    # - `signature_image`
+    # - `initials_image`
+    # + signatureId - The ID of the account stamp.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/signatures/[string signatureId]/[string imageType](string? transparent_png = ()) returns AccountSignature|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures/${getEncodedUri(signatureId)}/${getEncodedUri(imageType)}`;
+        map<anydata> queryParam = {"transparent_png": transparent_png};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        AccountSignature response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes the image for a stamp.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + imageType - Specificies the type of image. Valid values:
+    # - `stamp_image`
+    # - `signature_image`
+    # - `initials_image`
+    # + signatureId - The ID of the account stamp.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/signatures/[string signatureId]/[string imageType]() returns AccountSignature|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signatures/${getEncodedUri(signatureId)}/${getEncodedUri(imageType)}`;
+        AccountSignature response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Gets a list of the Signing Groups in an account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + group_type - Filters by the type of signing group. Valid values:
+    # * `sharedSigningGroup`
+    # * `privateSigningGroup`
+    # * `systemSigningGroup`
+    # + include_users - When **true,** the response includes the signing group members. 
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signing_groups(string? group_type = (), string? include_users = ()) returns SigningGroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups`;
+        map<anydata> queryParam = {"group_type": group_type, "include_users": include_users};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        SigningGroupInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates signing group names.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/signing_groups(SigningGroupInformation payload) returns SigningGroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        SigningGroupInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Creates a signing group. 
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/signing_groups(SigningGroupInformation payload) returns SigningGroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        SigningGroupInformation response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes one or more signing groups.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/signing_groups(SigningGroupInformation payload) returns SigningGroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        SigningGroupInformation response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets information about a signing group. 
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signingGroupId - The ID of the [signing group](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=zgn1578456447934.html).
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signing_groups/[string signingGroupId]() returns SigningGroup|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups/${getEncodedUri(signingGroupId)}`;
+        SigningGroup response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates a signing group. 
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signingGroupId - The ID of the [signing group](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=zgn1578456447934.html).
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/signing_groups/[string signingGroupId](SigningGroup payload) returns SigningGroup|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups/${getEncodedUri(signingGroupId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        SigningGroup response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets a list of members in a Signing Group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signingGroupId - The ID of the [signing group](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=zgn1578456447934.html).
+    # **Note:** When you send an envelope to a signing group,
+    # anyone in the group can open it and sign it with their own signature.
+    # For this reason, DocuSign recommends that
+    # you do not include non-signer recipients
+    # (such as carbon copy recipients)
+    # in the same signing group as signer recipients.
+    # However, you could create a second signing group
+    # for the non-signer recipients and change t
+    # he default action of Needs to Sign to a different value,
+    # such as Receives a Copy.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/signing_groups/[string signingGroupId]/users() returns SigningGroupUsers|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups/${getEncodedUri(signingGroupId)}/users`;
+        SigningGroupUsers response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Adds members to a signing group. 
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signingGroupId - The ID of the [signing group](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=zgn1578456447934.html).
+    # **Note:** When you send an envelope to a signing group,
+    # anyone in the group can open it and sign it with their own signature.
+    # For this reason, DocuSign recommends that
+    # you do not include non-signer recipients
+    # (such as carbon copy recipients)
+    # in the same signing group as signer recipients.
+    # However, you could create a second signing group
+    # for the non-signer recipients and change t
+    # he default action of Needs to Sign to a different value,
+    # such as Receives a Copy.
+    # + payload - A complex type that contains information about users in the signing group.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/signing_groups/[string signingGroupId]/users(SigningGroupUsers payload) returns SigningGroupUsers|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups/${getEncodedUri(signingGroupId)}/users`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        SigningGroupUsers response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes  one or more members from a signing group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + signingGroupId - The ID of the [signing group](https://support.docusign.com/s/document-item?bundleId=gav1643676262430&topicId=zgn1578456447934.html).
+    # **Note:** When you send an envelope to a signing group,
+    # anyone in the group can open it and sign it with their own signature.
+    # For this reason, DocuSign recommends that
+    # you do not include non-signer recipients
+    # (such as carbon copy recipients)
+    # in the same signing group as signer recipients.
+    # However, you could create a second signing group
+    # for the non-signer recipients and change t
+    # he default action of Needs to Sign to a different value,
+    # such as Receives a Copy.
+    # + payload - A complex type that contains information about users in the signing group.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/signing_groups/[string signingGroupId]/users(SigningGroupUsers payload) returns SigningGroupUsers|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/signing_groups/${getEncodedUri(signingGroupId)}/users`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        SigningGroupUsers response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets the supported languages for envelope recipients.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/supported_languages() returns SupportedLanguages|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/supported_languages`;
+        SupportedLanguages response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets a list of all account tabs.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + custom_tab_only - When **true,** only custom tabs are returned in the response. 
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/tab_definitions(string? custom_tab_only = ()) returns TabMetadataList|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/tab_definitions`;
+        map<anydata> queryParam = {"custom_tab_only": custom_tab_only};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        TabMetadataList response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Creates a custom tab.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/tab_definitions(TabMetadata payload) returns TabMetadata|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/tab_definitions`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TabMetadata response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Gets custom tab information.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + customTabId - The DocuSign-generated custom tab ID for the custom tab to be applied. This can only be used when adding new tabs for a recipient. When used, the new tab inherits all the custom tab properties.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/tab_definitions/[string customTabId]() returns TabMetadata|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/tab_definitions/${getEncodedUri(customTabId)}`;
+        TabMetadata response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates custom tab information.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + customTabId - The DocuSign-generated custom tab ID for the custom tab to be applied. This can only be used when adding new tabs for a recipient. When used, the new tab inherits all the custom tab properties.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/tab_definitions/[string customTabId](TabMetadata payload) returns TabMetadata|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/tab_definitions/${getEncodedUri(customTabId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TabMetadata response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes custom tab information.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + customTabId - The DocuSign-generated custom tab ID for the custom tab to be applied. This can only be used when adding new tabs for a recipient. When used, the new tab inherits all the custom tab properties.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/tab_definitions/[string customTabId]() returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/tab_definitions/${getEncodedUri(customTabId)}`;
+        http:Response response = check self.clientEp->delete(resourcePath);
+        return response;
+    }
+    # Gets the list of templates.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + count - The maximum number of results to return.
+    # Use `start_position` to specify the number of results to skip.
+    # + created_from_date - Lists templates created on or after this date.
+    # + created_to_date - Lists templates modified before this date.
+    # + folder_ids - A comma-separated list of folder ID GUIDs.
+    # + folder_types - The type of folder to return templates for. Possible values are:
+    # - `templates`: Templates in the **My Templates** folder.
+    # Templates in the **Shared Templates**  and **All Template** folders (if the request ID from and Admin) are excluded.
+    # - `templates_root`: Templates in the root level of the **My Templates** folder, but not in an actual folder. Note that the **My Templates** folder is not a real folder.
+    # - `recylebin`: Templates that have been deleted.
+    # + from_date - Start of the search date range. Only returns templates created on or after this date/time. If no value is specified, there is no limit on the earliest date created.
+    # + include - A comma-separated list
+    # of additional template attributes
+    # to include in the response.
+    # Valid values are:
+    # - `powerforms`: Includes details about the PowerForms associated with the templates.
+    # - `documents`: Includes information about template documents.
+    # - `folders`: Includes information about the folder that holds the template.
+    # - `favorite_template_status`: Includes the template `favoritedByMe` property. **Note:** You can mark a template as a favorite only in eSignature v2.1.
+    # - `advanced_templates`: Includes information about advanced templates.
+    # - `recipients`: Includes information about template recipients.
+    # - `custom_fields`: Includes information about template custom fields.
+    # - `notifications`: Includes information about the notification settings for templates.
+    # + is_deleted_template_only - When **true,** retrieves templates that have been permanently deleted. The default is **false.**
+    # **Note:** After you delete a template, you can see it in the `Deleted` bin in the UI for 24 hours. After 24 hours, the template is permanently deleted.
+    # + is_download - When **true,** downloads the templates listed in `template_ids` as a collection of JSON definitions in a single zip file.
+    # The `Content-Disposition` header is set in the response. The value of the header provides the filename of the file.
+    # The default is **false.**
+    # **Note:** This parameter only works when you specify a list of templates in the `template_ids` parameter.
+    # + modified_from_date - Lists templates modified on or after this date.
+    # + modified_to_date - Lists templates modified before this date.
+    # + 'order - Specifies the sort order of the search results.
+    # Valid values are:
+    # - `asc`: Ascending (A to Z)
+    # - `desc`: Descending (Z to A)
+    # + order_by - Specifies how the search results are listed.
+    # Valid values are:
+    # - `name`: template name
+    # - `modified`: date/time template was last modified
+    # - `used`: date/time the template was last used.
+    # + search_fields - A comma-separated list of additional template properties to search.
+    # - `sender`: Include sender name and email in the search.
+    # - `recipients`: Include recipient names and emails in the search.
+    # - `envelope`: Not used in template searches.
+    # + search_text - The text to use to search the names of templates.
+    # Limit: 48 characters.
+    # + shared_by_me - When **true,** the response only includes templates shared by the user. When **false,** the response only returns template not shared by the user. If not specified, templates are returned whether or not they have been shared by the user.
+    # + start_position - The zero-based index of the
+    # result from which to start returning results.
+    # Use with `count` to limit the number
+    # of results.
+    # The default value is `0`.
+    # + template_ids - A comma-separated list of template IDs to download. This value is valid only when `is_download` is **true.**
+    # + to_date - The end of a search date range in UTC DateTime format. When you use this parameter, only templates created up to this date and time are returned.
+    # **Note:** If this property is null, the value defaults to the current date.
+    # + used_from_date - Start of the search date range. Only returns templates used or edited on or after this date/time. If no value is specified, there is no limit on the earliest date used.
+    # + used_to_date - End of the search date range. Only returns templates used or edited up to this date/time. If no value is provided, this defaults to the current date.
+    # + user_filter - Filters the templates in the response. Valid values are: 
+    # - `owned_by_me`: Results include only templates owned by the user.
+    # - `shared_with_me`: Results include only templates shared with the user.  
+    # - `all`:  Results include all templates owned or shared with the user.
+    # + user_id - The ID of the user.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates(string? count = (), string? created_from_date = (), string? created_to_date = (), string? folder_ids = (), string? folder_types = (), string? from_date = (), string? include = (), string? is_deleted_template_only = (), string? is_download = (), string? modified_from_date = (), string? modified_to_date = (), string? 'order = (), string? order_by = (), string? search_fields = (), string? search_text = (), string? shared_by_me = (), string? start_position = (), string? template_ids = (), string? to_date = (), string? used_from_date = (), string? used_to_date = (), string? user_filter = (), string? user_id = ()) returns EnvelopeTemplateResults|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates`;
+        map<anydata> queryParam = {"count": count, "created_from_date": created_from_date, "created_to_date": created_to_date, "folder_ids": folder_ids, "folder_types": folder_types, "from_date": from_date, "include": include, "is_deleted_template_only": is_deleted_template_only, "is_download": is_download, "modified_from_date": modified_from_date, "modified_to_date": modified_to_date, "order": 'order, "order_by": order_by, "search_fields": search_fields, "search_text": search_text, "shared_by_me": shared_by_me, "start_position": start_position, "template_ids": template_ids, "to_date": to_date, "used_from_date": used_from_date, "used_to_date": used_to_date, "user_filter": user_filter, "user_id": user_id};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        EnvelopeTemplateResults response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Creates one or more templates.
+    #
+    # + accountId - (Required) The external account number (int) or account ID GUID.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates(EnvelopeTemplate payload) returns TemplateSummary|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TemplateSummary response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Gets a specific template associated with a specified account.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + include - A comma-separated list
+    # of additional template attributes
+    # to include in the response.
+    # Valid values are:
+    # - `powerforms`: Includes information about PowerForms.
+    # - `tabs`: Includes information about tabs.
+    # - `documents`: Includes information about documents.
+    # - `favorite_template_status`: : Includes the template `favoritedByMe` property in the response. **Note:** You can mark a template as a favorite only in eSignature v2.1.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId](string? include = ()) returns EnvelopeTemplate|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}`;
+        map<anydata> queryParam = {"include": include};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        EnvelopeTemplate response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates an existing template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId](EnvelopeTemplate payload) returns TemplateUpdateSummary|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TemplateUpdateSummary response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Shares a template with a group.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + templatePart - Currently, the only defined part is **groups.**
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/[string templatePart](GroupInformation payload) returns GroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/${getEncodedUri(templatePart)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Removes a member group's sharing permissions for a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + templatePart - Currently, the only defined part is **groups.**
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/[string templatePart](GroupInformation payload) returns GroupInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/${getEncodedUri(templatePart)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        GroupInformation response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets the custom document fields from a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/custom_fields() returns CustomFields|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/custom_fields`;
+        CustomFields response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates envelope custom fields in a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/custom_fields(TemplateCustomFields payload) returns CustomFields|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/custom_fields`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        CustomFields response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Creates custom document fields in an existing template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates/[string templateId]/custom_fields(TemplateCustomFields payload) returns CustomFields|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/custom_fields`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        CustomFields response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes envelope custom fields in a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/custom_fields(TemplateCustomFields payload) returns CustomFields|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/custom_fields`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        CustomFields response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets a list of documents associated with a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + include_tabs - Reserved for DocuSign.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents(string? include_tabs = ()) returns TemplateDocumentsResult|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents`;
+        map<anydata> queryParam = {"include_tabs": include_tabs};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        TemplateDocumentsResult response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Adds documents to a template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/documents(EnvelopeDefinition payload) returns TemplateDocumentsResult|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TemplateDocumentsResult response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Deletes documents from a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/documents(EnvelopeDefinition payload) returns TemplateDocumentsResult|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        TemplateDocumentsResult response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets PDF documents from a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + encrypt - When **true,** the PDF bytes returned in the response are encrypted for all the key managers configured on your DocuSign account. You can decrypt the documents by using the Key Manager DecryptDocument API method. For more information about Key Manager, see the DocuSign Security Appliance Installation Guide that your organization received from DocuSign.
+    # + show_changes - When **true,** any document fields that a recipient changed are highlighted in yellow in the returned PDF document, and optional signatures or initials are outlined in red.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId](string? encrypt = (), string? file_type = (), string? show_changes = ()) returns byte[]|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}`;
+        map<anydata> queryParam = {"encrypt": encrypt, "file_type": file_type, "show_changes": show_changes};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        byte[] response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates a template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/documents/[string documentId](EnvelopeDefinition payload, string? is_envelope_definition = ()) returns EnvelopeDocument|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}`;
+        map<anydata> queryParam = {"is_envelope_definition": is_envelope_definition};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        EnvelopeDocument response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets the custom document fields for a an existing template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/fields() returns DocumentFieldsInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/fields`;
+        DocumentFieldsInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates existing custom document fields in an existing template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/fields(DocumentFieldsInformation payload) returns DocumentFieldsInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/fields`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DocumentFieldsInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Creates custom document fields in an existing template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/fields(DocumentFieldsInformation payload) returns DocumentFieldsInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/fields`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DocumentFieldsInformation response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes custom document fields from an existing template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/fields(DocumentFieldsInformation payload) returns DocumentFieldsInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/fields`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DocumentFieldsInformation response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets the Original HTML Definition used to generate the Responsive HTML for a given document in a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/html_definitions() returns DocumentHtmlDefinitionOriginals|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/html_definitions`;
+        DocumentHtmlDefinitionOriginals response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Returns document page images based on input.
+    #
+    # + accountId - (Required) The external account number (int) or account ID GUID.
+    # + documentId - (Required) The ID of the document.
+    # + templateId - (Required) The ID of the template.
+    # + count - The maximum number of results to return.
+    # + dpi - The number of dots per inch (DPI) for the resulting images. Valid values are 1-310 DPI. The default value is 94.
+    # + max_height - Sets the maximum height of the returned images in pixels.
+    # + max_width - Sets the maximum width of the returned images in pixels.
+    # + nocache - When **true,** using cache is disabled and image information is retrieved from a database. **True** is the default value. 
+    # + show_changes - When **true,** changes display in the user interface.
+    # + start_position - The position within the total result set from which to start returning values. The value **thumbnail** may be used to return the page image.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/pages(string? count = (), string? dpi = (), string? max_height = (), string? max_width = (), string? nocache = (), string? show_changes = (), string? start_position = ()) returns PageImages|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/pages`;
+        map<anydata> queryParam = {"count": count, "dpi": dpi, "max_height": max_height, "max_width": max_width, "nocache": nocache, "show_changes": show_changes, "start_position": start_position};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        PageImages response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Deletes a page from a document in an template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + pageNumber - The page number being accessed.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/pages/[string pageNumber](PageRequest payload) returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/pages/${getEncodedUri(pageNumber)}`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        http:Response response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets a page image from a template for display.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + pageNumber - The page number being accessed.
+    # + templateId - The ID of the template.
+    # + dpi - The number of dots per inch (DPI) for the resulting images. Valid values are 1-310 DPI. The default value is 94.
+    # + max_height - Sets the maximum height of the returned images in pixels.
+    # + max_width - Sets the maximum width of the returned images in pixels.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/pages/[string pageNumber]/page_image(string? dpi = (), string? max_height = (), string? max_width = (), string? show_changes = ()) returns byte[]|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/pages/${getEncodedUri(pageNumber)}/page_image`;
+        map<anydata> queryParam = {"dpi": dpi, "max_height": max_height, "max_width": max_width, "show_changes": show_changes};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        byte[] response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Rotates page image from a template for display.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + pageNumber - The page number being accessed.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/pages/[string pageNumber]/page_image(PageRequest payload) returns http:Response|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/pages/${getEncodedUri(pageNumber)}/page_image`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        http:Response response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Returns tabs on the specified page.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + pageNumber - The page number being accessed.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/pages/[string pageNumber]/tabs() returns TemplateDocumentTabs|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/pages/${getEncodedUri(pageNumber)}/tabs`;
+        TemplateDocumentTabs response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Creates a preview of the responsive version of a template document.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/responsive_html_preview(DocumentHtmlDefinition payload) returns DocumentHtmlDefinitions|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/responsive_html_preview`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        DocumentHtmlDefinitions response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Returns tabs on a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + page_numbers - Filters for tabs that occur on the pages that you specify. Enter as a comma-separated list of page Guids.
+    # Example: `page_numbers=2,6`
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/tabs(string? page_numbers = ()) returns TemplateDocumentTabs|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/tabs`;
+        map<anydata> queryParam = {"page_numbers": page_numbers};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        TemplateDocumentTabs response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the tabs for a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/tabs(TemplateTabs payload) returns Tabs|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/tabs`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Tabs response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Adds tabs to a document in a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/tabs(TemplateTabs payload) returns Tabs|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/tabs`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Tabs response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes tabs from a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + documentId - The unique ID of the document within the envelope.
+    # Unlike other IDs in the eSignature API,
+    # you specify the `documentId` yourself.
+    # Typically the first document has the ID
+    # `1`, the second document `2`, and so on,
+    # but you can use any numbering scheme
+    # that fits within a 32-bit signed integer
+    # (1 through 2147483647).
+    # Tab objects have a `documentId` property
+    # that specifies the document on which to place
+    # the tab.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/documents/[string documentId]/tabs(TemplateTabs payload) returns Tabs|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/documents/${getEncodedUri(documentId)}/tabs`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Tabs response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets the Original HTML Definition used to generate the Responsive HTML for the template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/html_definitions() returns DocumentHtmlDefinitionOriginals|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/html_definitions`;
+        DocumentHtmlDefinitionOriginals response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Gets template lock information.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/'lock() returns LockInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/lock`;
+        LockInformation response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates a template lock.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/'lock(LockRequest payload) returns LockInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/lock`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        LockInformation response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Locks a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates/[string templateId]/'lock(LockRequest payload) returns LockInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/lock`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        LockInformation response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes a template lock.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/'lock(LockRequest payload) returns LockInformation|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/lock`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        LockInformation response = check self.clientEp->delete(resourcePath, request);
+        return response;
+    }
+    # Gets template notification information.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/notification() returns Notification|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/notification`;
+        Notification response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates the notification  structure for an existing template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/notification(TemplateNotificationRequest payload) returns Notification|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/notification`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Notification response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Gets recipient information from a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + include_anchor_tab_locations - When **true** and `include_tabs` is set to **true,** all tabs with anchor tab properties are included in the response. 
+    # + include_extended - When **true,** the extended properties are included in the response. 
+    # + include_tabs - When **true,** the tab information associated with the recipient is included in the response.
+    # + return - A successful response or an error. 
+    resource isolated function get accounts/[string accountId]/templates/[string templateId]/recipients(string? include_anchor_tab_locations = (), string? include_extended = (), string? include_tabs = ()) returns Recipients|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/recipients`;
+        map<anydata> queryParam = {"include_anchor_tab_locations": include_anchor_tab_locations, "include_extended": include_extended, "include_tabs": include_tabs};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        Recipients response = check self.clientEp->get(resourcePath);
+        return response;
+    }
+    # Updates recipients in a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + resend_envelope - When **true,**
+    # resends the envelope to the recipients
+    # that you specify in the request body.
+    # Use this parameter to resend the envelope
+    # to a recipient
+    # who deleted the original email notification.
+    # **Note:** Correcting an envelope is a different process.
+    # DocuSign always resends an envelope when you correct it,
+    # regardless of the value that you enter here.
+    # + return - A successful response or an error. 
+    resource isolated function put accounts/[string accountId]/templates/[string templateId]/recipients(TemplateRecipients payload, string? resend_envelope = ()) returns RecipientsUpdateSummary|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/recipients`;
+        map<anydata> queryParam = {"resend_envelope": resend_envelope};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        RecipientsUpdateSummary response = check self.clientEp->put(resourcePath, request);
+        return response;
+    }
+    # Adds tabs for a recipient.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + resend_envelope - When **true,**
+    # resends the envelope to the recipients
+    # that you specify in the request body.
+    # Use this parameter to resend the envelope
+    # to a recipient
+    # who deleted the original email notification.
+    # **Note:** Correcting an envelope is a different process.
+    # DocuSign always resends an envelope when you correct it,
+    # regardless of the value that you enter here.
+    # + return - A successful response or an error. 
+    resource isolated function post accounts/[string accountId]/templates/[string templateId]/recipients(TemplateRecipients payload, string? resend_envelope = ()) returns Recipients|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/recipients`;
+        map<anydata> queryParam = {"resend_envelope": resend_envelope};
+        resourcePath = resourcePath + check getPathForQueryParam(queryParam);
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Recipients response = check self.clientEp->post(resourcePath, request);
+        return response;
+    }
+    # Deletes recipients from a template.
+    #
+    # + accountId - The external account number (int) or account ID GUID.
+    # + templateId - The ID of the template.
+    # + return - A successful response or an error. 
+    resource isolated function delete accounts/[string accountId]/templates/[string templateId]/recipients(TemplateRecipients payload) returns Recipients|error {
+        string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/templates/${getEncodedUri(templateId)}/recipients`;
+        http:Request request = new;
+        json jsonBody = payload.toJson();
+        request.setPayload(jsonBody, "application/json");
+        Recipients response = check self.clientEp->delete(resourcePath, request);
         return response;
     }
 
