@@ -2,7 +2,6 @@
 
 [![Build](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/ci.yml)
 [![Trivy](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/trivy-scan.yml)
-[![codecov](https://codecov.io/gh/ballerina-platform/module-ballerinax-docusign.dsesign/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/module-ballerinax-docusign.dsesign)
 [![GraalVM Check](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/build-with-bal-test-native.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/actions/workflows/build-with-bal-test-graalvm.yml)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-docusign.dsesign.svg)](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/commits/main)
 [![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/docusign.dsesign.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fdocusign.dsesign)
@@ -76,9 +75,9 @@ Above is about using the DocuSign eSignature APIs in the developer mode. If your
 
 This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina Google DocuSign eSignature connector.
 
-### Step 1: Import the package
+### Step 1: Import the module
 
-Import the `ballerinax/docusign.dsesign` package into your Ballerina project.
+Import the `ballerinax/docusign.dsesign` module into your Ballerina project.
 
 ```ballerina
 import ballerinax/docusign.dsesign;
@@ -137,6 +136,14 @@ public function main() returns error? {
     }
 );
 }
+```
+
+### Step 4: Run the Ballerina application
+
+Use the following command to compile and run the Ballerina program.
+
+```bash
+bal run
 ```
 
 ## Examples
