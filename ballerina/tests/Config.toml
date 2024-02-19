@@ -1,4 +1,7 @@
 [docusign.dsesign]
-accessToken = "mock_access_token"
+clientId = "mock-client-id"
+clientSecret = "mock-client-secret"
+refreshToken = "mock-refresh-token"
+refreshUrl = "http://mock-refresh-url.com/token"
 accountId = "mock-account-id"
 userId = "mock-user-id"
