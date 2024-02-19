@@ -240,9 +240,7 @@ isolated function createBodyParts(record {|anydata...;|} anyRecord, map<Encoding
         map<string>? headers = encodingData?.headers;
         if headers is map<string> {
             foreach var [headerName, headerValue] in headers.entries() {
-                if headerValue is SimpleBasicType {
-                    entity.setHeader(headerName, headerValue.toString());
-                }
+                entity.setHeader(headerName, headerValue.toString());
             }
         }
         entities.push(entity);

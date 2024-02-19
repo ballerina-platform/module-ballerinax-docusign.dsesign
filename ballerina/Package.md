@@ -62,9 +62,9 @@ Above is about using the DocuSign eSignature APIs in the developer mode. If your
 
 This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina Google DocuSign eSignature connector.
 
-### Step 1: Import the package
+### Step 1: Import the module
 
-Import the `ballerinax/docusign.dsesign` package into your Ballerina project.
+Import the `ballerinax/docusign.dsesign` module into your Ballerina project.
 
 ```ballerina
 import ballerinax/docusign.dsesign;
@@ -123,6 +123,14 @@ public function main() returns error? {
     }
 );
 }
+```
+
+### Step 4: Run the Ballerina application
+
+Use the following command to compile and run the Ballerina program.
+
+```bash
+bal run
 ```
 
 ## Examples
