@@ -19,13 +19,15 @@ import ballerinax/docusign.dsesign;
 import ballerina/lang.array;
 import ballerina/os;
 
-configurable string accessToken = os:getEnv("ACCESS_TOKEN");
 configurable string accountId = os:getEnv("ACCOUNT_ID");
 configurable string userId = os:getEnv("USER_ID");
 
 dsesign:ConnectionConfig connectionConfig = {
     auth: {
-        token: accessToken
+        clientId: os:getEnv("CLIENT_ID"),
+        clientSecret: os:getEnv("CLIENT_SECRET"),
+        refreshToken: os:getEnv("REFRESH_TOKEN"),
+        refreshUrl: os:getEnv("REFRESH_URL")
     }
 };
 
