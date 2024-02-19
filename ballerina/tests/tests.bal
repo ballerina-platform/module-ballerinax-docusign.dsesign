@@ -23,18 +23,23 @@ Client docuSignClient = test:mock(Client);
 
 configurable boolean isTestOnLiveServer = os:getEnv("IS_TEST_ON_LIVE_SERVER") == "true";
 
-configurable string accessToken = ?;
 configurable string accountId = ?;
 configurable string userId = ?;
+configurable string clientId = ?;
+configurable string clientSecret = ?;
+configurable string refreshToken = ?;
+configurable string refreshUrl = ?;
 
 @test:BeforeSuite
 function initializeClientsForDocuSignServer () returns error? {
     if isTestOnLiveServer {
         docuSignClient = check new(
             {
-                timeout: 10000,
                 auth: {
-                    token: os:getEnv("ACCESS_TOKEN")
+                    clientId: os:getEnv("CLIENT_ID"),
+                    clientSecret: os:getEnv("CLIENT_SECRET"),
+                    refreshToken: os:getEnv("REFRESH_TOKEN"),
+                    refreshUrl: os:getEnv("REFRESH_URL")
                 }
             },
             serviceUrl = "https://demo.docusign.net/restapi/"
@@ -42,9 +47,11 @@ function initializeClientsForDocuSignServer () returns error? {
     } else {
         docuSignClient = check new(
             {
-                timeout: 10000,
                 auth: {
-                    token: accessToken
+                    clientId: clientId,
+                    clientSecret: clientSecret,
+                    refreshToken: refreshToken,
+                    refreshUrl: refreshUrl
                 }
             },
             serviceUrl = "http://localhost:9092/restapi"
