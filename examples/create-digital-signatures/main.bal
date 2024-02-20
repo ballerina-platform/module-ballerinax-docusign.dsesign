@@ -1,4 +1,4 @@
-// Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+// Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
 //
 // WSO2 LLC. licenses this file to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file except
@@ -19,13 +19,15 @@ import ballerinax/docusign.dsesign;
 import ballerina/lang.array;
 import ballerina/os;
 
-configurable string accessToken = os:getEnv("ACCESS_TOKEN");
 configurable string accountId = os:getEnv("ACCOUNT_ID");
 configurable string userId = os:getEnv("USER_ID");
 
 dsesign:ConnectionConfig connectionConfig = {
     auth: {
-        token: accessToken
+        clientId: os:getEnv("CLIENT_ID"),
+        clientSecret: os:getEnv("CLIENT_SECRET"),
+        refreshToken: os:getEnv("REFRESH_TOKEN"),
+        refreshUrl: os:getEnv("REFRESH_URL")
     }
 };
 
