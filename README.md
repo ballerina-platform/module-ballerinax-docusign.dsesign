@@ -17,11 +17,11 @@ The Ballerina Docusign eSignature Connector provides the capability to securely 
 
 The Ballerina Docusign eSignature module supports [DocuSign eSignature API V2.1](https://github.com/docusign/OpenAPI-Specifications/blob/master/esignature.rest.swagger-v2.1.json).
 
-## Set up Guide
+## Setup guide
 
 To utilize the eSignature connector, you must have access to the DocuSign REST API through a DocuSign account.
 
-### Step 1: Create a DocuSign Account
+### Step 1: Create a DocuSign account
 
 In order to use the DocuSign eSignature connector, you need to first create the DocuSign credentials for the connector to interact with DocuSign.
 
@@ -29,25 +29,25 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/create-account.png" alt="Create DocuSign Account" width="50%">
 
-### Step 2: Create Integration Key and Secret Key
+### Step 2: Create integration key and secret key
 
-1. **Create an Integration Key and Secret Key**: Visit the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page on DocuSign. Click on "Add App and Integration Key", provide an App name, and click "Create App". This will generate an Integration Key.
+1. **Create an integration key**: Visit the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page on DocuSign. Click on "Add App and Integration Key", provide an App name, and click "Create App". This will generate an Integration Key.
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/app-and-integration-key.png" alt="Create Integration Key" width="50%">
 
-2. **Generate a Secret Key**: Under the Authentication section, click on "Add Secret Key". This will generate a Secret Key. Make sure to copy and save both the Integration Key and Secret Key.
+2. **Generate a secret key**: Under the Authentication section, click on "Add Secret Key". This will generate a Secret Key. Make sure to copy and save both the Integration Key and Secret Key.
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-secret-key.png" alt="Add Secret Key" width="50%">
 
-### Step 3: Generate Access Token
+### Step 3: Generate access token
 
-1. **Add a Redirect URI**: Click on "Add URI" and enter your redirect URI (e.g., <http://www.example.com/callback>).
+1. **Add a redirect URI**: Click on "Add URI" and enter your redirect URI (e.g., <http://www.example.com/callback>).
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-redirect-uri.png" alt="Add Redirect URI" width="50%">
 
-2. **Generate the Encoded Key**: The Encoded Key is a base64 encoded string of your Integration Key and Secret Key in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
+2. **Generate the encoded key**: The Encoded Key is a base64 encoded string of your Integration Key and Secret Key in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
 
-3. **Get the Authorization Code**: Visit the following URL in your web browser, replacing `{iKey}` with your Integration Key and `{redirectUri}` with your Redirect URI:
+3. **Get the authorization code**: Visit the following URL in your web browser, replacing `{iKey}` with your Integration Key and `{redirectUri}` with your Redirect URI:
 
     ```url
     https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id={iKey}&redirect_uri={redirectUri}
@@ -55,7 +55,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     This will redirect you to your Redirect URI with a `code` query parameter. This is your Authorization Code.
 
-4. **Get the Access Token**: Use the following `curl` command to get the Access Token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your Authorization Code:
+4. **Get the access token**: Use the following `curl` command to get the Access Token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your Authorization Code:
 
     ```bash
     curl --location 'https://account-d.docusign.com/oauth/token' \
@@ -88,20 +88,14 @@ import ballerinax/docusign.dsesign;
 Create a `dsesign:ConnectionConfig` with the obtained OAuth2.0 tokens and initialize the connector with it.
 
 ```ballerina
-configurable string accessToken = ?;
-
-dsesign:ConnectionConfig connectionConfig = {
+dsesign:Client docusignClient = check new({
     auth: {
-        token: accessToken
+        clientId,
+        clientSecret,
+        refreshToken,
+        refreshUrl
     }
-};
-
-public function main() returns error? {
-    dsesign:Client docusignClient = check new(
-        config = connectionConfig,
-        serviceUrl = "https://demo.docusign.net/restapi/"
-    );
-}
+});
 ```
 
 ### Step 3: Invoke the connector operation
@@ -110,10 +104,10 @@ You can now utilize the operations available within the connector.
 
 ```ballerina
 public function main() returns error? {
-    dsesign:Client docusignClient = ...// Initialize the DocuSign Click connector;
+    dsesign:Client docusignClient = ...//; initializes the DocuSign eSignature client
 
-    dsesign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post(
-    {
+    // Creates an envelope
+    dsesign:EnvelopeSummary newEnvelope = check docusignClient->/accounts/[accountId]/envelopes.post({
         documents: [
             {
                 documentBase64: "base64-encoded-pdf-file",
@@ -122,7 +116,7 @@ public function main() returns error? {
                 name: "document"
             }
         ],
-        emailSubject: "Simple Signing Example",
+        emailSubject: "Simple Signing Example 02",
         recipients: {
             signers: [
                 {
@@ -133,10 +127,14 @@ public function main() returns error? {
             ]
         },
         status: "sent"
-    }
-);
+    });
+
+    // Retrieves specific sets of envelopes from a given date
+    dsesign:EnvelopesInformation envelope = check docusignClient->/accounts/[accountId]/envelopes(from_date = "2024-01-01T00:00Z");
 }
 ```
+
+>**Hint:** To apply a value to the `documentBase64` field, you can either use an online tool designed to convert a PDF file into a base64-encoded string, or you can refer to the provided [example code](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/blob/main/examples/send-documents-for-esignatures/main.bal#L36)
 
 ### Step 4: Run the Ballerina application
 
@@ -150,19 +148,19 @@ bal run
 
 The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples).
 
-1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/send-documents-for-esignatures)
+1. [Send documents for esignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/send-documents-for-esignatures)
     This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
 
-2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/create-digital-signatures)
+2. [Create esignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/create-digital-signatures)
     This example shows how to create a eSignature for your DocuSign account.
 
-## Issues and Projects
+## Issues and projects
 
 The **Issues** and **Projects** tabs are disabled for this repository as this is part of the Ballerina library. To report bugs, request new features, start new discussions, view project boards, etc., visit the Ballerina library [parent repository](https://github.com/ballerina-platform/ballerina-library).
 
 This repository only contains the source code for the package.
 
-## Building from the Source
+## Building from the source
 
 ### Prerequisites
 
