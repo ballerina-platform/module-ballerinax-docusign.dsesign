@@ -29,7 +29,7 @@ service /oauth2 on sts {
     }
 
     // This issues an access token with reference to the received grant type (client credentials, password and refresh token grant type).
-    resource function post token(http:Request req) returns json|http:Unauthorized|http:BadRequest|http:InternalServerError {
+    resource function post token(http:Request req) returns json {
         json response = {
             "access_token": "dskjbdsfJBDABJDnklsa2p93un03",
             "token_type": "mock-token",
