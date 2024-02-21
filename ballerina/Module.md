@@ -122,7 +122,7 @@ public function main() returns error? {
 }
 ```
 
->**Hint:** To apply a value to the `documentBase64` field, you can either use an online tool designed to convert a PDF file into a base64-encoded string, or you can refer to the provided [example code](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/blob/main/examples/send-documents-for-esignatures/main.bal#L36)
+>**Hint:** To apply a value to the `documentBase64` field, you can either use an online tool designed to convert a PDF file into a base64-encoded string, or you can refer to the provided [example code](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/blob/main/examples/send-documents-for-esignatures/main.bal#L42)
 
 ### Step 4: Run the Ballerina application
 
