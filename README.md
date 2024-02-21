@@ -35,7 +35,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/app-and-integration-key.png" alt="Create Integration Key" width="50%">
 
-2. **Generate a secret key**: Under the "Authentication" section, click on "Add Secret Key". This will generate a Secret Key. Make sure to copy and save both the Integration Key and Secret Key.
+2. **Generate a secret key**: Under the "Authentication" section, click on "Add Secret Key". This will generate a secret Key. Make sure to copy and save both the `Integration Key` and `Secret Key.`
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-secret-key.png" alt="Add Secret Key" width="50%">
 
