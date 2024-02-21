@@ -96,6 +96,5 @@ clean {
 }
 
 build.dependsOn "generatePomFileForMavenPublication"
-build.dependsOn "publishMavenPublicationToGitHubPackagesRepository"
 publishToMavenLocal.dependsOn build
 publish.dependsOn build
