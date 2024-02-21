@@ -15,24 +15,26 @@
 // under the License.
 
 import ballerina/io;
-import ballerinax/docusign.dsesign;
 import ballerina/lang.array;
 import ballerina/os;
+import ballerinax/docusign.dsesign;
 
 configurable string accountId = os:getEnv("ACCOUNT_ID");
 configurable string userId = os:getEnv("USER_ID");
 
-dsesign:ConnectionConfig connectionConfig = {
-    auth: {
-        clientId: os:getEnv("CLIENT_ID"),
-        clientSecret: os:getEnv("CLIENT_SECRET"),
-        refreshToken: os:getEnv("REFRESH_TOKEN"),
-        refreshUrl: os:getEnv("REFRESH_URL")
-    }
-};
-
 public function main() returns error? {
-    dsesign:Client docusignClient = check new(serviceUrl = "https://demo.docusign.net/restapi/", config = connectionConfig);
+    dsesign:Client docusignClient = check new (
+        {
+            auth: {
+                clientId: os:getEnv("CLIENT_ID"),
+                clientSecret: os:getEnv("CLIENT_SECRET"),
+                refreshToken: os:getEnv("REFRESH_TOKEN"),
+                refreshUrl: os:getEnv("REFRESH_URL")
+            }
+        },
+        serviceUrl = "https://demo.docusign.net/restapi/"
+    );
+
     dsesign:UserSignaturesInformation addSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures.post({
         userSignatures: [
             {
@@ -42,8 +44,10 @@ public function main() returns error? {
         ]
     });
     io:println(addSignature);
+
     dsesign:UserSignaturesInformation usageSignatureInfo = check docusignClient->/accounts/[accountId]/users/[userId]/signatures("signature");
     io:println("All signatures: ", usageSignatureInfo);
+
     string signatureId = <string>(<dsesign:UserSignature[]>usageSignatureInfo.userSignatures)[0].signatureId;
     dsesign:UserSignature userSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
     io:println("Signature Info: ", userSignature);

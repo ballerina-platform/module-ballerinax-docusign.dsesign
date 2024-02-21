@@ -15,40 +15,41 @@
 // under the License.
 
 import ballerina/io;
-import ballerinax/docusign.dsesign;
 import ballerina/lang.array;
 import ballerina/os;
+import ballerinax/docusign.dsesign;
 
 configurable string accountId = os:getEnv("ACCOUNT_ID");
 configurable string userId = os:getEnv("USER_ID");
 
-dsesign:ConnectionConfig connectionConfig = {
-    auth: {
-        clientId: os:getEnv("CLIENT_ID"),
-        clientSecret: os:getEnv("CLIENT_SECRET"),
-        refreshToken: os:getEnv("REFRESH_TOKEN"),
-        refreshUrl: os:getEnv("REFRESH_URL")
-    }
-};
-
 public function main() returns error? {
-    dsesign:Client docusignClient = check new(serviceUrl = "https://demo.docusign.net/restapi/", config = connectionConfig);
-    string base64Encoded = array:toBase64(check io:fileReadBytes("./resources/README.pdf"));
-
-    string documentId = "1";
-    dsesign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post(
+    dsesign:Client docusignClient = check new (
         {
-            documents: [
-                {
-                    documentBase64: base64Encoded,
-                    documentId: documentId,
-                    fileExtension: "pdf",
-                    name: "document"
-                }
-            ],
-            emailSubject: "Simple Signing Example",
-            recipients: {
-                signers: [
+            auth: {
+                clientId: os:getEnv("CLIENT_ID"),
+                clientSecret: os:getEnv("CLIENT_SECRET"),
+                refreshToken: os:getEnv("REFRESH_TOKEN"),
+                refreshUrl: os:getEnv("REFRESH_URL")
+            }
+        },
+        serviceUrl = "https://demo.docusign.net/restapi/"
+    );
+
+    string base64Encoded = array:toBase64(check io:fileReadBytes("./resources/README.pdf"));
+    string documentId = "1";
+
+    dsesign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post({
+        documents: [
+            {
+                documentBase64: base64Encoded,
+                documentId: documentId,
+                fileExtension: "pdf",
+                name: "document"
+            }
+        ],
+        emailSubject: "Simple Signing Example",
+        recipients: {
+            signers: [
                 {
                     email: "randomtester12@corp.com",
                     name: "randomtester12",
@@ -65,11 +66,10 @@ public function main() returns error? {
                         ]
                     }
                 }
-                ]
-            },
-            status: "sent"
-        }
-    );
+            ]
+        },
+        status: "sent"
+    });
 
     io:println(envResult);
 
@@ -77,8 +77,7 @@ public function main() returns error? {
     if envelopeId is () {
         return error("Envelope ID is not available");
     }
-   
-    dsesign:EnvelopeDocumentsResult envelopeDocumentsResult = check docusignClient->/accounts/[accountId]/envelopes/[envelopeId]/documents();
 
+    dsesign:EnvelopeDocumentsResult envelopeDocumentsResult = check docusignClient->/accounts/[accountId]/envelopes/[envelopeId]/documents();
     io:println(envelopeDocumentsResult);
 }
