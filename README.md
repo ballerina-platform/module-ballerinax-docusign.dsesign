@@ -55,7 +55,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     This will redirect you to your Redirect URI with a `code` query parameter. This is your Authorization Code.
 
-4. **Get the access token**: Use the following `curl` command to get the Access Token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your Authorization Code:
+4. **Get the access token**: Use the following `curl` command to get the access token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your authorization code:
 
     ```bash
     curl --location 'https://account-d.docusign.com/oauth/token' \
@@ -65,7 +65,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
     --data-urlencode 'grant_type=authorization_code'
     ```
 
-    The response will contain your Access Token.
+    The response will contain your access token.
 
 Remember to replace `{IntegrationKey:SecretKey}`, `{iKey}`, `{redirectUri}`, `{encodedKey}`, and `{codeFromUrl}` with your actual values.
 
@@ -73,7 +73,7 @@ Above is about using the DocuSign eSignature APIs in the developer mode. If your
 
 ## Quickstart
 
-This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina Google DocuSign eSignature connector.
+This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina DocuSign eSignature connector.
 
 ### Step 1: Import the module
 

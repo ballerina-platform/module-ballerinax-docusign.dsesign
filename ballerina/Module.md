@@ -32,7 +32,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     ![Add redirect URI](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-redirect-uri.png)
 
-2. **Generate the encoded key**: The Encoded Key is a base64 encoded string of your Integration Key and Secret Key in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
+2. **Generate the encoded key**: The `Encoded Key` is a base64 encoded string of your `Integration key` and `Secret Key` in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
 
 3. **Get the authorization code**: Visit the following URL in your web browser, replacing `{iKey}` with your Integration Key and `{redirectUri}` with your Redirect URI:
 
@@ -42,7 +42,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     This will redirect you to your Redirect URI with a `code` query parameter. This is your Authorization Code.
 
-4. **Get the refresh token**: Use the following `curl` command to get the Access Token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your Authorization Code:
+4. **Get the access token**: Use the following `curl` command to get the access token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your authorization code:
 
     ```bash
     curl --location 'https://account-d.docusign.com/oauth/token' \
@@ -52,7 +52,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
     --data-urlencode 'grant_type=authorization_code'
     ```
 
-    The response will contain your refresh token.
+    The response will contain your access token.
 
 Remember to replace `{IntegrationKey:SecretKey}`, `{iKey}`, `{redirectUri}`, `{encodedKey}`, and `{codeFromUrl}` with your actual values.
 
@@ -60,7 +60,7 @@ Above is about using the DocuSign eSignature APIs in the developer mode. If your
 
 ## Quickstart
 
-This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the esignature using the Ballerina Google DocuSign eSignature connector.
+This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina DocuSign eSignature connector.
 
 ### Step 1: Import the module
 
@@ -82,7 +82,7 @@ dsesign:Client docusignClient = check new({
         refreshToken,
         refreshUrl
     },
-    serviceUrl = "https://demo.docusign.net/restapi/"
+    serviceUrl = "https://demo.docusign.net/restapi"
 });
 ```
 
