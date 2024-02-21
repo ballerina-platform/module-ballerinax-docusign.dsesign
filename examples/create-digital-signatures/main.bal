@@ -21,15 +21,19 @@ import ballerinax/docusign.dsesign;
 
 configurable string accountId = os:getEnv("ACCOUNT_ID");
 configurable string userId = os:getEnv("USER_ID");
+configurable string clientId = os:getEnv("CLIENT_ID");
+configurable string clientSecret = os:getEnv("CLIENT_SECRET");
+configurable string refreshToken = os:getEnv("REFRESH_TOKEN");
+configurable string refreshUrl = os:getEnv("REFRESH_URL");
 
 public function main() returns error? {
     dsesign:Client docusignClient = check new (
         {
             auth: {
-                clientId: os:getEnv("CLIENT_ID"),
-                clientSecret: os:getEnv("CLIENT_SECRET"),
-                refreshToken: os:getEnv("REFRESH_TOKEN"),
-                refreshUrl: os:getEnv("REFRESH_URL")
+                clientId: clientId,
+                clientSecret: clientSecret,
+                refreshToken: refreshToken,
+                refreshUrl: refreshUrl
             }
         },
         serviceUrl = "https://demo.docusign.net/restapi/"
