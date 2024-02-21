@@ -2,6 +2,6 @@
 clientId = "mock-client-id"
 clientSecret = "mock-client-secret"
 refreshToken = "mock-refresh-token"
-refreshUrl = "http://mock-refresh-url.com/token"
+refreshUrl = "http://localhost:9444/oauth2/token"
 accountId = "mock-account-id"
 userId = "mock-user-id"

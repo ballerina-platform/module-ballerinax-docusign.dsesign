@@ -39,7 +39,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
     <img src="https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-secret-key.png" alt="Add Secret Key" width="50%">
 
-### Step 3: Generate access token
+### Step 3: Generate refresh token
 
 1. **Add a redirect URI**: Click on "Add URI" and enter your redirect URI (e.g., <http://www.example.com/callback>).
 
@@ -53,9 +53,9 @@ In order to use the DocuSign eSignature connector, you need to first create the 
     https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id={iKey}&redirect_uri={redirectUri}
     ```
 
-    This will redirect you to your Redirect URI with a `code` query parameter. This is your Authorization Code.
+    This will redirect you to your Redirect URI with a `code` query parameter. This is your authorization code.
 
-4. **Get the access token**: Use the following `curl` command to get the access token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your authorization code:
+4. **Get the refresh token**: Use the following `curl` command to get the refresh token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your authorization code:
 
     ```bash
     curl --location 'https://account-d.docusign.com/oauth/token' \
@@ -65,7 +65,7 @@ In order to use the DocuSign eSignature connector, you need to first create the 
     --data-urlencode 'grant_type=authorization_code'
     ```
 
-    The response will contain your access token.
+    The response will contain your refresh token. Use `https://account-d.docusign.com/oauth/token` as the refresh URL.
 
 Remember to replace `{IntegrationKey:SecretKey}`, `{iKey}`, `{redirectUri}`, `{encodedKey}`, and `{codeFromUrl}` with your actual values.
 

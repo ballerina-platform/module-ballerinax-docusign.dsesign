@@ -2,22 +2,25 @@
 
 The DocuSign eSignature connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples).
 
-1. [Send Documents for eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/send-documents-for-esignatures)
+1. [Send documents for esignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/send-documents-for-esignatures)
     This example shows how to use DocuSign eSignature APIs to send envelope to recipients to add their respective esignatures to documents in the envelope.
 
-2. [Create eSignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/create-digital-signatures)
+2. [Create esignatures](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign/tree/main/examples/create-digital-signatures)
     This example shows how to create a eSignature for your DocuSign account.
 
 ## Prerequisites
 
 1. Follow the [instructions](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign#set-up-guide) to set up the DocuSign eSignature API.
 
-2. For each example, create a `Config.toml` file with your OAuth2 tokens, client ID, and client secret. Here's an example of how your `Config.toml` file should look:
+2. For each example, create a `Config.toml` file with your OAuth2 tokens, account ID, and user ID. Here's an example of how your `Config.toml` file should look:
 
     ```toml
-    accessToken = <Access Token>
-    accountId = <Account ID>
-    userId = <User ID>
+    clientId = <CLIENT_ID>
+    clientSecret = <CLIENT_SECRET>
+    refreshToken = <REFRESH_TOKEN>
+    refreshUrl = <REFRESH_URL>
+    accountId = <ACCOUNT_ID>
+    userId = <USER_ID>
     ```
 
 ## Running an Example
