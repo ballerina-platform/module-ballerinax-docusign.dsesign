@@ -18,31 +18,31 @@ In order to use the DocuSign eSignature connector, you need to first create the 
 
 ### Step 2: Create integration key and secret key
 
-1. **Create an integration key**: Visit the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page on DocuSign. Click on "Add App and Integration Key", provide an App name, and click "Create App". This will generate an `Integration Key`.
+1. **Create an integration key**: Visit the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page on DocuSign. Click on `Add App and Integration Key,` provide a name for the app, and click `Create App`. This will generate an `Integration Key`.
 
     ![Create integration key](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/app-and-integration-key.png)
 
-2. **Generate a secret key**: Under the "Authentication" section, click on "Add Secret Key". This will generate a secret Key. Make sure to copy and save both the `Integration Key` and `Secret Key.`
+2. **Generate a secret key**: Under the `Authentication` section, click on `Add Secret Key`. This will generate a secret Key. Make sure to copy and save both the `Integration Key` and `Secret Key`.
 
     ![Add secret key](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-secret-key.png)
 
 ### Step 3: Generate refresh token
 
-1. **Add a redirect URI**: Click on "Add URI" and enter your redirect URI (e.g., <http://www.example.com/callback>).
+1. **Add a redirect URI**: Click on `Add URI` and enter your redirect URI (e.g., <http://www.example.com/callback>).
 
     ![Add redirect URI](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-docusign/main/ballerina/resources/add-redirect-uri.png)
 
 2. **Generate the encoded key**: The `Encoded Key` is a base64 encoded string of your `Integration key` and `Secret Key` in the format `{IntegrationKey:SecretKey}`. You can generate this in your web browser's console using the `btoa()` function: `btoa('IntegrationKey:SecretKey')`. You can either generate the encoded key from an online base64 encoder.
 
-3. **Get the authorization code**: Visit the following URL in your web browser, replacing `{iKey}` with your Integration Key and `{redirectUri}` with your Redirect URI:
+3. **Get the authorization code**: Visit the following URL in your web browser, replacing `{iKey}` with your Integration Key and `{redirectUri}` with your redirect URI.
 
     ```url
     https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id={iKey}&redirect_uri={redirectUri}
     ```
 
-    This will redirect you to your Redirect URI with a `code` query parameter. This is your Authorization Code.
+    This will redirect you to your Redirect URI with a `code` query parameter. This is your `authorization code`.
 
-4. **Get the refresh token**: Use the following `curl` command to get the refresh token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your authorization code:
+4. **Get the refresh token**: Use the following `curl` command to get the refresh token, replacing `{encodedKey}` with your Encoded Key and `{codeFromUrl}` with your `authorization code`.
 
     ```bash
     curl --location 'https://account-d.docusign.com/oauth/token' \
@@ -60,7 +60,7 @@ Above is about using the DocuSign eSignature APIs in the developer mode. If your
 
 ## Quickstart
 
-This sample demonstrates a scenario of creating an envelope with a document and sending it to respective recipients to add the e-signature using the Ballerina DocuSign eSignature connector.
+To use the DocuSign eSignature connector in your Ballerina project, modify the `.bal` file as follows.
 
 ### Step 1: Import the module
 
@@ -75,6 +75,11 @@ import ballerinax/docusign.dsesign;
 Create a `dsesign:ConnectionConfig` with the obtained OAuth2.0 tokens and initialize the connector with it.
 
 ```ballerina
+configurable string clientId = ?;
+configurable string clientSecret = ?;
+configurable string refreshToken = ?;
+configurable string refreshUrl = ?;
+
 dsesign:Client docusignClient = check new({
     auth: {
         clientId,
