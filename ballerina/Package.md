@@ -97,7 +97,6 @@ You can now utilize the operations available within the connector.
 
 ```ballerina
 public function main() returns error? {
-    dsesign:Client docusignClient = ...// initializes the DocuSign eSignature client
 
     // Creates an envelope
     dsesign:EnvelopeSummary newEnvelope = check docusignClient->/accounts/[accountId]/envelopes.post({
