@@ -14,7 +14,7 @@ The Ballerina DocuSign eSignature connector facilitates integration with the [Do
 Previously, all responses for resource functions were labeled with a generic "Successful Response". This has been revised to "A successful response or an error".
 
 2. Parameter redefinition
-The query parameter `langCode` has been redefined as `languageCode` to eliminate conflicts with an existing path parameter with the same name, `langCode`.
+The path parameter `langCode` has been redefined as `languageCode` to eliminate conflicts with an existing query parameter with the same name, `langCode`.
 
 3. Documentation reference correction
 An invalid reference in the documentation related to the `DateTime.Parse()` function has been modified. It has been identified as a function in the DocuSign eSignature client. Therefore, it is clarified not to be recognized as a specific client function, providing accurate documentation for developers.
