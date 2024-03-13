@@ -7,15 +7,9 @@
 [![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/docusign.dsesign.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fdocusign.dsesign)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-DocuSign eSignature is a document management and electronic signature service developed by DocuSign. It allows users to securely sign, send, and manage documents in a digital environment. This connector provides the capability to programmatically perform DocuSign eSignature related operations. For more information about configuration and operations, refer to the module.
+DocuSign is a digital transaction management platform that enables users to securely sign, send, and manage documents electronically.
 
-- [docusign.dsesign](ballerina/Module.md) - Perform DocuSign eSignature related operations
-
-## Overview
-
-The Ballerina Docusign eSignature Connector provides the capability to securely sign, send, and manage documents in a digital environment.
-
-The Ballerina Docusign eSignature module supports [DocuSign eSignature API V2.1](https://github.com/docusign/OpenAPI-Specifications/blob/master/esignature.rest.swagger-v2.1.json).
+The Ballerina DocuSign eSignature connector integrates with the DocuSign platform, provides APIs for tasks such as sending documents for signature, managing envelopes, and retrieving status updates, enhancing the efficiency of electronic signature processes within Ballerina applications. It supports [DocuSign eSignature API V2.1](https://github.com/docusign/OpenAPI-Specifications/blob/master/esignature.rest.swagger-v2.1.json).
 
 ## Setup guide
 
