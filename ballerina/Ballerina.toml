@@ -2,12 +2,12 @@
 distribution = "2201.8.5"
 org = "ballerinax"
 name = "docusign.dsesign"
-version = "0.1.0"
+version = "2.0.0"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["eSignature", "Cost/Freemium", "Documents", "Collaboration", "Digital Signature"]
 icon = "icon.png"
-repository = "https://github.com/ballerina-platform/module-ballerinax-docusign"
+repository = "https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign"
 
 [build-options]
 observabilityIncluded = false
