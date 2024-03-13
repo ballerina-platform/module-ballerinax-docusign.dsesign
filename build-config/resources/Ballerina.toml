@@ -7,7 +7,7 @@ license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["eSignature", "Cost/Freemium", "Documents", "Collaboration", "Digital Signature"]
 icon = "icon.png"
-repository = "https://github.com/ballerina-platform/module-ballerinax-docusign"
+repository = "https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign"
 
 [build-options]
 observabilityIncluded = false
