@@ -1,8 +1,8 @@
 [package]
-distribution = "2201.8.5"
+distribution = "2201.9.0-20240314-004000-04275c0e""
 org = "ballerinax"
 name = "docusign.dsesign"
-version = "2.0.0"
+version = "1.0.0"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["eSignature", "Cost/Freemium", "Documents", "Collaboration", "Digital Signature"]
