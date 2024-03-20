@@ -4,62 +4,27 @@
 
 This guide demonstrates how to utilize the DocuSign API in Ballerina to create a digital signature. In this example, there are steps to add a user signature, retrieve signature information, and obtain the details about all the signatures.
 
-## Step 1: Import DocuSign connector
+## Prerequisites
 
-To begin, import the `ballerinax/docusign.dsesign` module into your Ballerina project.
+Follow the guidelines in the [Setup guide](https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign?tab=readme-ov-file#setup-guide) to get access to DocuSign APIs.
 
-```ballerina
-import ballerinax/docusign.dsesign;
+### Configuration
+
+Configure DocuSign API credentials in Config.toml in the example directory.
+
+```toml
+accountId = "<ACCOUNT_ID>"
+userId = "<USER_ID>"
+clientId = "<CLIENT_ID>"
+clientSecret = "<CLIENT_SECRET>"
+refreshToken = "<REFRESH_TOKEN>"
+refreshUrl = "<REFRESH_URL>"
 ```
 
-## Step 2: Instantiate a new connector
+## Run the example
 
-Create a `dsesign:ConnectionConfig` with the obtained OAuth2.0 tokens and initialize the connector with it.
-
-```ballerina
-dsesign:Client docusignClient = check new(
-    {
-        auth: {
-            clientId: <CLIENT_ID>,
-            clientSecret: <CLIENT_SECRET>,
-            refreshToken: <REFRESH_TOKEN>,
-            refreshUrl: <REFRESH_URL>
-        }
-    },
-    serviceUrl = "https://demo.docusign.net/restapi/"
-);
-```
-
-## Step 3: Add user signature
-
-Encode the signature image in Base64 format and use the DocuSign API to add a user signature.
+Execute the following command to run the example.
 
 ```ballerina
-dsesign:UserSignaturesInformation addSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures.post({
-    userSignatures: [
-        {
-            imageBase64: array:toBase64(check io:fileReadBytes("./resources/signature.png")),
-            signatureName: "test signature"
-        }
-    ]
-});
-```
-
-## Step 4: Retrieve all signatures
-
-Retrieve information about all user signatures associated with the specified account and user.
-
-```ballerina
-dsesign:UserSignaturesInformation usageSignatureInfo = check docusignClient->/accounts/[accountId]/users/[userId]/signatures("signature");
-io:println("All signatures: ", usageSignatureInfo);
-```
-
-## Step 5: Retrieve signature information
-
-Retrieve detailed information about a specific user signature using its ID.
-
-```ballerina
-string signatureId = <string>(<dsesign:UserSignature[]>usageSignatureInfo.userSignatures)[0].signatureId;
-dsesign:UserSignature userSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
-io:println("Signature Info: ", userSignature);
+bal run
 ```

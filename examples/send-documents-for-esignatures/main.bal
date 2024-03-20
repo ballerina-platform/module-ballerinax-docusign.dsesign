@@ -25,9 +25,11 @@ configurable string clientId = os:getEnv("CLIENT_ID");
 configurable string clientSecret = os:getEnv("CLIENT_SECRET");
 configurable string refreshToken = os:getEnv("REFRESH_TOKEN");
 configurable string refreshUrl = os:getEnv("REFRESH_URL");
+configurable string serviceUrl = os:getEnv("SERVICE_URL");
 
 public function main() returns error? {
     dsesign:Client docusignClient = check new (
+        serviceUrl,
         {
             auth: {
                 clientId: clientId,
@@ -35,8 +37,7 @@ public function main() returns error? {
                 refreshToken: refreshToken,
                 refreshUrl: refreshUrl
             }
-        },
-        serviceUrl = "https://demo.docusign.net/restapi/"
+        }
     );
 
     string base64Encoded = array:toBase64(check io:fileReadBytes("./resources/README.pdf"));

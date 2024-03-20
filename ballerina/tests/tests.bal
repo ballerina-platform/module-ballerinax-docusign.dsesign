@@ -33,7 +33,7 @@ configurable string refreshUrl = ?;
 @test:BeforeSuite
 function initializeClientsForDocuSignServer () returns error? {
     if isTestOnLiveServer {
-        docuSignClient = check new(
+        docuSignClient = check new("https://demo.docusign.net/restapi/",
             {
                 auth: {
                     clientId: os:getEnv("CLIENT_ID"),
@@ -41,11 +41,10 @@ function initializeClientsForDocuSignServer () returns error? {
                     refreshToken: os:getEnv("REFRESH_TOKEN"),
                     refreshUrl: os:getEnv("REFRESH_URL")
                 }
-            },
-            serviceUrl = "https://demo.docusign.net/restapi/"
+            }
         );
     } else {
-        docuSignClient = check new(
+        docuSignClient = check new("http://localhost:9092/restapi",
             {
                 auth: {
                     clientId: clientId,
@@ -53,8 +52,7 @@ function initializeClientsForDocuSignServer () returns error? {
                     refreshToken: refreshToken,
                     refreshUrl: refreshUrl
                 }
-            },
-            serviceUrl = "http://localhost:9092/restapi"
+            }
         );
     }
 }

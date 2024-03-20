@@ -26,7 +26,7 @@ public isolated client class Client {
     # + config - The configurations to be used when initializing the `connector`
     # + serviceUrl - URL of the target service
     # + return - An error if connector initialization failed
-    public isolated function init(ConnectionConfig config = {}, string serviceUrl = "https://www.docusign.net/restapi") returns error? {
+    public isolated function init(string serviceUrl, *ConnectionConfig config) returns error? {
         http:ClientConfiguration httpClientConfig = {httpVersion: config.httpVersion, timeout: config.timeout, forwarded: config.forwarded, poolConfig: config.poolConfig, compression: config.compression, circuitBreaker: config.circuitBreaker, retryConfig: config.retryConfig, validation: config.validation};
         do {
             if config.auth is http:ClientAuthConfig {
@@ -2641,50 +2641,6 @@ public isolated client class Client {
     # + accountId - The external account number (int) or account ID GUID.
     # + envelopeId - The envelope's GUID. 
     # Example: `93be49ab-xxxx-xxxx-xxxx-f752070d71ec`
-    # + langCode - (Optional) The code for the signer language version of the disclosure that you want to retrieve, as a path parameter. The following languages are supported:
-    # - Arabic (`ar`)
-    # - Bulgarian (`bg`)
-    # - Czech (`cs`)
-    # - Chinese Simplified (`zh_CN`)
-    # - Chinese Traditional (`zh_TW`)
-    # - Croatian (`hr`)
-    # - Danish (`da`)
-    # - Dutch (`nl`)
-    # - English US (`en`)
-    # - English UK (`en_GB`)
-    # - Estonian (`et`)
-    # - Farsi (`fa`)
-    # - Finnish (`fi`)
-    # - French (`fr`)
-    # - French Canadian (`fr_CA`)
-    # - German (`de`)
-    # - Greek (`el`)
-    # - Hebrew (`he`)
-    # - Hindi (`hi`)
-    # - Hungarian (`hu`)
-    # - Bahasa Indonesian (`id`)
-    # - Italian (`it`)
-    # - Japanese (`ja`)
-    # - Korean (`ko`)
-    # - Latvian (`lv`)
-    # - Lithuanian (`lt`)
-    # - Bahasa Melayu (`ms`)
-    # - Norwegian (`no`)
-    # - Polish (`pl`)
-    # - Portuguese (`pt`)
-    # - Portuguese Brazil (`pt_BR`)
-    # - Romanian (`ro`)
-    # - Russian (`ru`)
-    # - Serbian (`sr`)
-    # - Slovak (`sk`)
-    # - Slovenian (`sl`)
-    # - Spanish (`es`)
-    # - Spanish Latin America (`es_MX`)
-    # - Swedish (`sv`)
-    # - Thai (`th`)
-    # - Turkish (`tr`)
-    # - Ukrainian (`uk`) 
-    # - Vietnamese (`vi`)
     # Additionally, you can automatically detect the browser language being used by the viewer and display the disclosure in that language by setting the value to `browser`.
     # + recipientId - A local reference used to map
     # recipients to other objects, such as specific
@@ -2741,7 +2697,7 @@ public isolated client class Client {
     # - Vietnamese (`vi`)
     # Additionally, you can automatically detect the browser language being used by the viewer and display the disclosure in that language by setting the value to `browser`.
     # + return - A successful response or an error.
-    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/recipients/[string recipientId]/consumer_disclosure/[string langCode](string? languageCode = ()) returns ConsumerDisclosure|error {
+    resource isolated function get accounts/[string accountId]/envelopes/[string envelopeId]/recipients/[string recipientId]/consumer_disclosure/[string languageCode](string? langCode = ()) returns ConsumerDisclosure|error {
         string resourcePath = string `/v2.1/accounts/${getEncodedUri(accountId)}/envelopes/${getEncodedUri(envelopeId)}/recipients/${getEncodedUri(recipientId)}/consumer_disclosure/${getEncodedUri(langCode)}`;
         map<anydata> queryParam = {"langCode": langCode};
         resourcePath = resourcePath + check getPathForQueryParam(queryParam);
