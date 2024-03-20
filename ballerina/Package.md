@@ -1,6 +1,6 @@
 ## Package overview
 
-DocuSign is a digital transaction management platform that enables users to securely sign, send, and manage documents electronically.
+[DocuSign](https://www.docusign.com) is a digital transaction management platform that enables users to securely sign, send, and manage documents electronically.
 
 The Ballerina DocuSign eSignature connector integrates with the DocuSign platform, provides APIs for tasks such as sending documents for signature, managing envelopes, and retrieving status updates, enhancing the efficiency of electronic signature processes within Ballerina applications. It supports [DocuSign eSignature API V2.1](https://github.com/docusign/OpenAPI-Specifications/blob/master/esignature.rest.swagger-v2.1.json).
 

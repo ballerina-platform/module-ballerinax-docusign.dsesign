@@ -7,7 +7,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/docusign.dsesign.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fdocusign.dsesign)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-DocuSign is a digital transaction management platform that enables users to securely sign, send, and manage documents electronically.
+[DocuSign](https://www.docusign.com) is a digital transaction management platform that enables users to securely sign, send, and manage documents electronically.
 
 The Ballerina DocuSign eSignature connector integrates with the DocuSign platform, provides APIs for tasks such as sending documents for signature, managing envelopes, and retrieving status updates, enhancing the efficiency of electronic signature processes within Ballerina applications. It supports [DocuSign eSignature API V2.1](https://github.com/docusign/OpenAPI-Specifications/blob/master/esignature.rest.swagger-v2.1.json).
 
