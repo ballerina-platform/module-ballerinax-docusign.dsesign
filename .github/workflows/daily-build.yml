@@ -12,3 +12,5 @@ jobs:
     secrets: inherit
     with:
       repo-name: module-ballerinax-docusign.dsesign
+      additional-build-flags: "-x :docusign.dsesign-examples:build"
+      additional-test-flags: "-x :docusign.dsesign-examples:build"
