@@ -2,7 +2,7 @@
 distribution = "2201.8.5"
 org = "ballerinax"
 name = "docusign.dsesign"
-version = "1.0.0"
+version = "1.0.1"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["eSignature", "Cost/Freemium", "Documents", "Collaboration", "Digital Signature"]
