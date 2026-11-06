@@ -29,7 +29,6 @@ configurable string serviceUrl = os:getEnv("SERVICE_URL");
 
 public function main() returns error? {
     dsesign:Client docusignClient = check new (
-        serviceUrl,
         {
             auth: {
                 clientId: clientId,
@@ -37,13 +36,14 @@ public function main() returns error? {
                 refreshToken: refreshToken,
                 refreshUrl: refreshUrl
             }
-        }
+        },
+        serviceUrl
     );
 
     string base64Encoded = array:toBase64(check io:fileReadBytes("./resources/README.pdf"));
     string documentId = "1";
 
-    dsesign:EnvelopeSummary envResult = check docusignClient->/accounts/[accountId]/envelopes.post({
+    dsesign:EnvelopeSummary envResult = check docusignClient->createEnvelope(accountId, {
         documents: [
             {
                 documentBase64: base64Encoded,
@@ -83,6 +83,6 @@ public function main() returns error? {
         return error("Envelope ID is not available");
     }
 
-    dsesign:EnvelopeDocumentsResult envelopeDocumentsResult = check docusignClient->/accounts/[accountId]/envelopes/[envelopeId]/documents();
+    dsesign:EnvelopeDocumentsResult envelopeDocumentsResult = check docusignClient->listEnvelopeDocuments(accountId, envelopeId);
     io:println(envelopeDocumentsResult);
 }

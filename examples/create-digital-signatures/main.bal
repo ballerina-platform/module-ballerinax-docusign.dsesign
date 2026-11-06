@@ -29,7 +29,6 @@ configurable string serviceUrl = os:getEnv("SERVICE_URL");
 
 public function main() returns error? {
     dsesign:Client docusignClient = check new (
-        serviceUrl,
         {
             auth: {
                 clientId: clientId,
@@ -37,10 +36,11 @@ public function main() returns error? {
                 refreshToken: refreshToken,
                 refreshUrl: refreshUrl
             }
-        }
+        },
+        serviceUrl
     );
 
-    dsesign:UserSignaturesInformation addSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures.post({
+    dsesign:UserSignaturesInformation addSignature = check docusignClient->createUserSignatures(accountId, userId, {
         userSignatures: [
             {
                 imageBase64: array:toBase64(check io:fileReadBytes("./resources/signature.png")),
@@ -50,10 +50,17 @@ public function main() returns error? {
     });
     io:println(addSignature);
 
-    dsesign:UserSignaturesInformation usageSignatureInfo = check docusignClient->/accounts/[accountId]/users/[userId]/signatures("signature");
+    dsesign:UserSignaturesInformation usageSignatureInfo = check docusignClient->listUserSignatures(accountId, userId, stampType = "signature");
     io:println("All signatures: ", usageSignatureInfo);
 
-    string signatureId = <string>(<dsesign:UserSignature[]>usageSignatureInfo.userSignatures)[0].signatureId;
-    dsesign:UserSignature userSignature = check docusignClient->/accounts/[accountId]/users/[userId]/signatures/[signatureId];
+    dsesign:UserSignature[] signatures = usageSignatureInfo.userSignatures ?: [];
+    if signatures.length() == 0 {
+        return error("No signatures found for the user");
+    }
+    string? signatureId = signatures[0].signatureId;
+    if signatureId is () {
+        return error("Signature ID is not available");
+    }
+    dsesign:UserSignature userSignature = check docusignClient->getUserSignature(accountId, signatureId, userId);
     io:println("Signature Info: ", userSignature);
 }

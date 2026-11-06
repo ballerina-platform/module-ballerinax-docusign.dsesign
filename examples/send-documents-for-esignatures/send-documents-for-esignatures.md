@@ -8,7 +8,7 @@ Follow the guidelines in the [Setup guide](https://github.com/ballerina-platform
 
 ### Configuration
 
-Configure DocuSign API credentials in Config.toml in the example directory.
+Configure DocuSign API credentials in Config.toml in the example directory. For the developer (demo) environment, use `https://account-d.docusign.com/oauth/token` as the refresh URL and `https://demo.docusign.net/restapi` as the service URL. For the developer (demo) environment, use `https://account-d.docusign.com/oauth/token` as the refresh URL and `https://demo.docusign.net/restapi` as the service URL.
 
 ```toml
 accountId = "<ACCOUNT_ID>"
@@ -17,12 +17,13 @@ clientId = "<CLIENT_ID>"
 clientSecret = "<CLIENT_SECRET>"
 refreshToken = "<REFRESH_TOKEN>"
 refreshUrl = "<REFRESH_URL>"
+serviceUrl = "<SERVICE_URL>"
 ```
 
 ## Run the example
 
 Execute the following command to run the example.
 
-```ballerina
+```bash
 bal run
 ```
