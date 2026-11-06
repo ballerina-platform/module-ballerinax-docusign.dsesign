@@ -1,16 +1,13 @@
 [package]
-distribution = "2201.8.5"
+distribution = "2201.12.0"
 org = "ballerinax"
 name = "docusign.dsesign"
 version = "@toml.version@"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
-keywords = ["Productivity/Document Signing", "Cost/Freemium", "Vendor/DocuSign", "Area/Productivity & Collaboration", "Type/Connector"]
+keywords = ["Productivity/Document Signing", "Vendor/DocuSign", "Area/Productivity & Collaboration", "Type/Connector"]
 icon = "icon.png"
 repository = "https://github.com/ballerina-platform/module-ballerinax-docusign.dsesign"
 
 [build-options]
 observabilityIncluded = false
-
-[platform.java17]
-graalvmCompatible = true
